@@ -44,9 +44,12 @@ Original code and documentation contributed to this repository are available und
 
 This is an unofficial independent project. It is not affiliated with or endorsed by Hyundai Motor Company, Kia or their suppliers. Product names and trademarks belong to their owners.
 
-## Related independent research
+## Acknowledgements and upstream research
 
-- [Hyundai/Kia Gen5W navigation firmware research](https://github.com/laralbir/hyundai-kia-gen5w-navi-firmware)
-- [HKG Gen5W ReverseEngineer](https://github.com/cantcs/HKG_Gen5W_ReverseEngineer)
+This project has benefited from publicly shared research and materials from the following independent projects. **Thank you to their maintainers and contributors:**
 
-These projects may cover different platforms and are **not evidence of compatibility** with this head unit.
+- **[Hyundai/Kia Gen5W navigation firmware research — laralbir](https://github.com/laralbir/hyundai-kia-gen5w-navi-firmware)**: useful reference for studying Gen5W firmware structure and related research.
+- **[HKG Gen5W ReverseEngineer — cantcs](https://github.com/cantcs/HKG_Gen5W_ReverseEngineer)**: useful reference for reverse-engineering workflows and Hyundai/Kia Gen5W investigations.
+
+We acknowledge their prior work and ideas. This repository is **not a fork** and does not claim their work as its own. The precise file-level provenance of any adapted scripts or code is still being audited: **do not publish copied upstream code until its origin, license and required notices are verified**. See [PROVENANCE.md](PROVENANCE.md) for the attribution checklist. The platforms researched by these projects may differ from the i20 N BC3N variant.
+
