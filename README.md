@@ -1,7 +1,7 @@
 # Hyundai i20 N Infotainment Lab
 
 **Independent, community-driven reverse engineering and offline emulation research.**  
-**Status:** experimental — the OEM home screen is **not yet visible or navigable**.
+**Status:** experimental — **partial OEM AppHomeScreen visuals have been observed**, but the complete HMI is **not yet stable or navigable**.
 
 We are studying how selected software components from a Hyundai i20 N infotainment environment work, with the long-term goal of reproducible offline testing and UI-customization research. The private test lab uses QEMU, Linux, Weston/Wayland IVI, EGL and original Qt 5.4.1 components.
 
@@ -14,13 +14,17 @@ We are studying how selected software components from a Hyundai i20 N infotainme
 | Isolated QEMU Linux guest and graphics | Running in the private lab |
 | Weston + Wayland IVI | Running |
 | OEM Qt 5.4.1 `qmlscene` rendering a **minimal laboratory QML scene** | **Verified** via pixel checks, 14 frame callbacks, Wayland `attach` and `commit` |
-| OEM `AppHomeScreen` | Starts, opens QML, creates an IVI surface and attaches a buffer |
+| OEM `AppHomeScreen` | Starts, loads QML and has produced a small visible panel with graphic background, `STR_HOME_RADIO` and `MEDIA OFF` in owner-shared captures |
 | SocketCAN startup dependency | Identified; compatible modules allowed isolated startup to progress without any CAN traffic |
-| Full OEM home screen / N Mode | **Not demonstrated** |
-| Graphics blockers | Variant selection, inactive image paths, ASTC texture format rejected by tested Mesa software path |
+| Full OEM home screen / N Mode | **Not demonstrated as complete, stable or navigable** |
+| Graphics blockers | Path issues and ASTC compatibility investigated in lab-only overlays; unresolved localization, IVI presentation and service behavior |
 | Private D-Bus services | Not yet fully characterized |
 
-Details: [Research status](docs/STATUS.md) · [Roadmap](docs/ROADMAP.md) · [Architecture notes](docs/ARCHITECTURE.md)
+Details: [Research status](docs/STATUS.md) · [AI-agent handoff](docs/AI-HANDOFF.md) · [Roadmap](docs/ROADMAP.md) · [Architecture notes](docs/ARCHITECTURE.md)
+
+## Using another coding agent
+
+This project provides [CLAUDE.md](CLAUDE.md) for Claude Code, [AGENTS.md](AGENTS.md) for other agents, and a shared [AI handoff](docs/AI-HANDOFF.md). These public documents describe the research but **do not** contain the private VM or proprietary input files.
 
 ## Where the community can help
 
