@@ -11,16 +11,17 @@
 - `AppHomeScreen` created SQLite databases; `MenuHome` had **3 rows** and `CustomLayoutFront` **25** in the completed trial. An earlier `no such table` error occurred before schema creation. The guest shutdown path was fixed to stop the Home PID via `TERM`, observe `CA_HOME_DONE 143`, and retain evidence including `client-home.txt` and copied SQLite outputs.
 - A parser for outgoing D-Bus `sendmsg` headers reportedly identified **47 distinct calls**, including **12 registration messages** to `com.lge.hyundai.avn.appmanager` and **104 `AskCANMMCANMicomReq` requests** for the absent MICOM. This is evidence of attempted calls, **not** functioning services or fabricated responses.
 - A usable English `.qm` translation file appears to exist, but reading the active language from shared memory fails; untranslated keys remain visible.
-- Native QML includes horizontal `ListView` pages for widgets/menus. A synthetic swipe changed only pointer pixels, not the page index. Weston originally logged `ivi-controller: No ivi-input-module set`. The original `ivi-input-controller.so` was found in the private rootfs, checked for its SHA/dependencies and loaded in a new disposable guest, yet no client `wl_pointer.enter`/motion was observed. **Current pending experiment:** implement a small lab-owned `ivi_input` v1 client that explicitly accepts the `default` seat for **IVI surface 0**, verify compositor confirmation, then repeat an interactive gesture.
+- Original QML includes a horizontal `ListView` for widgets/menus. Weston originally logged `ivi-controller: No ivi-input-module set`; Codex found, hash-checked and loaded the original `ivi-input-controller.so` in a disposable guest. A lab-built `ivi_input` v1 seat-acceptance utility succeeded on **attempt 2**, reporting `CA_IVI_INPUT_ACCEPTED attempt=2 surface=0 seat=default`. The first attempt ran before the Home surface was available. A subsequent client trace showed **`wl_pointer.enter`**, but focus disappeared after the first movement; no page-index change has been proven.
+- Codex observed coordinates allegedly about **256× smaller** than expected. This must be checked against Wayland `wl_fixed_t` 24.8 encoding before attributing it to a scaling bug. The guest detected **`QEMU Virtio MultiTouch`** and recorded a complete synthetic swipe at the input-device/kernel level, but the OEM client still showed **no `wl_touch` events**. Codex identified absent **`BTN_TOUCH`** in the injected flow and changed virtual touchscreen/display association and input-device ordering to keep tablet mouse events working. One earlier attempt failed inside QEMU (`qemu-fixed-text-console.device`), not in the Hyundai application. **The last modified-device-order run was in progress when Codex credits ran out; touch delivery and a `ListView` page change remain unverified.**
 - ASTC resources were partly adapted for software rendering inside overlays; at least one additional asset is outside the converted set. RTX 3080 Ti/VirGL acceleration remains unproven and must stay separate from the stable software path.
 
-## Immediate next steps
+## Immediate next steps (checkpoint at credit cutoff)
 
-1. Complete and document the **`ivi_input` seat acceptance** test; verify `wl_pointer.enter`, motion/button events in the client, then a genuine QML `ListView` index change. If unsuccessful, check surface focus, seat association and coordinate mapping separately.
-2. Recover the logs from a clean, reversible guest shutdown, and keep exact proof for BC3=23, fullscreen frames and any gesture response.
-3. Trace the original localization/shared-memory contracts and D-Bus service startup **without synthetic MICOM/CAN responses**.
-4. Characterize remaining software-rendering ASTC gaps; pursue GPU experiments only in independent overlays.
-5. Investigate N Mode after working Home navigation is evidenced; no N Mode success has yet been shown.
+1. **First inspect the last active run**: whether the post-device-order-change experiment finished, its run directory, live QEMU processes/overlays, saved logs and screenshots. Do not assume it succeeded or start two controllers against the same overlay.
+2. Check that virtual touch is bound to QEMU display and the actual injection includes **`BTN_TOUCH`**, then verify the same events cross the guest kernel → Weston/IVI → OEM client (`wl_touch`) boundaries. Check focus, surface IDs and coordinate conversions if still missing.
+3. Prove a real change in the original Home `ListView` index and associated captured frame before calling interaction solved. Do not change original binaries/QML to fake navigation.
+4. Recover logs through the established clean supervisor shutdown; preserve old stable software mode, overlay hashes and all evidence.
+5. Trace localization and required D-Bus services, then investigate launch of other original apps. GPU/RTX 3080 Ti stays a separate unverified track.
 
 ## Evidence and publication policy
 
