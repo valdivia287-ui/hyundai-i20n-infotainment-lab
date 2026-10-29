@@ -4,17 +4,19 @@ This is the public project brief for Claude Code. **Read [docs/AI-HANDOFF.md](do
 
 **Important:** reading this file does not load Codex's former chat, private WSL filesystem, QEMU overlays, or pending processes. To resume the exact experiment, **Claude Code must run with permitted local access to the owner's Ubuntu-24.04 WSL lab and inspect the latest private state and evidence first.** Do not claim continuity based on documentation alone.
 
-## Current checkpoint — 29 October 2026
+## Current checkpoint — 29 October 2026 (after latest Codex credit cutoff)
 
-- Original Hyundai `AppHomeScreen` runs in a disposable QEMU / Weston Wayland IVI environment and, per latest Codex results, stays visible in fullscreen snapshots at **110 s and 170 s**. Original QML was copied unchanged into an overlay.
-- OEM vehicle variant **`E_VEHICLE_BC3` is 23**. A controlled trial changed `vehicleVariant` from 5 to 23 and produced a third page indicator. **N Mode has not been demonstrated**.
-- The local QML contains a **horizontal `ListView`** for widgets and menu pages. Gestures do not yet reach the QML.
-- Weston originally logged **`No ivi-input-module set`**. The original **`ivi-input-controller.so`** has since been verified and loaded, yet AppHomeScreen still receives **no `wl_pointer.enter` or motion**.
-- **Next experiment:** inspect the actual local protocol and implement a tiny independent `ivi_input` v1 seat-acceptance client for the **`default` seat / Home IVI surface 0**, checking compositor acknowledgement and real client-side pointer events. The acceptance tool is not proven yet.
-- A D-Bus header parser reports 47 distinct calls, 12 appmanager registrations and 104 `AskCANMMCANMicomReq` requests. Language determination from shared memory fails despite an English `.qm` file. Neither those services nor localization is solved.
-- Graceful teardown via `TERM` and `CA_HOME_DONE 143` retains logs/SQLite evidence. Stable software-rendering setup must not be replaced by speculative GPU work.
+See [detailed dated progress report](docs/PROGRESS-2026-10-29.md) and [handoff](docs/AI-HANDOFF.md) for the evidence and exact next steps.
 
-See [docs/AI-HANDOFF.md](docs/AI-HANDOFF.md) for the detailed evidence ledger and first task.
+- Original Hyundai `AppHomeScreen` runs in QEMU/Weston/Wayland IVI; Codex reported fullscreen Home remaining visible at 110 s and 170 s. A byte-identical original QML copy is used only in a disposable overlay.
+- Original QML variant `E_VEHICLE_BC3 = 23`; test setting `vehicleVariant` from 5 to 23 caused a third page indicator. The original horizontal `ListView` is still **not demonstrably navigable**.
+- Codex loaded OEM `ivi-input-controller.so` and compiled an independent `ivi_input` v1 seat-acceptance utility. `default` seat / Home IVI surface **0** acceptance was **confirmed on attempt 2** (`CA_IVI_INPUT_ACCEPTED`).
+- The original client then received **`wl_pointer.enter`**, but lost focus on movement. No real page transition was demonstrated.
+- The guest kernel recognized **`QEMU Virtio MultiTouch`** and captured a full swipe, **but the OEM client's `wl_touch` trace remained empty**. Codex identified a missing `BTN_TOUCH` injection event and experimented with virtual touch-display association and device order to preserve tablet mouse input.
+- **UNRESOLVED AT CREDIT CUTOFF:** the newest reordered-device touchscreen test had started, but its final result is not known. The first action for a new agent is to **inspect the newest run evidence and any still-running QEMU process** before rerunning or changing anything.
+- Outgoing D-Bus headers expose 47 distinct call types; active language from shared memory still fails despite available `.qm` files. RTX 3080 Ti/VirGL acceleration is proposed, **not proven**.
+
+**Next task:** verify input end-to-end (`BTN_TOUCH`/guest kernel → Weston focus/seat → client `wl_touch` → original QML `ListView` index), **without inventing client events or changing original OEM binaries/QML**.
 
 ## Agent rules
 
@@ -28,4 +30,4 @@ See [docs/AI-HANDOFF.md](docs/AI-HANDOFF.md) for the detailed evidence ledger an
 
 ## Immediate task
 
-**Resume exactly from the latest private status when available**. Validate the `ivi_input` seat-to-surface association and obtain `wl_pointer` events in the original AppHomeScreen, then prove a real `ListView` index transition. If no local lab access is available, prepare a reproducible synthetic test only and explicitly state what was not verified.
+**Resume from the latest private run evidence**. Seat acceptance and the first `wl_pointer.enter` have already been reported. Inspect the interrupted VirtIO MultiTouch/`BTN_TOUCH`/device-order experiment first. Obtain verified `wl_touch` delivery and a real original `ListView` index transition before marking navigation functional. If no local lab access is available, prepare a reproducible synthetic test only and explicitly state what was not verified.
