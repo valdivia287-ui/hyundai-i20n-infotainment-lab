@@ -1,28 +1,31 @@
-# Hyundai i20 N Infotainment Lab — AI agent context
+# Hyundai i20 N Infotainment Lab — CLAUDE.md
 
-This is a **public, clean repository** for independent offline research. Read [docs/AI-HANDOFF.md](docs/AI-HANDOFF.md), [docs/STATUS.md](docs/STATUS.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [PROVENANCE.md](PROVENANCE.md) and [CONTRIBUTING.md](CONTRIBUTING.md) first.
+This is the public project brief for Claude Code. **Read [docs/AI-HANDOFF.md](docs/AI-HANDOFF.md) and [docs/STATUS.md](docs/STATUS.md) first.** Also review [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [PROVENANCE.md](PROVENANCE.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## What is known
-- An isolated private QEMU lab has rendered a minimal QML scene with original Qt 5.4.1 on Weston/IVI.
-- Later tests with original `AppHomeScreen` rendered a small dark-blue application panel with `STR_HOME_RADIO` and `MEDIA OFF`; visual proof is partial, not a complete usable Hyundai HMI.
-- The prior SocketCAN kernel dependency was resolved in the isolated guest (no actual CAN device or traffic).
-- Original image paths were exposed in disposable overlays, and a lab-only graphics compatibility experiment was used. Missing localization and D-Bus contracts remain.
-- Reports of IVI fullscreen `switch_mode(2)` exist, but review specific captured frames independently.
+**Important:** reading this file does not load Codex's former chat, private WSL filesystem, QEMU overlays, or pending processes. To resume the exact experiment, **Claude Code must run with permitted local access to the owner's Ubuntu-24.04 WSL lab and inspect the latest private state and evidence first.** Do not claim continuity based on documentation alone.
 
-## Working agreements
-1. Before changes, inventory the available files and check which evidence is actually present. Never assume the private lab is included in the GitHub clone.
-2. Publish only original code, synthetic fixtures, redacted metadata and documented findings. Never commit OEM firmware, recovered executables/libraries, OEM QML, assets, maps, keys, raw memory dumps or vehicle data.
-3. Separate **runtime-proven**, **reported but not independently inspected**, **static analysis** and **hypothesis**.
-4. Use feature branches, small commits, tests, and reproducible scripts. When multiple agents are active, use independent worktrees and *never run two controllers against one live QEMU instance/overlay*.
-5. Treat all physical-vehicle interaction, firmware flashing, hardware CAN operations and changes to host security as out of scope.
-6. Preserve attribution to third-party research; check exact source and license before importing code.
-7. In the private lab use copy-on-write overlays and verify hashes; do not overwrite original images or earlier successful runs.
-8. Prefer the next smallest independent test over broad changes. Never claim a complete HMI based on a process starting or a surface committing.
+## Current checkpoint — 29 October 2026
 
-## First useful tasks
-- Audit synthetic-testable IVI layer visibility and fullscreen control.
-- Characterize ASTC/software GL using original synthetic textures.
-- Isolate the translation and private D-Bus dependency contracts.
-- Package legal-to-share tools with a new clean checkout (not from a private `runs/` directory).
+- Original Hyundai `AppHomeScreen` runs in a disposable QEMU / Weston Wayland IVI environment and, per latest Codex results, stays visible in fullscreen snapshots at **110 s and 170 s**. Original QML was copied unchanged into an overlay.
+- OEM vehicle variant **`E_VEHICLE_BC3` is 23**. A controlled trial changed `vehicleVariant` from 5 to 23 and produced a third page indicator. **N Mode has not been demonstrated**.
+- The local QML contains a **horizontal `ListView`** for widgets and menu pages. Gestures do not yet reach the QML.
+- Weston originally logged **`No ivi-input-module set`**. The original **`ivi-input-controller.so`** has since been verified and loaded, yet AppHomeScreen still receives **no `wl_pointer.enter` or motion**.
+- **Next experiment:** inspect the actual local protocol and implement a tiny independent `ivi_input` v1 seat-acceptance client for the **`default` seat / Home IVI surface 0**, checking compositor acknowledgement and real client-side pointer events. The acceptance tool is not proven yet.
+- A D-Bus header parser reports 47 distinct calls, 12 appmanager registrations and 104 `AskCANMMCANMicomReq` requests. Language determination from shared memory fails despite an English `.qm` file. Neither those services nor localization is solved.
+- Graceful teardown via `TERM` and `CA_HOME_DONE 143` retains logs/SQLite evidence. Stable software-rendering setup must not be replaced by speculative GPU work.
 
-See [docs/AI-HANDOFF.md](docs/AI-HANDOFF.md) for the actual handoff checklist and starter task.
+See [docs/AI-HANDOFF.md](docs/AI-HANDOFF.md) for the detailed evidence ledger and first task.
+
+## Agent rules
+
+1. First inventory actual local files, open running processes, scripts, logs, and `git status`. The **public repository contains documentation, not the private firmware or full VM**.
+2. Keep **reported**, **inspected**, **runtime-proven** and **hypothesized** facts separate.
+3. Work in a separate branch/worktree and **a new disposable QEMU overlay**; never let Codex and Claude control the same live guest/overlay.
+4. Do not edit original Hyundai binaries, QML, images or rootfs. Preserve working SHA-checked snapshots and the validated software rendering path.
+5. Public commits: author-owned code, synthetic fixtures, carefully redacted logs/metadata only. **No** OEM firmware/binaries/QML/textures/maps, private dumps, credentials, cryptographic secrets or private VM disks.
+6. No physical car tests, installation/flashing, CAN injection, weakening host security or invented service responses.
+7. Audit provenance of any upstream adaptation before publication, and document reproducible results and rollback.
+
+## Immediate task
+
+**Resume exactly from the latest private status when available**. Validate the `ivi_input` seat-to-surface association and obtain `wl_pointer` events in the original AppHomeScreen, then prove a real `ListView` index transition. If no local lab access is available, prepare a reproducible synthetic test only and explicitly state what was not verified.
