@@ -16,13 +16,13 @@ We are studying how selected software components from a Hyundai i20 N infotainme
 | OEM Qt 5.4.1 `qmlscene` rendering a **minimal laboratory QML scene** | **Verified** via pixel checks, 14 frame callbacks, Wayland `attach` and `commit` |
 | OEM `AppHomeScreen` | Partial original UI rendered; later fullscreen test reported stable snapshots at 110s and 170s (929,959 differing pixels versus reference Weston desktop) |
 | SocketCAN startup dependency | Identified; compatible modules allowed isolated startup to progress without any CAN traffic |
-| Home navigation / N Mode | Not yet demonstrated; original horizontal QML `ListView` found, but pointer/touch events have not reached client |
+| Original Home navigation | Horizontal QML `ListView` identified; IVI seat accepted and `wl_pointer.enter` observed, but focus was lost; touch swipe reached guest kernel without verified `wl_touch` delivery to OEM client |
 | Graphics blockers | Partial ASTC-to-compatible-resource approach in disposable overlays; some ASTC assets remain unconverted; localization still unresolved |
 | Private D-Bus services | Codex reports 47 distinct calls parsed from outgoing headers, including 12 appmanager registrations and 104 MICOM requests; responses not fabricated |
 
-**Latest investigation:** BC3 QML vehicle variant was measured as value `23` (versus initial `5`) and generated a third page indicator; original `ivi-input-controller.so` loads, but pointer enter/motion still do not reach Home. An `ivi_input` seat acceptance test for surface 0 is planned, not yet proven. See [agent handoff](docs/AI-HANDOFF.md) for details.
+**Latest investigation (29 October, Codex reports):** original `ivi-input-controller.so` was loaded; `ivi_input.input_acceptance(0, "default", 1)` confirmed the IVI seat for Home surface 0 on the second attempt. `wl_pointer.enter` reached `AppHomeScreen`, but pointer focus was then lost. A QEMU VirtIO MultiTouch swipe was captured in the guest kernel, yet **no `wl_touch` event was demonstrated in the OEM client**. Codex identified a missing `BTN_TOUCH` component in the injected flow, bound the virtual touch device to the display and adjusted pointer-device ordering. **The final experiment was left in progress when credits ran out; its result is unknown.** See [current handoff](docs/AI-HANDOFF.md) and [status](docs/STATUS.md).
 
-Details: [Research status](docs/STATUS.md) · [AI-agent handoff](docs/AI-HANDOFF.md) · [Roadmap](docs/ROADMAP.md) · [Architecture notes](docs/ARCHITECTURE.md)
+Details: [Research status](docs/STATUS.md) · [29 October progress log](docs/PROGRESS-2026-10-29.md) · [AI-agent handoff](docs/AI-HANDOFF.md) · [Roadmap](docs/ROADMAP.md) · [Architecture notes](docs/ARCHITECTURE.md)
 
 ## Using another coding agent
 
