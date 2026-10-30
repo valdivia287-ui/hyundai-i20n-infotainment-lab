@@ -26,13 +26,25 @@
 
 - In a reported **1 min 57 s** Codex run under **GPT-6 Astra Medio**, the program identified the `appid=500` → missing appmanager-service dependency.
 - Codex reported **8 passing checks, 281 verified hashes**, clean VM shutdown, preserved disposable overlays and logs.
-- A configuration option to try the **original Hyundai ApplicationManager** has been prepared, **but it has not yet been executed/tested in QEMU**. This is the next bounded experiment, not a completed milestone.
+- The option to try the **original Hyundai ApplicationManager** was prepared at this stage; **three subsequent QEMU experiments have now run it**, as described below.
 - Local private files named in the Codex report: `ESTADO-PROYECTO.md` and `investigacion/nmode-click-20261030.md`; only their names and the report text are available to this public snapshot.
+
+## Latest: real ApplicationManager and OEM IVI window manager trials
+
+The owner has now provided Codex's detailed 30 October notes for **three new disposable-overlay executions**, each stopped normally with logs retained:
+
+- **Manager startup:** the actual OEM ApplicationManager connects to Wayland, but exits during initialization.
+- **D-Bus registration and failure:** the session bus registers, then loses **`com.lge.hyundai.avn.appmanager`**; recorded `SIGSEGV / SEGV_MAPERR` at null address after enumerating Wayland globals. Its own error handler attempted `addr2line` and exited with code 1. This was **not** a test timeout; no precise cause/instruction is yet established.
+- **OEM window manager experiment:** adding `ivi-window-manager.so` in a **temporary** Weston module configuration starts `early-background`, then Weston aborts in `pixman-renderer.c:277` at `composite_clipped: Assertion src_format failed` (DRM-backend stack).
+- The binary's references to `ivi_info_requester` / `ivi_window_manager` are useful leads for compositor protocol compatibility, **not proven explanations** for the null access. Likewise, MICOM/shared-memory/persistence warnings are not yet shown to cause it.
+- Lab-only changes reported in `guest/guest-session.sh`, `host/worker.py`; **`CA_IVI_ORIGINAL_WM=1` defaults to off**, preserving the known working Home path.
+
+**No original secondary app has opened yet.** First isolate the Pixman offending buffer/client and inspect the precise manager fault. See [30 October progress](PROGRESS-2026-10-30.md) for run IDs and bounded testing sequence.
 
 ## Next work
 
 - Inspect the latest private `runs/` logs, screenshots and patch diffs before new experiments; preserve the working software renderer and successful input/controller overlay.
-- Validate the existing `appid=500` and D-Bus service-missing evidence in the newest private traces. **Run the prepared original ApplicationManager option in a fresh disposable overlay**, checking process startup, D-Bus name registration, handler behavior and any further dependencies. Do not simulate success or fabricate service answers.
+- **Do not rerun manager startup as if untested.** It now registers the bus name briefly and crashes. Identify the fault after Wayland globals enumeration and determine why the original `ivi-window-manager.so` trial triggers Pixman's `src_format` assertion; isolate `early-background` and buffer formats in fresh overlays. No speculative MICOM fixes or fabricated service replies.
 - Characterize input-controller coordinate conversion and license provenance; prove the page transition is repeatable in a new disposable overlay.
 - Continue original service orchestration, additional apps, localization and remaining ASTC graphics. Research RTX 3080 Ti/VirGL only in a separate optional setup.
 - Aim for a **complete interactive OEM multimedia laboratory**, not one particular application.
