@@ -1,37 +1,39 @@
-# Agent handoff — Hyundai i20 N infotainment lab
+# AI agent handoff — Hyundai i20 N infotainment lab
 
-**Public snapshot: 29 October 2026.** This is an operational handoff for coding agents, not a replacement for the **private** run manifests, evidence, patch diffs or the OEM firmware. Start by reading [STATUS.md](STATUS.md), [../CLAUDE.md](../CLAUDE.md), [../AGENTS.md](../AGENTS.md) and [../PROVENANCE.md](../PROVENANCE.md).
+**Snapshot: 30 October 2026 — Codex running GPT-6 Sol Alto.** This public note gives new agents a **precise, non-proprietary handoff**. It is **not** a replacement for private WSL run logs, exact scripts, overlays, and captured screens.
 
-## Mission and context
+Read [status](STATUS.md), [30 October timeline](PROGRESS-2026-10-30.md), [CLAUDE.md](../CLAUDE.md), [architecture](ARCHITECTURE.md) and [provenance](../PROVENANCE.md).
 
-Study the Hyundai i20 N BC3N Gen5W_L Linux/Qt infotainment UI in a disposable **QEMU + Weston/Wayland IVI + Qt 5.4.1** lab. The owner runs Windows 11 Pro, Ubuntu-24.04 WSL, Ryzen 7 5800X, RTX 3080 Ti, 32 GiB RAM. Do not assume an independent GitHub clone includes the private laboratory, code, overlays, firmware or run logs.
+## Environment
 
-## Latest reported progress (read this instead of older screenshot-only conclusions)
+- Private Windows 11 Pro system: Ryzen 7 5800X, RTX 3080 Ti, 32 GiB RAM.
+- WSL distribution **Ubuntu-24.04**, private lab path `/home/valdi/i20n-lab/codex-autonomo`.
+- QEMU Linux guest using isolated disposable overlays; Weston/Wayland IVI, original OEM Qt 5.4.1 and `AppHomeScreen`. Current reliable software-rendered profile must be preserved.
+- GitHub provides project documentation, **not** the private firmware/VM or source code of the OEM UI.
 
-- OEM `AppHomeScreen` drew partial original UI and later rendered fullscreen. Codex reported screenshots at **110 s and 170 s**, a **929,959-pixel difference** from Weston reference, and IVI surface creation/buffer commits/switch-to-fullscreen. Former apparent disappearance was explained by a **125 s test timeout**.
-- Original QML was duplicated **byte for byte with matching SHA** into a disposable guest overlay. A diagnostic copy demonstrated `vehicleVariant` value **5 → 23**, corresponding to the original QML enum **`E_VEHICLE_BC3 = 23`**. The trial SQLite database stored 23, and the Home visual gained a **third page indicator**. This did **not** establish N Mode or stable menus.
-- Home created three SQLite databases. `MenuHome` has 3 rows and `CustomLayoutFront` has 25 after startup; the earlier missing-table error was transient.
-- The supervisor was changed to background the Home process, record its PID, send `TERM` only to Home, wait for **`CA_HOME_DONE 143`**, then shut down and preserve `client-home.txt`, other logs and SQLite evidence.
-- Outgoing message header parser reports **47 unique D-Bus method calls**, with **12 appmanager registration entries** involving `com.lge.hyundai.avn.appmanager` and **104 `AskCANMMCANMicomReq` requests** addressed to missing MICOM. `dbus-monitor` alone showed signals, not those unicast calls. Do not invent replies or infer that services are working.
-- English `.qm` files are found and can open, but a shared-memory active-language lookup fails. Visible raw translation keys remain.
-- OEM Home QML uses a **horizontal `ListView`** for widget/menu pages. An initial synthetic swipe was not delivered; Weston reported missing IVI input module. Codex located and loaded OEM `ivi-input-controller.so`, and implemented a lab-owned `ivi_input` v1 seat acceptance client. Weston **accepted surface 0 + seat `default` on attempt 2**, confirmed as `CA_IVI_INPUT_ACCEPTED` / `ivi_input.input_acceptance(0, "default", 1)`. Attempt 1 ran before the Home surface was ready.
-- After seat acceptance, **`wl_pointer.enter` reached `AppHomeScreen`**, but it lost focus following the first motion; no page change was observed. Codex noticed an alleged factor-256 coordinate difference; verify the Wayland `wl_fixed_t` encoding before classifying this as an actual coordinate-scale bug.
-- QEMU 8.2.2's **`QEMU Virtio MultiTouch`** was detected inside the guest. The guest kernel input trace captured one complete injected swipe, but **no `wl_touch` events appeared in the original Home client**. Codex found missing `BTN_TOUCH` in the injected sequence, bound the touch device to the display and adjusted input-device order so the tablet remains responsible for mouse clicks. An earlier test faulted inside QEMU (`qemu-fixed-text-console.device`), not conclusively in Home.
-- **LATEST CREDIT CUTOFF:** the final retest with updated virtual-device ordering had been launched but its outcome was not captured in the user-shared progress. **Do not mark it successful.** First inspect the newest `runs/` logs/screenshots and VM process state. The immediate goal is real `wl_touch` events and a QML `ListView` index change. See [dated timeline](PROGRESS-2026-10-29.md).
-- Software path still needs some ASTC resources. GPU/RTX 3080 Ti acceleration is a separate **unverified** track, not a reason to replace the functional software-rendering configuration.
+## Verified as reported in private Codex progress
 
-## How to resume safely on owner's PC
+- Original `AppHomeScreen` reached fullscreen UI; 110s/170s screenshots and surface/buffer traces were reportedly recorded. Prior disappearance came from a test timeout.
+- Original QML enum `E_VEHICLE_BC3 = 23`. Setting the active vehicle variant to 23 in a disposable overlay affected Home's visible pages. Original QML and binaries are not changed in the base image.
+- Earlier missing pointer/touch input was progressively traced to a missing IVI input module, seat-focus acceptance, timing and an overlaying reference Weston interface (surface IVI **2001**). Home is surface **0**.
+- A lab-built `ivi_input` v1 tool accepted `default` seat for Home; the original client eventually received `wl_pointer.enter` and `wl_touch.down/motion/up` after removing the auxiliary reference interface and waiting for client readiness.
+- The OEM input controller yielded implausibly small pointer coordinates. A **separate experimental COVESA-derived IVI input-controller build** corrected the coordinate path for a pointer drag. Do **not** overwrite OEM controller files in the base image, nor publish imported source before attribution/licensing audit.
+- **Major new result:** a drag produced original QML `onMovingChanged: true`, `onFlickStarted`, `advancedModePageChange(1)` and a captured **second Home page**. This is a page 0 → 1 navigation demonstration, **not** complete UI interactivity or proven touch-driven page navigation.
+- **Latest blocker:** a click on an app icon reached the surface but did **not** open the target app. Codex was about to inspect the original client trace for a QML handler or downstream application-manager dependency, when the selected model displayed **“Selected model is at capacity.”**
+- Separate unresolved work: D-Bus services (47 call types documented, including appmanager/MICOM requests), shared-memory locale selection, ASTC software rendering gaps, GPU acceleration (not verified).
 
-1. Discover the current *local* private workspace, and locate the latest private `ESTADO-PROYECTO.md` / `PROGRESO.md`, `runs`, launchers, overlay manifests, log parser and evidence. WSL distribution is **Ubuntu-24.04** (not `Ubuntu`). Check what has already been committed or executed; the public repo may lag the private lab.
-2. Identify **the last active VirtIO MultiTouch / `BTN_TOUCH` / device-order experiment** and whether any commands continued after the cutoff. Never claim it failed/succeeded without seeing its outputs.
-3. Record `git status`, list running QEMU instances, examine scripts and disk overlays before creating your own. **Never attach two supervisors/agents to the same live guest or overlay.** Prefer a separate worktree and copy-on-write image.
-4. Verify the already-reported seat acceptance in logs, and investigate the missing touch events: QMP injection including `BTN_TOUCH` → guest evdev → Weston focus/seat → OEM `wl_touch` events → original `ListView` index/capture. Preserve each link's evidence. Check coordinate formats if needed; do not force a QML replacement.
-5. For every test keep commands, changed files, hashes, timestamps and screenshots, and provide a short `RESULTS` summary marking `proven / observed / reported / hypothesis`.
+## Resume protocol
 
-## Starting assignment for Claude Code or resumed Codex
+1. On the private PC, **inspect** latest `runs/` and `investigacion/` outputs, run manifests, launcher and source diffs, QEMU processes, guest state and overlays. The model may have written further outputs after the screenshot. Do **not** restart an old task based on this snapshot alone.
+2. Preserve the **successful controller/configuration and page 0→1 evidence**. Distinguish actual source code of the OEM controller from the experimental COVESA-derived controller, and verify license provenance.
+3. For the last icon click, trace **QMP/Wayland pointer → `AppHomeScreen` QML item / handler → appmanager / D-Bus → target original executable**. Check whether the click is on the intended bounds. Record what the logs really show.
+4. Run small, reversible tests in **new QEMU overlays** only. Do not let Claude and Codex drive the same live VM/overlay. Preserve working software rendering, perform clean shutdowns, and record logs/captures/hashes.
+5. Build toward multiple original applications and services, rather than focusing on one icon or a single special feature. Never claim complete UI functionality until original target application launch and navigation are demonstrated.
 
-> Resume from the **latest private run** after the 29 October Codex usage cutoff. Do not restart the original setup. Confirm whether the changed device-order / `BTN_TOUCH` experiment finished. The OEM `ivi-input-controller.so` is reported loaded, the `default` seat has been accepted on surface 0, and `wl_pointer.enter` has reached the original client. A QEMU VirtIO MultiTouch gesture reached the guest kernel but not `wl_touch` in Home. Diagnose the missing segment of this event chain and only claim a navigable Home after a verified `ListView` index change. Keep each experiment in a separate disposable overlay and preserve the successful software-rendering baseline.
+## Starter instruction for another agent
 
-## Safety and attribution
+> Continue the Hyundai i20 N Gen5W_L Linux/Qt QEMU laboratory from the **latest local run**, not from scratch. Codex (GPT-6 Sol Alto) reported original Home page 0→1 navigation, supported by `advancedModePageChange(1)`, `onFlickStarted` and a screenshot. An icon click was delivered to the Home surface but did not open an application. Identify whether the click reached the target QML handler and trace its subsequent service/application launch dependency. Audit the lab-built input controller's coordinate fix and third-party code provenance. Preserve original binaries/Qt/QML and use isolated overlays. Report any missing evidence instead of assuming success.
 
-Do not distribute OEM firmware, binaries, QML, textures, keys, complete VM images or unredacted logs. No writes to vehicle hardware, CAN injection, flash, or changes to host security. Code must be original or have an audited compatible license; provenance tracked in [../PROVENANCE.md](../PROVENANCE.md). The uploaded screenshots and Codex progress text are not by themselves a full independent verification of the private evidence.
+## Safety and sharing
+
+No physical-car tests, CAN/MICOM injections, firmware flashing, OEM asset publication, private disk publishing, credentials, or unreversed host security changes. Any public code must be original or license-audited with attribution. Report facts as **runtime observed**, **reported**, **static inspection** or **hypothesis**.
