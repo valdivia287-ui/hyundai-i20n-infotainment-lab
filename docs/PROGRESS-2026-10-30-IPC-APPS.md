@@ -50,6 +50,14 @@ The auxiliary viewer remapping fixes a **surface-ID collision**, but does **not*
 
 At **19:22 UTC** the owner-supplied status reported an ongoing run `20261030T192157Z-999-1`, attempting **original AppStandbyClock** at 120 s with a 180 s budget, without ApplicationManager and with the same isolated IVI-ID remapping. The hypothesis was that a smaller original app may reach buffer attach/render sooner. **Its outcome was not yet present** in the supplied document; check the newest local run before drawing conclusions.
 
+## Visual consistency questions from additional owner observations
+
+The owner reports that some saved Home screenshots differ: the radio/media panel sometimes displays untranslated **`STR_HOME_RADIO`** / **`MEDIA_OFF`**, while other screenshots omit those fields, and some Home views do not show the **bottom page indicator bars**. The five- and ten-minute stability captures were described as visually matching one another. These are **observations across different captures/profiles**, not proven live dynamic changes within a single run.
+
+Possible independent explanations to test, **not established causes**, include: Home page (main widget vs application grid), BC3 variant/persisted UI layout, incomplete Qt locale/translation and shared-memory state, startup timing, or a compositor/IVI overlay visibility and clipping regression. A missing UI element **must not** be treated as evidence of a correctly functioning multimedia screen.
+
+**Proposed non-destructive comparison:** for each selected capture, record run ID, QML variant, active page index, display/IVI layer and surface geometry, render backend, language initialization messages and screenshot time. Compare original `STR_HOME_RADIO` text and page indicator visibility separately; distinguish intentional page changes from hidden, partially rendered or clipped components. Do not modify proprietary QML in the base firmware.
+
 ## Practical priorities for the next agent
 
 1. Check newest finished `runs/` first, including the **AppStandbyClock trial** (if completed); never infer its result from the report cutoff.
