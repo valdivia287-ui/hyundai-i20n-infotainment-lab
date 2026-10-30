@@ -4,6 +4,8 @@
 >
 > **Status:** the **original Home remains interactively navigable in the earlier reference profile**. Attempts to integrate original ApplicationManager and the OEM IVI window manager in the same guest **remain unstable**. No second OEM app has launched successfully.
 
+> **This report is historical for the earlier GL/WM failure stage.** Later completed trials confirmed **ten-minute simultaneous original Home + ApplicationManager operation** with a **separate manager SysV IPC namespace**, and further original AppSetup application-launch investigations. The newer status is in the [30 October IPC/application report](PROGRESS-2026-10-30-IPC-APPS.md). The earlier failures below remain valuable diagnostic evidence, not the current best result.
+
 ## Last known working baseline
 
 - **Run `20261030T020654Z-13522-1`:** original Hyundai AppHomeScreen navigated from page 0 to page 1 after a pointer drag. Original QML emitted `advancedModePageChange(1)`. A private experimental overlay selected **BC3 = 23**; it does not prove the vehicle's factory-persisted configuration.
