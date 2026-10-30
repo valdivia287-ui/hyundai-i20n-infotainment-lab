@@ -1,6 +1,6 @@
 # Research status — 30 October 2026
 
-**Experimental, isolated QEMU/Weston/Wayland IVI Hyundai i20 N infotainment laboratory.** The original Home interface has now **navigated from page 0 to 1** in a private test reported by Codex running **GPT-6 Sol Alto**. The overall OEM multimedia is **not yet complete**, and other applications have not been proven to launch. See [30 October progress](PROGRESS-2026-10-30.md) and [AI handoff](AI-HANDOFF.md).
+**Experimental, isolated QEMU/Weston/Wayland IVI Hyundai i20 N infotainment laboratory.** The original Home interface has now **navigated from page 0 to 1** in a private test reported by Codex running **GPT-6 Sol Alto**. The overall OEM multimedia is **not yet complete**, and other applications have not been proven to launch. See the [latest integrated GL/WM checkpoint](PROGRESS-2026-10-30-GL-INTEGRATION.md), [30 October progress](PROGRESS-2026-10-30.md) and [AI handoff](AI-HANDOFF.md).
 
 > Evidence qualification: the findings below are based on progress logs and screenshots supplied by the owner; the underlying private VM, complete traces and diffs have not been independently inspected for this public report.
 
@@ -40,6 +40,18 @@ The owner has now provided Codex's detailed 30 October notes for **three new dis
 - Lab-only changes reported in `guest/guest-session.sh`, `host/worker.py`; **`CA_IVI_ORIGINAL_WM=1` defaults to off**, preserving the known working Home path.
 
 **No original secondary app has opened yet.** First isolate the Pixman offending buffer/client and inspect the precise manager fault. See [30 October progress](PROGRESS-2026-10-30.md) for run IDs and bounded testing sequence.
+
+## Newest completed-run checkpoint: GL/WM integration (30 October, later runs)
+
+The owner supplied a read-only tracking package of completed tests, allowing more precise assessment than the earlier reports. See the [detailed sanitized progress report](PROGRESS-2026-10-30-GL-INTEGRATION.md).
+
+- **Pixman + OEM WM:** an ARGB8888 `wl_shm` buffer of **1926 × 753** was attached immediately before Weston aborted at `composite_clipped: Assertion src_format failed`. The **actual failing Pixman image/surface has not been identified**. A Wayland SHM format value of 0 is **not** proof of an invalid Pixman format.
+- **Early-background exclusion:** removing its execution did not prevent the assertion; it is not necessary to reproduce that specific failure.
+- **Weston GL + Mesa softpipe 13.0.6:** Weston initialized EGL and avoided the Pixman assertion at that point. With OEM WM **but no `hmi-controller`**, Home showed black and then aborted by watchdog (**134**).
+- **GL + OEM WM + `hmi-controller`:** original Home became visible **reduced to roughly 320 × 365 px in a 1280 × 800 output**, but was not usefully navigable and later aborted by watchdog (**134**). A repeat **without `strace`** had the same failure, ruling out strace as a necessary condition.
+- **ApplicationManager:** original WM calls for VolumeOSD, AvOSD and NotificationManager were observed. These do **not** prove any secondary app launch.
+- **Unresolved:** possible WM target **1920 × 720** vs guest output **1280 × 800** mismatch; ASTC texture errors preceding the watchdog without demonstrated causal connection; the main-thread stall has no independently verified root cause.
+- Earlier interactive Home reference **remains preserved**. No verified application launch, return-to-Home interaction, ten-minute integrated stability or end-to-end Windows double-click test yet.
 
 ## Next work
 
