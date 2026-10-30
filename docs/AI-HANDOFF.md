@@ -2,7 +2,22 @@
 
 **Snapshot: 30 October 2026 — initial input/navigation breakthrough with GPT-6 Sol Alto; subsequent application-launch investigation with GPT-6 Astra Medio.** This public note gives new agents a **precise, non-proprietary handoff**. It is **not** a replacement for private WSL run logs, exact scripts, overlays, and captured screens.
 
-Read [status](STATUS.md), [latest GL/WM integration report](PROGRESS-2026-10-30-GL-INTEGRATION.md), [30 October timeline](PROGRESS-2026-10-30.md), [CLAUDE.md](../CLAUDE.md), [architecture](ARCHITECTURE.md) and [provenance](../PROVENANCE.md).
+Read [status](STATUS.md), [latest IPC/application trials](PROGRESS-2026-10-30-IPC-APPS.md), [earlier GL/WM report](PROGRESS-2026-10-30-GL-INTEGRATION.md), [30 October timeline](PROGRESS-2026-10-30.md), [CLAUDE.md](../CLAUDE.md), [architecture](ARCHITECTURE.md) and [provenance](../PROVENANCE.md).
+
+## Most recent handoff — 30 October 2026, status reported at 19:22 UTC
+
+**The previous GL/WM failure and missing-appmanager-only diagnoses are historical. Do not resume from them.**
+
+- **New ten-minute milestone:** run `20261030T175729Z-3869-1` reportedly showed **original Home at 1280 × 730 and OEM ApplicationManager running together** with Weston GL/OEM IVI WM at both five and ten minutes, without the earlier Pixman assertion or Home watchdog. This **does not** prove app switching, a fully interactive ten-minute session, or shared OEM IPC.
+- The previously recurring Home watchdog was traced to a SysV Qt semaphore **`MICOMSTATUSMESSAGE`**, acquired by ApplicationManager while requisite shared-memory state was absent. A diagnostic **separate IPC namespace (`unshare(CLONE_NEWIPC)=0`) for ApplicationManager** bypasses this contention while maintaining real D-Bus/Wayland. This workaround needs future integration work.
+- An experimental surface destination region for **IVI surface 1000** placed Home at **0,0,1280,730**. Keep both older **interactive Home** run `20261030T020654Z-13522-1` and new **ten-minute coexistence** run as different regression references.
+- In other completed trials, real Home page navigation and an N Mode click delivered **`appid=500`** to the original manager, which returned **255** (no application window opened). Replaying Home registrations did not remove this error.
+- Early manager startup issued D-Bus `Peer.Ping`; after `NoReply`, the **manager deliberately ran `killall -5 AppHomeScreen` (SIGTRAP)**. A signal-blocking experiment caused **SIGKILL** escalation and was discarded.
+- Original **AppSetup** can now create IVI surface **1001** after remapping an auxiliary viewer's collisions **1001–1007 → 9001–9007**. AppSetup **has not attached a buffer** or produced a visible UI. Even without ApplicationManager, a 360-second test timed out after D-Bus polling with missing-service messages.
+- The latest supplied status lists **AppStandbyClock** test `20261030T192157Z-999-1` **in progress**. Inspect newer local records for its outcome; do **not** claim that it succeeded or failed.
+- Public documentation contains sanitized findings only. No new proprietary traces, guest binaries, image captures or VM overlays were committed.
+
+[Full chronological summary and limitations](PROGRESS-2026-10-30-IPC-APPS.md).
 
 ## Environment
 
@@ -23,7 +38,7 @@ Read [status](STATUS.md), [latest GL/WM integration report](PROGRESS-2026-10-30-
 - **Pending original ApplicationManager test:** Codex prepared an option for launching the OEM ApplicationManager but **did not execute it** before its last report. It reported 8 passing tests, 281 verified hashes and a clean VM shutdown with logs/overlays preserved. Local state filenames named: `ESTADO-PROYECTO.md`, `investigacion/nmode-click-20261030.md`. These private files are not reproduced in GitHub.
 - Separate unresolved work: D-Bus services (47 call types documented, including appmanager/MICOM requests), shared-memory locale selection, ASTC software rendering gaps, GPU acceleration (not verified).
 
-## Latest recovered completed runs — integrate from here
+## Earlier recovered completed runs — historical GL/WM debugging
 
 A later owner-supplied read-only tracking bundle documents the **actual post-ApplicationManager tests** and supersedes the earlier "start original manager next" step. Only completed-run summaries and filtered traces were reviewed; newer local trials may exist.
 
@@ -37,15 +52,15 @@ A later owner-supplied read-only tracking bundle documents the **actual post-App
 
 ## Resume protocol
 
-1. On the private PC, **inspect** latest `runs/` and `investigacion/` outputs, run manifests, launcher and source diffs, QEMU processes, guest state and overlays. The model may have written further outputs after the screenshot. Do **not** restart an old task based on this snapshot alone.
-2. Preserve the **successful controller/configuration and page 0→1 evidence**. Distinguish actual source code of the OEM controller from the experimental COVESA-derived controller, and verify license provenance.
-3. **Do not return to the superseded missing-appmanager diagnosis.** Inspect the latest GL/WM runs: attribute Pixman's failing image in an instrumented, separate lab Weston; investigate IVI/DRM geometry and Home's watchdog/main-thread backtrace independently. Use fresh overlays and compare against the already functional page-0→1 baseline before each step.
-4. Run small, reversible tests in **new QEMU overlays** only. Do not let Claude and Codex drive the same live VM/overlay. Preserve working software rendering, perform clean shutdowns, and record logs/captures/hashes.
-5. Build toward multiple original applications and services, rather than focusing on one icon or a single special feature. Never claim complete UI functionality until original target application launch and navigation are demonstrated.
+1. On the user's computer, inspect newest `runs/`, local `ESTADO-PROYECTO.md` and pending AppStandbyClock results. The state may have advanced after **19:22 UTC**; do not blindly replay this snapshot.
+2. Preserve original OEM base images and two distinct successes: older page-0→1 **interactive Home** and newer **ten-minute Home + manager coexistence** using IPC isolation. Do not mistake the IPC bypass for restored OEM shared-memory integration.
+3. Trace **original ApplicationManager return 255** and its `Peer.Ping` → manager-triggered SIGTRAP chain using real logs. Preserve service names and origin-specific D-Bus events; don't fabricate replies.
+4. In separate overlays, continue original AppSetup and AppStandbyClock initialization; require **buffer attach/commit, visible pixels and user interaction** before claiming an app launch. Do not treat surface 1001 creation as a working Setup screen.
+5. Work toward actual Home → second original app → Home behavior, then ten-minute **interactive stability** and a repeatable Windows launcher. Keep provenance and no-car/no-flash restrictions.
 
 ## Starter instruction for another agent
 
-> Continue the Hyundai i20 N Gen5W_L Linux/Qt QEMU lab from the **newest local completed run**, not a fresh setup. A known-good profile at `20261030T020654Z-13522-1` demonstrated original Home page 0→1 navigation. Original ApplicationManager already starts and makes real IVI WM requests, but combining it with Home is not stable. With Pixman and OEM WM, Weston hits `composite_clipped: Assertion src_format failed`; the exact Pixman image is unidentified. GL/Mesa softpipe avoids that assertion but Home is black without hmi-controller; with hmi-controller it draws ~320×365 within 1280×800 and then aborts via watchdog (134), also when strace is disabled (`20261030T151528Z-18058-1`). Inspect newer `runs/`, preserve the working baseline, isolate buffer/format and geometry factors, inspect the Home core main-thread stack in private, and only then retry genuine Home→other OEM application→Home flows. No fake D-Bus responses, original file modifications, car tests or proprietary publication.
+> Continue the Hyundai i20 N Gen5W_L lab **from the newest completed private run**, not from scratch. A prior profile at `20261030T020654Z-13522-1` genuinely navigated original Home. A later `20261030T175729Z-3869-1` demonstrated **original Home and ApplicationManager alive together for 10 minutes**, Home visible at **1280×730**, using a **separate SysV IPC namespace** for the manager to avoid a traced `MICOMSTATUSMESSAGE` semaphore deadlock. This is not full OEM IPC. Original Home can send `appid=500` to the manager, but the manager returns **255**, so no target app opens. AppSetup now creates surface 1001 after overlay-only reference viewer remapping, but **never attaches a buffer** in completed trials; removing ApplicationManager did not fix this. The final supplied note shows original AppStandbyClock test `20261030T192157Z-999-1` still underway. **First inspect newest runs**, then pursue real app launch, manager `Peer.Ping`/SIGTRAP behavior and required OEM services without fake replies. Preserve the two baselines, original OEM files, and isolated overlay operation; do not publish proprietary artifacts or test on a vehicle.
 
 ## Safety and sharing
 
