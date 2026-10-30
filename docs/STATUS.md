@@ -1,8 +1,21 @@
 # Research status — 30 October 2026
 
-**Experimental, isolated QEMU/Weston/Wayland IVI Hyundai i20 N infotainment laboratory.** The original Home interface has now **navigated from page 0 to 1** in a private test reported by Codex running **GPT-6 Sol Alto**. The overall OEM multimedia is **not yet complete**, and other applications have not been proven to launch. See the [latest integrated GL/WM checkpoint](PROGRESS-2026-10-30-GL-INTEGRATION.md), [30 October progress](PROGRESS-2026-10-30.md) and [AI handoff](AI-HANDOFF.md).
+**Experimental, isolated QEMU/Weston/Wayland IVI Hyundai i20 N infotainment laboratory.** **New milestone (30 October): original Home and ApplicationManager coexisted for 10 minutes** in a disposable guest using a separate SysV IPC namespace for the manager. Original Home navigation and its `appid=500` request are demonstrated in other completed runs. **No second original application has rendered or become interactive yet.** See [latest IPC/application trials](PROGRESS-2026-10-30-IPC-APPS.md), [earlier GL/WM report](PROGRESS-2026-10-30-GL-INTEGRATION.md) and [agent handoff](AI-HANDOFF.md).
 
 > Evidence qualification: the findings below are based on progress logs and screenshots supplied by the owner; the underlying private VM, complete traces and diffs have not been independently inspected for this public report.
+
+## Newest reported milestone — 30 October, 19:22 UTC status
+
+- **Ten-minute simultaneous operation:** run `20261030T175729Z-3869-1` reportedly kept real `AppHomeScreen`, original `ApplicationManager` and Weston GL/OEM IVI WM alive at **5 and 10 minutes**. Captures show **1280 × 730** Home without Pixman assertion or watchdog failure. This was **not** a demonstrated 10-minute interactive-app test.
+- **Watchdog mechanism narrowed:** Home's main thread was blocked in SysV `semtimedop` for Qt semaphore **`MICOMSTATUSMESSAGE`** while original ApplicationManager held the semaphore without the shared-memory state needed to release it. Stopping the manager released Home. The reported workaround runs the manager with **`unshare(CLONE_NEWIPC)=0`** in a separate IPC namespace; OEM shared-memory/IPC behavior remains **incomplete**.
+- **Geometry corrected in experiment:** a laboratory IVI destination region for surface **1000** was adjusted to **0,0,1280,730**. The earlier small Home under GL is a **historical failure**, not the latest integrated outcome.
+- **Home → ApplicationManager:** separate runs `20261030T174954Z-18971-1` and `20261030T182026Z-30876-1` demonstrated Home navigation, `appid=500` delivered to original manager, and manager return **255**. Replaying six Home registrations and a `registertouchkey` test did not enable launch.
+- **Manager-initiated Home termination:** early manager startup ran D-Bus `Peer.Ping`; after `NoReply`, it ran `killall -5 AppHomeScreen`, confirmed as **SIGTRAP**. Blocking that signal led to `killall -9`; the guard was rejected. This is not an unexplained spontaneous Home crash.
+- **Original AppSetup:** after remapping reference-viewer surface IDs **1001–1007 → 9001–9007**, AppSetup created original IVI surface **1001** while Home remained visible. **No buffer attached** and no Setup screen was rendered. A 360 s standalone Setup test (without manager) also produced no pixels; its D-Bus queries returned some missing-service errors, not a demonstrated single root cause.
+- **AppStandbyClock:** run `20261030T192157Z-999-1` was **in progress as of the supplied 19:22 UTC report**. Its final result is **not known** from these files.
+- Reference page-0→1 interactive Home run `20261030T020654Z-13522-1` remains preserved. Check the newest local tests before drawing updated conclusions.
+
+**Read the [full sanitized evidence chronology](PROGRESS-2026-10-30-IPC-APPS.md).** The older sections below record historical troubleshooting snapshots, not the current blockers.
 
 ## Working foundation
 
@@ -41,7 +54,7 @@ The owner has now provided Codex's detailed 30 October notes for **three new dis
 
 **No original secondary app has opened yet.** First isolate the Pixman offending buffer/client and inspect the precise manager fault. See [30 October progress](PROGRESS-2026-10-30.md) for run IDs and bounded testing sequence.
 
-## Newest completed-run checkpoint: GL/WM integration (30 October, later runs)
+## Historical completed-run checkpoint: GL/WM integration (30 October, before IPC fix)
 
 The owner supplied a read-only tracking package of completed tests, allowing more precise assessment than the earlier reports. See the [detailed sanitized progress report](PROGRESS-2026-10-30-GL-INTEGRATION.md).
 
@@ -55,11 +68,11 @@ The owner supplied a read-only tracking package of completed tests, allowing mor
 
 ## Next work
 
-- Inspect the latest private `runs/` logs, screenshots and patch diffs before new experiments; preserve the working software renderer and successful input/controller overlay.
-- **Do not rerun manager startup as if untested.** It now registers the bus name briefly and crashes. Identify the fault after Wayland globals enumeration and determine why the original `ivi-window-manager.so` trial triggers Pixman's `src_format` assertion; isolate `early-background` and buffer formats in fresh overlays. No speculative MICOM fixes or fabricated service replies.
-- Characterize input-controller coordinate conversion and license provenance; prove the page transition is repeatable in a new disposable overlay.
-- Continue original service orchestration, additional apps, localization and remaining ASTC graphics. Research RTX 3080 Ti/VirGL only in a separate optional setup.
-- Aim for a **complete interactive OEM multimedia laboratory**, not one particular application.
+- Read the **newest** completed `runs/` after the **19:22 UTC report**. In particular, inspect any results of the AppStandbyClock trial; do not assume it worked.
+- Preserve **two different baselines**: original interactive Home, and ten-minute Home+manager co-existence with the manager in a separate IPC namespace.
+- Investigate genuine ApplicationManager error **255**, original D-Bus services, failed `Peer.Ping` and manager-triggered SIGTRAP/SIGKILL as **unresolved OEM startup dependencies**; don't use synthetic answers to claim a working app.
+- Continue original AppSetup / StandbyClock launch experiments. Surface creation alone does **not** constitute rendered or interactive app execution: require attach/commit, visual evidence, user input, and Home return.
+- Maintain disposable overlays, avoid vehicle interaction or OEM asset publication. Later stages: repeatability, translations/ASTC gaps and Windows one-click launcher.
 
 ## Publication
 
