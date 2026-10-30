@@ -1,13 +1,13 @@
 # Hyundai i20 N Infotainment Lab
 
 **Independent, community-driven reverse engineering and offline emulation research.**  
-**Status:** experimental — OEM `AppHomeScreen` **renders at fullscreen and remained visible at 110s and 170s in private tests**; the full HMI is **not yet interactive or navigable**.
+**Status:** experimental — OEM `AppHomeScreen` **renders at fullscreen and has now been navigated from page 0 to page 1 in a controlled private test**; launching the other original applications and reproducing a complete HMI remain unresolved.
 
 We are studying how selected software components from a Hyundai i20 N infotainment environment work, with the long-term goal of reproducible offline testing and UI-customization research. The private test lab uses QEMU, Linux, Weston/Wayland IVI, EGL and original Qt 5.4.1 components.
 
 > **This is not a downloadable OEM emulator, firmware mod, unlock tool or vehicle flashing kit.** No original Hyundai firmware, binaries, extracted QML, textures, maps or other proprietary assets are distributed here.
 
-## Research progress (29 October 2026; privately reported tests)
+## Research progress (30 October 2026; privately reported tests)
 
 | Component | Status |
 | --- | --- |
@@ -16,13 +16,13 @@ We are studying how selected software components from a Hyundai i20 N infotainme
 | OEM Qt 5.4.1 `qmlscene` rendering a **minimal laboratory QML scene** | **Verified** via pixel checks, 14 frame callbacks, Wayland `attach` and `commit` |
 | OEM `AppHomeScreen` | Partial original UI rendered; later fullscreen test reported stable snapshots at 110s and 170s (929,959 differing pixels versus reference Weston desktop) |
 | SocketCAN startup dependency | Identified; compatible modules allowed isolated startup to progress without any CAN traffic |
-| Original Home navigation | Horizontal QML `ListView` identified; IVI seat accepted and `wl_pointer.enter` observed, but focus was lost; touch swipe reached guest kernel without verified `wl_touch` delivery to OEM client |
+| Original Home navigation | **First page 0 → 1 transition reported** after corrected pointer drag via a separate lab-built IVI controller; confirmed by reported `advancedModePageChange(1)`, QML flick event and screenshot |
 | Graphics blockers | Partial ASTC-to-compatible-resource approach in disposable overlays; some ASTC assets remain unconverted; localization still unresolved |
 | Private D-Bus services | Codex reports 47 distinct calls parsed from outgoing headers, including 12 appmanager registrations and 104 MICOM requests; responses not fabricated |
 
-**Latest investigation (29 October, Codex reports):** original `ivi-input-controller.so` was loaded; `ivi_input.input_acceptance(0, "default", 1)` confirmed the IVI seat for Home surface 0 on the second attempt. `wl_pointer.enter` reached `AppHomeScreen`, but pointer focus was then lost. A QEMU VirtIO MultiTouch swipe was captured in the guest kernel, yet **no `wl_touch` event was demonstrated in the OEM client**. Codex identified a missing `BTN_TOUCH` component in the injected flow, bound the virtual touch device to the display and adjusted pointer-device ordering. **The final experiment was left in progress when credits ran out; its result is unknown.** See [current handoff](docs/AI-HANDOFF.md) and [status](docs/STATUS.md).
+**Latest investigation (30 October, Codex reports):** a hidden Weston reference surface (IVI 2001) intercepted touch events. In an isolated guest, terminating the auxiliary reference UI enabled the original `AppHomeScreen` to receive `wl_touch.down/motion/up` after a delay. A separately compiled, experimental IVI input controller corrected implausible pointer coordinates; a drag then triggered the original QML `onMovingChanged`, `onFlickStarted` and `advancedModePageChange(1)`. A captured second page was reported. **A later icon click did not yet launch another application.** The alternative controller requires a license/provenance audit before redistribution. See [30 October progress](docs/PROGRESS-2026-10-30.md) and [agent handoff](docs/AI-HANDOFF.md).
 
-Details: [Research status](docs/STATUS.md) · [29 October progress log](docs/PROGRESS-2026-10-29.md) · [AI-agent handoff](docs/AI-HANDOFF.md) · [Roadmap](docs/ROADMAP.md) · [Architecture notes](docs/ARCHITECTURE.md)
+Details: [Research status](docs/STATUS.md) · [30 October progress log](docs/PROGRESS-2026-10-30.md) · [29 October progress log](docs/PROGRESS-2026-10-29.md) · [AI-agent handoff](docs/AI-HANDOFF.md) · [Roadmap](docs/ROADMAP.md) · [Architecture notes](docs/ARCHITECTURE.md)
 
 ## Using another coding agent
 
