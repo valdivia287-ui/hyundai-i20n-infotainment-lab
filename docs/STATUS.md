@@ -1,28 +1,35 @@
-# Research status — 29 October 2026
+# Research status — 30 October 2026
 
-**Experimental, private QEMU/Weston/Wayland IVI laboratory. Not a complete head-unit emulator or a navigable OEM UI.** This page summarizes test outputs **reported by Codex and shown to the project owner**; full private traces, capture files, checksums and overlays have not been independently re-audited for this publication. For the current agent handoff see [AI-HANDOFF.md](AI-HANDOFF.md).
+**Experimental, isolated QEMU/Weston/Wayland IVI Hyundai i20 N infotainment laboratory.** The original Home interface has now **navigated from page 0 to 1** in a private test reported by Codex running **GPT-6 Sol Alto**. The overall OEM multimedia is **not yet complete**, and other applications have not been proven to launch. See [30 October progress](PROGRESS-2026-10-30.md) and [AI handoff](AI-HANDOFF.md).
 
-## Runtime milestones reported
+> Evidence qualification: the findings below are based on progress logs and screenshots supplied by the owner; the underlying private VM, complete traces and diffs have not been independently inspected for this public report.
 
-- Isolated QEMU guest runs Weston/Wayland IVI, original Qt 5.4.1 and the OEM `AppHomeScreen` binary. Original SocketCAN startup dependency was solved in an isolated guest without any CAN traffic.
-- A minimal Qt/QML rendering test produced the expected pixels, Wayland buffer attachments and commits. Owner-shared screenshots subsequently showed a genuine partial `AppHomeScreen` panel with background, `STR_HOME_RADIO` and `MEDIA OFF` within the Weston compositor.
-- Latest controlled fullscreen Home session reportedly produced the OEM application's area at **110s and 170s**, with a **929,959-pixel difference** against the Weston baseline and corresponding surface-create/attach/commit and `switch_mode(2)` traces. **The earlier disappearance was traced to a 125-second test timeout**, not a demonstrated UI crash. These are bounded observations, not proof of indefinite stability.
-- A byte-identical copy of the original QML (SHA verified by Codex) was used only in a disposable overlay. The trial variant setting **BC3 = 23** (original model value observed as **5**) altered the running home: database saved value 23 and a third page indicator appeared. This is an observed behavioral difference; it does **not** demonstrate a working N Mode screen.
-- `AppHomeScreen` created SQLite databases; `MenuHome` had **3 rows** and `CustomLayoutFront` **25** in the completed trial. An earlier `no such table` error occurred before schema creation. The guest shutdown path was fixed to stop the Home PID via `TERM`, observe `CA_HOME_DONE 143`, and retain evidence including `client-home.txt` and copied SQLite outputs.
-- A parser for outgoing D-Bus `sendmsg` headers reportedly identified **47 distinct calls**, including **12 registration messages** to `com.lge.hyundai.avn.appmanager` and **104 `AskCANMMCANMicomReq` requests** for the absent MICOM. This is evidence of attempted calls, **not** functioning services or fabricated responses.
-- A usable English `.qm` translation file appears to exist, but reading the active language from shared memory fails; untranslated keys remain visible.
-- Original QML includes a horizontal `ListView` for widgets/menus. Weston originally logged `ivi-controller: No ivi-input-module set`; Codex found, hash-checked and loaded the original `ivi-input-controller.so` in a disposable guest. A lab-built `ivi_input` v1 seat-acceptance utility succeeded on **attempt 2**, reporting `CA_IVI_INPUT_ACCEPTED attempt=2 surface=0 seat=default`. The first attempt ran before the Home surface was available. A subsequent client trace showed **`wl_pointer.enter`**, but focus disappeared after the first movement; no page-index change has been proven.
-- Codex observed coordinates allegedly about **256× smaller** than expected. This must be checked against Wayland `wl_fixed_t` 24.8 encoding before attributing it to a scaling bug. The guest detected **`QEMU Virtio MultiTouch`** and recorded a complete synthetic swipe at the input-device/kernel level, but the OEM client still showed **no `wl_touch` events**. Codex identified absent **`BTN_TOUCH`** in the injected flow and changed virtual touchscreen/display association and input-device ordering to keep tablet mouse events working. One earlier attempt failed inside QEMU (`qemu-fixed-text-console.device`), not in the Hyundai application. **The last modified-device-order run was in progress when Codex credits ran out; touch delivery and a `ListView` page change remain unverified.**
-- ASTC resources were partly adapted for software rendering inside overlays; at least one additional asset is outside the converted set. RTX 3080 Ti/VirGL acceleration remains unproven and must stay separate from the stable software path.
+## Working foundation
 
-## Immediate next steps (checkpoint at credit cutoff)
+- Original Hyundai `AppHomeScreen` and Qt 5.4.1 run in a disposable Linux/QEMU guest with Weston/Wayland IVI. Original OEM QML and recovered assets were loaded in guest overlays, leaving the base firmware untouched.
+- AppHomeScreen rendered a partial genuine UI, later fullscreen; Codex reported stable screenshots at **110s** and **170s**, with **929,959 pixels** differing from the Weston reference. An earlier disappearing Home panel was explained by a **125-second test timeout**.
+- Vehicle variant **BC3 = 23** was measured in original QML. A controlled overlay test changed active value from 5 to 23, added a third Home page indicator and saved the value in SQLite. This did not itself establish page navigation.
+- Original application created SQLite tables (`MenuHome`: 3 rows; `CustomLayoutFront`: 25). Outgoing D-Bus header analysis identified **47 distinct calls**, including 12 appmanager registrations and 104 requests for unavailable MICOM; those are attempted calls, **not successful responses**.
+- Localization remains incomplete: an English `.qm` file was found, but reading active language through shared memory failed. Some translation keys appear untranslated.
 
-1. **First inspect the last active run**: whether the post-device-order-change experiment finished, its run directory, live QEMU processes/overlays, saved logs and screenshots. Do not assume it succeeded or start two controllers against the same overlay.
-2. Check that virtual touch is bound to QEMU display and the actual injection includes **`BTN_TOUCH`**, then verify the same events cross the guest kernel → Weston/IVI → OEM client (`wl_touch`) boundaries. Check focus, surface IDs and coordinate conversions if still missing.
-3. Prove a real change in the original Home `ListView` index and associated captured frame before calling interaction solved. Do not change original binaries/QML to fake navigation.
-4. Recover logs through the established clean supervisor shutdown; preserve old stable software mode, overlay hashes and all evidence.
-5. Trace localization and required D-Bus services, then investigate launch of other original apps. GPU/RTX 3080 Ti stays a separate unverified track.
+## 30 October: input and navigation breakthrough
 
-## Evidence and publication policy
+1. The original `ivi-input-controller.so` was loaded in an isolated guest, and a lab utility confirmed `ivi_input` seat `default` acceptance for Home surface ID **0** on a retry.
+2. Weston was initially directing touch toward a **reference interface surface IVI 2001** (`wl_surface@42`), not Home. Terminating only the auxiliary reference UI within a disposable guest removed that input blocker; simply hiding it had not sufficed.
+3. After waiting for Home to be ready, the original client trace recorded **`wl_touch.down`, motions and `up`**. This was real delivery to the OEM client, not just the Linux kernel. The touch event by itself did not change the QML page index.
+4. A pointer drag reached Home but original input-controller coordinates appeared unexpectedly small. Codex compared the original controller with a separate, **experimental, lab-built IVI controller based on public COVESA sources** and reported corrected pointer motion from approximately x=1430 to x=422. Provenance/licensing of any borrowed code needs an audit before publication.
+5. The original QML then reported **`onMovingChanged: true`**, **`onFlickStarted`** and **`advancedModePageChange(1)`**; a captured frame reportedly showed **Home page 1**. These three pieces of evidence support an actual **page 0→1 navigation event** using the original Home application.
+6. A subsequent click on an application icon reached the Home surface, but the screen stayed on Home. It is **not yet known** whether QML received the action or a downstream appmanager/D-Bus dependency blocked the launch.
+7. Codex's selected model subsequently displayed **“Selected model is at capacity”**. This is a capacity limitation and does not establish that user credits were exhausted.
 
-Keep `observed from owner-shared screenshots`, `reported from private logs`, `static source inspection` and `hypothesis` separate. Public reproduction files must be author-owned or synthetic. Do **not** distribute Hyundai firmware, QML, textures, binaries, keys, raw memory dumps, private VM disks, or unredacted traces. No experiments on a physical vehicle.
+## Next work
+
+- Inspect the latest private `runs/` logs, screenshots and patch diffs before new experiments; preserve the working software renderer and successful input/controller overlay.
+- Trace icon click from Wayland event to original QML handler, application manager, service call, and potential executable launch. Do not simulate success or fabricate service answers.
+- Characterize input-controller coordinate conversion and license provenance; prove the page transition is repeatable in a new disposable overlay.
+- Continue original service orchestration, additional apps, localization and remaining ASTC graphics. Research RTX 3080 Ti/VirGL only in a separate optional setup.
+- Aim for a **complete interactive OEM multimedia laboratory**, not one particular application.
+
+## Publication
+
+No OEM firmware, binaries, QML, textures, maps, keys, VM disks, unredacted raw logs or vehicle data are distributed. Only independently authored or appropriately licensed code and sanitized evidence may be published. No vehicle flashing, physical CAN injection or testing on the car.
