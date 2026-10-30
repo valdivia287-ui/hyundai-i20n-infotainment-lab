@@ -19,13 +19,20 @@
 3. After waiting for Home to be ready, the original client trace recorded **`wl_touch.down`, motions and `up`**. This was real delivery to the OEM client, not just the Linux kernel. The touch event by itself did not change the QML page index.
 4. A pointer drag reached Home but original input-controller coordinates appeared unexpectedly small. Codex compared the original controller with a separate, **experimental, lab-built IVI controller based on public COVESA sources** and reported corrected pointer motion from approximately x=1430 to x=422. Provenance/licensing of any borrowed code needs an audit before publication.
 5. The original QML then reported **`onMovingChanged: true`**, **`onFlickStarted`** and **`advancedModePageChange(1)`**; a captured frame reportedly showed **Home page 1**. These three pieces of evidence support an actual **page 0→1 navigation event** using the original Home application.
-6. A subsequent click on an application icon reached the Home surface, but the screen stayed on Home. It is **not yet known** whether QML received the action or a downstream appmanager/D-Bus dependency blocked the launch.
+6. A subsequent click on an application icon reached the Home surface, but the screen stayed on Home. **Later, Codex running GPT-6 Astra Medio traced the N Mode icon press into the original Home application and reported an application-launch request with `appid=500`.** The lab's D-Bus service **`com.lge.hyundai.avn.appmanager` is missing/not registered**, so that target application does not open. This establishes a concrete app-manager launch blocker, **not** a working N Mode implementation.
 7. Codex's selected model subsequently displayed **“Selected model is at capacity”**. This is a capacity limitation and does not establish that user credits were exhausted.
+
+## Astra follow-up checkpoint (30 October)
+
+- In a reported **1 min 57 s** Codex run under **GPT-6 Astra Medio**, the program identified the `appid=500` → missing appmanager-service dependency.
+- Codex reported **8 passing checks, 281 verified hashes**, clean VM shutdown, preserved disposable overlays and logs.
+- A configuration option to try the **original Hyundai ApplicationManager** has been prepared, **but it has not yet been executed/tested in QEMU**. This is the next bounded experiment, not a completed milestone.
+- Local private files named in the Codex report: `ESTADO-PROYECTO.md` and `investigacion/nmode-click-20261030.md`; only their names and the report text are available to this public snapshot.
 
 ## Next work
 
 - Inspect the latest private `runs/` logs, screenshots and patch diffs before new experiments; preserve the working software renderer and successful input/controller overlay.
-- Trace icon click from Wayland event to original QML handler, application manager, service call, and potential executable launch. Do not simulate success or fabricate service answers.
+- Validate the existing `appid=500` and D-Bus service-missing evidence in the newest private traces. **Run the prepared original ApplicationManager option in a fresh disposable overlay**, checking process startup, D-Bus name registration, handler behavior and any further dependencies. Do not simulate success or fabricate service answers.
 - Characterize input-controller coordinate conversion and license provenance; prove the page transition is repeatable in a new disposable overlay.
 - Continue original service orchestration, additional apps, localization and remaining ASTC graphics. Research RTX 3080 Ti/VirGL only in a separate optional setup.
 - Aim for a **complete interactive OEM multimedia laboratory**, not one particular application.
