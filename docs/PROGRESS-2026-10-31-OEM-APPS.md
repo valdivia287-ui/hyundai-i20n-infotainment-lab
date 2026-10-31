@@ -4,6 +4,8 @@
 >
 > **Current assessment:** Original AppStandbyClock and AppEngineerMode have **rendered limited original Hyundai UI** inside disposable QEMU/Weston laboratory guests. Neither is yet a stable, interactive secondary application. A functioning Home → secondary app → Home journey is **not** demonstrated.
 
+> **Superseded after 11:34 UTC:** A later private report through **16:43 UTC** established **original Standby Confirm button pressed/released/btnClicked (P=R=C=1)**, working original Home page 0→1→0 navigation with ApplicationManager, and an experimental solution to hidden Home's missing Wayland callbacks. **Return to Home is still blocked by ApplicationManager's internal currentStandbyStatus[10]**, and a full usable Home→Standby→Home path has not been demonstrated. Read the [newer foreground-integration report](PROGRESS-2026-10-31-HOME-STANDBY-INTEGRATION.md) before interpreting the historical pending tasks below.
+
 ## Better preserved baselines (30–31 October)
 
 | Completed run | What the reported evidence demonstrates |
