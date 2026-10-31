@@ -1,10 +1,26 @@
 # AI agent handoff — Hyundai i20 N infotainment lab
 
-**Snapshot: 30 October 2026 — initial input/navigation breakthrough with GPT-6 Sol Alto; subsequent application-launch investigation with GPT-6 Astra Medio.** This public note gives new agents a **precise, non-proprietary handoff**. It is **not** a replacement for private WSL run logs, exact scripts, overlays, and captured screens.
+**Snapshot: 31 October 2026, 11:34 UTC — additional original Standby/Clock and EngineerMode rendering and original OEM service investigations.** This public note gives new agents a **precise, non-proprietary handoff**. It is **not** a replacement for private WSL run logs, exact scripts, overlays, and captured screens.
 
-Read [status](STATUS.md), [latest IPC/application trials](PROGRESS-2026-10-30-IPC-APPS.md), [earlier GL/WM report](PROGRESS-2026-10-30-GL-INTEGRATION.md), [30 October timeline](PROGRESS-2026-10-30.md), [CLAUDE.md](../CLAUDE.md), [architecture](ARCHITECTURE.md) and [provenance](../PROVENANCE.md).
+Read [status](STATUS.md), [latest 31 October secondary-app trials](PROGRESS-2026-10-31-OEM-APPS.md), [earlier IPC/application trials](PROGRESS-2026-10-30-IPC-APPS.md), [earlier GL/WM report](PROGRESS-2026-10-30-GL-INTEGRATION.md), [30 October timeline](PROGRESS-2026-10-30.md), [CLAUDE.md](../CLAUDE.md), [architecture](ARCHITECTURE.md) and [provenance](../PROVENANCE.md).
 
-## Most recent handoff — 30 October 2026, status reported at 19:22 UTC
+## Latest handoff — 31 October 2026, 11:34 UTC
+
+**Read the [31 October detailed report](PROGRESS-2026-10-31-OEM-APPS.md) and the *newest local private runs* before modifying or launching anything.** The 30 October note below is preserved **as a historical stage**, not current status.
+
+- Original **Home** navigates and runs at **1280×730**. Run `20261030T211509Z-11579-1` fixed the 320×365 display not by manually setting surface geometry, but through a **separate lab-built Weston 1.10 HMI-controller module initially selecting FULL_SCREEN instead of TILING**. Its public-source provenance must be audited before shipping source.
+- Original Home + ApplicationManager performed page **0→1→0**, N Mode `appid=500` reached OEM manager, which returned **255**, and ran up to ten guest minutes (`20261030T201814Z-17465-1`). **Manager remains in a separate SysV IPC namespace**, not full shared OEM IPC.
+- Original **Home + ApplicationManager + AppStandbyClock**, with Weston, were all active for **~620 s guest uptime** (`20261030T212548Z-18144-1`, `20261031T102501Z-6447-1`). Home's **threaded Qt scene graph** avoided the old overlay-related watchdog in bounded runs. This proves coexistence, **not an interactive app**.
+- Original **AppStandbyClock** attached genuine Wayland buffers and began intermittently showing **“Confirm / Language”**, **`--:--`** or black. Original direct Clock D-Bus `show_window_fg` appid **14** replied `int32 1` in one run, but no usable clock or successful Home→Clock→Home.
+- A **private QML-only diagnostic probe**, never publish, found **`enableBtn=0` / `enableTouch=false`** while “Confirm / Language” was loaded; mouse delivery alone cannot click a disabled OEM `MouseArea`. `temporal=true` alone did not enable it. Static OEM branch `eUSER_INPUT_STANDBY_AGREE_ENABLE` corresponded to original `reason=11`. Run **`20261031T112444Z-17824-1`** showed **`enableBtn=1`** at 20 and 60s with `reason=11, temporal=true`, **but the form loader was absent** (`item1=false, item2=false, isDrawed=false`). **Pending test:** `reason=10` to show the form, then `reason=11` to enable it, checking actual QML pointer action.
+- Original **UserProfileManager** created shared memory **`KEYSUPPORTCHINESE`**, removing a missing dependency for **AppEngineerMode**. Run **`20261031T091312Z-3435-1`** rendered **“Engineering Mode” fullscreen**, made two IVI surfaces and registered app ID **301**. Manager's **AppAlive NoReply** led to intentional **AppKill()/SIGTRAP**. Without manager, the app's main thread stalled in `poll` on **Wayland fd 9** after rendering; D-Bus fd 17. Full engineering UI not functional.
+- The original **AppLauncher** executable exists, but **was not launched**. It starts multiple applications and could conflict with the manually built lab.
+- **No virtual vehicle simulation has been validated or integrated as a general fix.** Prioritize real OEM service startup before considering minimal, contract-verified synthetic services. Do not fabricate bus replies.
+- Codex agents: separate worktrees and VM/overlay ownership; one must not alter another's live runtime.
+
+**The next milestone remains: one original second application visible, enabled and interactive, with verified return to Home.** This is still pending.
+
+## Historical handoff — 30 October 2026, status reported at 19:22 UTC
 
 **The previous GL/WM failure and missing-appmanager-only diagnoses are historical. Do not resume from them.**
 
@@ -50,17 +66,18 @@ A later owner-supplied read-only tracking bundle documents the **actual post-App
 - Guest script and supervisor gained an optional **`CA_HOME_NO_STRACE=1`** diagnostic, off by default; a repeat without strace still fails.
 - Read [new detailed checkpoint](PROGRESS-2026-10-30-GL-INTEGRATION.md) and inspect any newer `runs/` **before** attempting changes. Public repository contains **none of the private tracking ZIP contents**, only this safe summary.
 
-## Resume protocol
+## Resume protocol — current
 
-1. On the user's computer, inspect newest `runs/`, local `ESTADO-PROYECTO.md` and pending AppStandbyClock results. The state may have advanced after **19:22 UTC**; do not blindly replay this snapshot.
-2. Preserve original OEM base images and two distinct successes: older page-0→1 **interactive Home** and newer **ten-minute Home + manager coexistence** using IPC isolation. Do not mistake the IPC bypass for restored OEM shared-memory integration.
-3. Trace **original ApplicationManager return 255** and its `Peer.Ping` → manager-triggered SIGTRAP chain using real logs. Preserve service names and origin-specific D-Bus events; don't fabricate replies.
-4. In separate overlays, continue original AppSetup and AppStandbyClock initialization; require **buffer attach/commit, visible pixels and user interaction** before claiming an app launch. Do not treat surface 1001 creation as a working Setup screen.
-5. Work toward actual Home → second original app → Home behavior, then ten-minute **interactive stability** and a repeatable Windows launcher. Keep provenance and no-car/no-flash restrictions.
+1. Check the actual private `ESTADO-PROYECTO.md`, latest **completed** `runs/`, `investigacion/standby-clock-20261031.md`, `investigacion/engineer-20261031.md`, active processes and Git state. The **11:34 UTC** public snapshot may now be stale.
+2. Preserve interactive Home, fullscreen-HMI-controller and four-component ten-minute coexistence as distinct, verified run references; preserve all original OEM binaries and firmware bases.
+3. **Clock next:** reason **10** show form → reason **11** enable; require simultaneous loader presence and **enableBtn=1**, actual QML click, stable pixels, and valid Home return. Intermittent black screens remain an independent defect.
+4. **Engineer next:** inspect Wayland FD 9 main-thread wait, AppAlive responsiveness and actual pointer focus; do not silence AppKill merely to claim process stability.
+5. Map dependencies and run existing OEM services such as UserProfileManager before proposing a fake. A future virtual-vehicle service must be limited to an evidenced contract, with isolated synthetic state and accurate unsupported responses.
+6. Use new disposable overlays, keep two Codex agents from shared runtime modifications, publish only sanitized descriptions or licensing-audited original code. No physical vehicle, flash, raw asset uploads or unapproved screenshots.
 
 ## Starter instruction for another agent
 
-> Continue the Hyundai i20 N Gen5W_L lab **from the newest completed private run**, not from scratch. A prior profile at `20261030T020654Z-13522-1` genuinely navigated original Home. A later `20261030T175729Z-3869-1` demonstrated **original Home and ApplicationManager alive together for 10 minutes**, Home visible at **1280×730**, using a **separate SysV IPC namespace** for the manager to avoid a traced `MICOMSTATUSMESSAGE` semaphore deadlock. This is not full OEM IPC. Original Home can send `appid=500` to the manager, but the manager returns **255**, so no target app opens. AppSetup now creates surface 1001 after overlay-only reference viewer remapping, but **never attaches a buffer** in completed trials; removing ApplicationManager did not fix this. The final supplied note shows original AppStandbyClock test `20261030T192157Z-999-1` still underway. **First inspect newest runs**, then pursue real app launch, manager `Peer.Ping`/SIGTRAP behavior and required OEM services without fake replies. Preserve the two baselines, original OEM files, and isolated overlay operation; do not publish proprietary artifacts or test on a vehicle.
+> Continue the private Hyundai i20 N Gen5W_L QEMU laboratory **from the newest actual local run**, not from a fresh installation. As of owner status **31 October 2026, 11:34 UTC**, original Home is navigable/fullscreen with a separate public-source Weston controller, and OEM Home + ApplicationManager + AppStandbyClock have coexisted for ~620 seconds of guest uptime. Original Clock `show_window_fg` rendered intermittent **Confirm / Language** and `--:--`, but was not usable. A private QML probe showed loaded form with `enableBtn=0`; changing `reason=10` to **11** showed `enableBtn=1` but no loaded form. **Investigate the ordered reason 10 then 11 transition in a fresh overlay.** Original EngineerMode reached fullscreen title after original UserProfileManager supplied `KEYSUPPORTCHINESE`; its main thread later waited on Wayland and AppAlive checks failed. Investigate that wait separately. Keep OEM bases unchanged, isolate the manager's SysV IPC workaround, avoid fake D-Bus replies and physical devices, and require genuine interaction/Home return before claiming second-app success. **Always inspect newer local results first.**
 
 ## Safety and sharing
 
