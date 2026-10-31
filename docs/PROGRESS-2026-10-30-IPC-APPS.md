@@ -4,6 +4,8 @@
 >
 > **Major milestone:** Original Hyundai `AppHomeScreen` and original `ApplicationManager` ran concurrently in an isolated QEMU/Weston GL laboratory for **10 minutes** in the completed run `20261030T175729Z-3869-1`. This uses an **experimental separate SysV IPC namespace for ApplicationManager**, not fully reproduced OEM interprocess communication. **No secondary OEM application has rendered and become interactive yet.**
 
+> **Update on 31 October:** The pending AppStandbyClock trial later **did attach original Wayland buffers**, and subsequent experiments displayed intermittent original **Confirm / Language** and **--:--** content. Original EngineerMode also displayed its title, and a fullscreen Weston HMI controller resolved the earlier tiling without manual surface-region override. These updates **supersede** the 30 October open questions below; neither secondary app is yet fully usable. Read the [31 October app report](PROGRESS-2026-10-31-OEM-APPS.md).
+
 ## Baseline preserved
 
 - The earlier original Home navigation reference, **`20261030T020654Z-13522-1`**, still retains its recorded SHA-256 and page 0→1 event (`advancedModePageChange(1)`).
