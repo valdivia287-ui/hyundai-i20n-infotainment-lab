@@ -1,10 +1,26 @@
 # Research status — 31 October 2026
 
-**Experimental, isolated QEMU/Weston/Wayland IVI Hyundai i20 N infotainment laboratory.** Original Home is fullscreen and navigable. OEM ApplicationManager and AppStandbyClock can coexist with Home for **ten guest minutes** in a laboratory setup. **AppStandbyClock and AppEngineerMode have drawn limited genuine UI, but neither is stable/fully interactive**. Latest verified owner-reported private status: **31 October 2026, 11:34 UTC**. See [31 October OEM app trials](PROGRESS-2026-10-31-OEM-APPS.md), [earlier IPC milestones](PROGRESS-2026-10-30-IPC-APPS.md) and [agent handoff](AI-HANDOFF.md).
+**Experimental, isolated QEMU/Weston/Wayland IVI Hyundai i20 N infotainment laboratory.** Genuine OEM Home navigation **0→1→0** works with original ApplicationManager active; original Standby displays **Confirm/Language** and a controlled test has delivered all three OEM button signals (**pressed/released/btnClicked**). Home can survive the Standby foreground transition using **experimental** callback rescue and Home-only Mesa llvmpipe. **Home return remains rejected by the manager's Standby-state guard**; a finished Home→app→Home flow is not available. Latest owner-supplied completed-run status: **31 October 2026, 16:43 UTC**. See the [new foreground/return investigation](PROGRESS-2026-10-31-HOME-STANDBY-INTEGRATION.md), [earlier application study](PROGRESS-2026-10-31-OEM-APPS.md) and [AI handoff](AI-HANDOFF.md).
 
 > Evidence qualification: the findings below are based on progress logs and screenshots supplied by the owner; the underlying private VM, complete traces and diffs have not been independently inspected for this public report.
 
-## Newest reported milestone — 31 October, 11:34 UTC status
+## Latest reported milestone — 31 October, 16:43 UTC status
+
+**Real second-application button interaction:** in `20261031T132500Z-6658-1`, original AppStandbyClock displayed loaded+enabled **Confirm** and a controlled button interaction produced **P=1, R=1, C=1** (original pressed, released, btnClicked). The resulting original `appid=2, reason=12` transition request reached ApplicationManager, but was rejected, first because the manager did not regard Standby as the drawing app, and later for its *internal Standby state*. This **supersedes** the prior 11:34 note saying click never succeeded.
+
+**Hidden Home render callback blocker identified:** after original manager foregrounds Standby1001, Home1000 moves to IVI layer **4000**, and its view is **excluded from repaint** despite visible flags. An outstanding `wl_surface.frame` can lack `wl_callback.done`, leaving original Home waiting in Qt Quick; watchdog **134** or manager **AppAlive failure → AppKill/SIGTRAP 133** can follow. In original Home core `20261031T161129Z-13234-1`, manager's six unsuccessful AppAlive probes and deliberate kill were recorded; a frame callback arrived **after** the kill.
+
+**Two lab-only remedies, bounded evidence:** a reversible HMI frame-callback rescue produced callbacks for hidden Home and restored its heartbeat in `20261031T150154Z-12177-1` (stopped at planned 124). Changing **only Home** to Mesa **llvmpipe** in `20261031T162201Z-9612-1` prevented manager's AppKill during the Standby foreground trial, despite intermittent failed AppAlive probes. This is **not** evidence that full OEM frame scheduling/IPC is restored or that black Standby intervals are fixed.
+
+**Original Home navigation with manager:** in latest run **`20261031T163512Z-9562-1`**, two QMP drags caused genuine **`advancedModePageChange(1)`** followed by **`advancedModePageChange(0)`** while manager was running. Original Standby later became foreground; private probe showed **Confirm/Language**, **`btn=1`**, **`item2=true`**, **`drawn=true`**. Original Home continued heartbeats through the timed end **124**, **without SIGTRAP or watchdog**. QEMU later shut down via ACPI; no VM reportedly remained active.
+
+**Return remains unachieved:** direct `Transition::request(322,11,0,1,0)` only reached `handleEvent`, returned **255**, did **not** trigger `handleGoHomeKey`. Another original request `appid=2, reason=12` was rejected with **`currentStandbyStatus[10]` / `StandbyStatus is not enabled[10]`**. Asking manager for **appid=10, reason=11** was also tested and did **not** change its state. Embedded interface metadata contains original **`ask_standby_status`** (reader) and **`standby_status`** (signal), but **the OEM writer/updater of the manager's integer state is unknown**. Do not invent a setter or claim functional return.
+
+**Supervisor caveat:** final `estado.json` for the last run says **home_expired**, 600-second limit, `home_validated=false` and `home_rendered=false`. These are **final-state flags**, not a contradiction of original Home logs and mid-run screenshot; equally, there is no verified visible Home return after Standby.
+
+[Full sanitized 16:43 UTC chronology](PROGRESS-2026-10-31-HOME-STANDBY-INTEGRATION.md).
+
+## Historical milestone — 31 October, 11:34 UTC status
 
 **Home/geometry:** a separate, reversible Weston 1.10 fullscreen HMI-controller module initialized **FULL_SCREEN** instead of the original Weston lab TILING state; this removed the earlier **320×365** tiling without `CA_FORCE_HOME_DESTINATION`. The OEM Home original QML again registered navigation. A threaded Qt scene-graph mode for Home prevented a previous overlap-related watchdog in controlled trials. Distinct baselines remain intact.
 
@@ -82,12 +98,13 @@ The owner supplied a read-only tracking package of completed tests, allowing mor
 
 ## Next work
 
-- Inspect newer local runs **after the 11:34 UTC status**, if any, before treating the next trial as pending.
-- Preserve separate references for Home page navigation, Home+manager stability, and **four-component 10-minute** guest stability. Do not let two agents edit/run the same guest/overlay.
-- In Standby, test original **reason 10 → reason 11, temporal=true** in a fresh overlay; prove simultaneously visible **and** enabled Confirm, followed by genuine QML input, a stable screen and Home return. Investigate unexplained black intervals separately.
-- In EngineerMode, isolate the **Wayland main-thread wait** and manager **AppAlive/NoReply → AppKill** interaction. A fullscreen title is **not** a functional settings/engineering app.
-- Map original service/IPC dependencies before implementing any **minimal synthetic virtual vehicle service**; prioritize real OEM services already recovered, such as UserProfileManager. Do not fabricate D-Bus success.
-- Target an interactive second original application and repeatable Home→app→Home, followed by Windows one-click launch. Never flash or interface with a physical vehicle.
+- Start with the **newest private run** after 16:43 UTC, if any. Preserve original interactive/fullscreen Home, ten-minute multi-OEM coexistence and the current bounded foreground-stability reference as different test baselines.
+- Study the original **manager Standby-state writer/event path** (not only `ask_standby_status` reader or outgoing `standby_status` signal). Identify how original standby state stops being 10 and enables the **appid2/reason12** return transition. The `NotifyConfirmStatus(false)` boolean does not establish that change.
+- **Do not repeat** direct event **322** or manager request **appid10/reason11** as purported fixes; both returned **255** without a Home return.
+- Ensure the experimental hidden-Home frame-callback rescue and **Home-only** llvmpipe remain opt-in, reversible and documented. Probe actual client callbacks, Home's AppAlive responsiveness, original Standby screen visibility and genuine input. The persistent black screen remains unsolved.
+- Demonstrate and repeat **Home → Standby → Home**, maintaining correct geometry/interaction and avoiding manager kill or watchdog, before claiming a usable second application.
+- Prioritize original OEM services and traced contracts over blanket fake D-Bus responses. Keep separate Codex agents in separate worktrees and never let both control the same guest.
+- No publication of original firmware/QML/binaires, unapproved images or raw traces; no interaction with the real car.
 
 ## Publication
 
