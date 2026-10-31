@@ -1,29 +1,30 @@
 # Hyundai i20 N Infotainment Lab
 
 **Independent, community-driven reverse engineering and offline emulation research.**  
-**Status:** experimental — OEM `AppHomeScreen` **renders at fullscreen and has now been navigated from page 0 to page 1 in a controlled private test**; launching the other original applications and reproducing a complete HMI remain unresolved.
+**Status:** experimental — original OEM `AppHomeScreen` is fullscreen and navigable; **multiple original applications now produce limited on-screen UI** in a private QEMU lab. **No secondary app is fully interactive yet**, and a complete Home → app → Home flow remains unresolved.
 
 We are studying how selected software components from a Hyundai i20 N infotainment environment work, with the long-term goal of reproducible offline testing and UI-customization research. The private test lab uses QEMU, Linux, Weston/Wayland IVI, EGL and original Qt 5.4.1 components.
 
 > **This is not a downloadable OEM emulator, firmware mod, unlock tool or vehicle flashing kit.** No original Hyundai firmware, binaries, extracted QML, textures, maps or other proprietary assets are distributed here.
 
-## Research progress (30 October 2026; privately reported tests)
+## Research progress (through 31 October 2026, 11:34 UTC; privately reported tests)
 
 | Component | Status |
 | --- | --- |
 | Isolated QEMU Linux guest and graphics | Running in the private lab |
 | Weston + Wayland IVI | Running |
 | OEM Qt 5.4.1 `qmlscene` rendering a **minimal laboratory QML scene** | **Verified** via pixel checks, 14 frame callbacks, Wayland `attach` and `commit` |
-| OEM `AppHomeScreen` | Partial original UI rendered; later fullscreen test reported stable snapshots at 110s and 170s (929,959 differing pixels versus reference Weston desktop) |
+| OEM `AppHomeScreen` | Original fullscreen Home, confirmed page 0 → 1 → 0 navigation and real N Mode request; **1280 × 730** via reversible fullscreen Weston HMI controller, without manual surface destination override |
 | SocketCAN startup dependency | Identified; compatible modules allowed isolated startup to progress without any CAN traffic |
 | Original Home navigation | **Page 0 → 1 transition reported** after corrected pointer drag via a separate lab-built IVI controller; corroborated by original QML event and screenshot |
-| Home icon / app launch | **Original Home + OEM ApplicationManager now coexisted for 10 minutes** in one isolated laboratory profile. Home navigates and sends `appid=500` to the original manager, which replies **255**; no other application opens yet |
-| Graphics blockers | Earlier Pixman/GL/scale issues were bypassed **in the new coexistence profile**: Home displays at **1280 × 730** without watchdog or Pixman assertion for 10 minutes. The manager uses a **separate SysV IPC namespace**, not full OEM IPC. ASTC and localization remain incomplete |
-| Private D-Bus services | Codex reports 47 distinct calls parsed from outgoing headers, including 12 appmanager registrations and 104 MICOM requests; responses not fabricated |
+| OEM application launching | Real original ApplicationManager handled Home `appid=500` but still returned **255**. Standby/Valet foreground calls can return success, but the original UI remains partially rendered and unreliable |
+| Rendering and stability | A reversible **FULL_SCREEN** Weston HMI-controller resolves the original tiling at **320 × 365**. **Home, ApplicationManager and AppStandbyClock** (plus Weston) ran simultaneously for 10 guest minutes; **threaded** Home render loop prevented an earlier overlap watchdog. The manager still uses an isolated SysV IPC namespace; ASTC/localization remain incomplete |
+| Private D-Bus services | Original services/routes examined, including Clock `show_window_fg` and real **UserProfileManager**. Synthetic service compatibility is a **future research direction**, not a completed implementation |
+| Second original application UI | **AppStandbyClock** intermittently displays original **Confirm / Language** and `--:--`; **AppEngineerMode** has drawn its original fullscreen title after starting real UserProfileManager. Neither yet provides a stable interactive UI |
 
-**Latest checkpoint (30 October 2026, owner's private Codex status at 19:22 UTC):** the original **Home and ApplicationManager ran together for 10 minutes** with Weston GL and OEM IVI window manager (run `20261030T175729Z-3869-1`). Home appeared at **1280 × 730** in both five- and ten-minute captures, without Pixman assertions or Home watchdog termination. Codex isolated ApplicationManager in a **separate SysV IPC namespace** after tracing the watchdog stall to the `MICOMSTATUSMESSAGE` semaphore; this is an experimental workaround, **not full OEM IPC integration**. Original Home navigated to page 1 and sent `appid=500` to the real manager in other runs, but the manager returned **255**. Original **AppSetup connected to Wayland and created IVI surface 1001** after a reference UI ID-remapping experiment; it **did not attach a buffer or render**. An **AppStandbyClock** trial was still underway when the report was written. **No secondary original application has yet been demonstrated running visibly or interactively.** See the [new IPC and application trials report](docs/PROGRESS-2026-10-30-IPC-APPS.md), which summarizes owner-provided reports rather than independently replayed VM evidence.
+**Latest checkpoint (31 October 2026, private status at 11:34 UTC):** a reproducible **fullscreen Weston lab controller** and Home's **threaded** Qt render loop enabled a four-component original stack—Weston plus **Home, ApplicationManager and AppStandbyClock**—to remain alive at guest uptime **~620 seconds** (runs `20261030T212548Z-18144-1` and `20261031T102501Z-6447-1`). AppStandbyClock now intermittently displays genuine **“Confirm / Language”** and `--:--`, but also black screens. A private QML probe found the loaded Confirm button **disabled** (`enableBtn=0`); changing original Clock `show_window_fg` **reason 10 → 11** enables it (`enableBtn=1`) but **the form was then not loaded**, so no functioning click yet. Separately, **original AppEngineerMode rendered its fullscreen title** after **original UserProfileManager** created required shared memory; its main thread subsequently waited on Wayland and manager health checks failed. The **first fully usable second application and Home → app → Home remain open**. These results are owner-supplied Codex reports, not independent QEMU replays. See the [31 October original-app progress](docs/PROGRESS-2026-10-31-OEM-APPS.md).
 
-Details: [Research status](docs/STATUS.md) · [Latest IPC/app trials](docs/PROGRESS-2026-10-30-IPC-APPS.md) · [Earlier GL/WM investigation](docs/PROGRESS-2026-10-30-GL-INTEGRATION.md) · [30 October progress log](docs/PROGRESS-2026-10-30.md) · [29 October progress log](docs/PROGRESS-2026-10-29.md) · [AI-agent handoff](docs/AI-HANDOFF.md) · [Roadmap](docs/ROADMAP.md) · [Architecture notes](docs/ARCHITECTURE.md)
+Details: [Research status](docs/STATUS.md) · [Latest: 31 Oct original applications](docs/PROGRESS-2026-10-31-OEM-APPS.md) · [Earlier IPC/app trials](docs/PROGRESS-2026-10-30-IPC-APPS.md) · [Earlier GL/WM investigation](docs/PROGRESS-2026-10-30-GL-INTEGRATION.md) · [30 October progress log](docs/PROGRESS-2026-10-30.md) · [29 October progress log](docs/PROGRESS-2026-10-29.md) · [AI-agent handoff](docs/AI-HANDOFF.md) · [Roadmap](docs/ROADMAP.md) · [Architecture notes](docs/ARCHITECTURE.md)
 
 ## Screenshots from the private QEMU lab (30 October 2026)
 
