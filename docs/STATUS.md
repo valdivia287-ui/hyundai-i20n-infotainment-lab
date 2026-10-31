@@ -1,10 +1,24 @@
-# Research status — 30 October 2026
+# Research status — 31 October 2026
 
-**Experimental, isolated QEMU/Weston/Wayland IVI Hyundai i20 N infotainment laboratory.** **New milestone (30 October): original Home and ApplicationManager coexisted for 10 minutes** in a disposable guest using a separate SysV IPC namespace for the manager. Original Home navigation and its `appid=500` request are demonstrated in other completed runs. **No second original application has rendered or become interactive yet.** See [latest IPC/application trials](PROGRESS-2026-10-30-IPC-APPS.md), [earlier GL/WM report](PROGRESS-2026-10-30-GL-INTEGRATION.md) and [agent handoff](AI-HANDOFF.md).
+**Experimental, isolated QEMU/Weston/Wayland IVI Hyundai i20 N infotainment laboratory.** Original Home is fullscreen and navigable. OEM ApplicationManager and AppStandbyClock can coexist with Home for **ten guest minutes** in a laboratory setup. **AppStandbyClock and AppEngineerMode have drawn limited genuine UI, but neither is stable/fully interactive**. Latest verified owner-reported private status: **31 October 2026, 11:34 UTC**. See [31 October OEM app trials](PROGRESS-2026-10-31-OEM-APPS.md), [earlier IPC milestones](PROGRESS-2026-10-30-IPC-APPS.md) and [agent handoff](AI-HANDOFF.md).
 
 > Evidence qualification: the findings below are based on progress logs and screenshots supplied by the owner; the underlying private VM, complete traces and diffs have not been independently inspected for this public report.
 
-## Newest reported milestone — 30 October, 19:22 UTC status
+## Newest reported milestone — 31 October, 11:34 UTC status
+
+**Home/geometry:** a separate, reversible Weston 1.10 fullscreen HMI-controller module initialized **FULL_SCREEN** instead of the original Weston lab TILING state; this removed the earlier **320×365** tiling without `CA_FORCE_HOME_DESTINATION`. The OEM Home original QML again registered navigation. A threaded Qt scene-graph mode for Home prevented a previous overlap-related watchdog in controlled trials. Distinct baselines remain intact.
+
+**Four-component stability:** private run `20261030T212548Z-18144-1` kept **Weston + original Home + original ApplicationManager + original AppStandbyClock** alive at guest uptime **619.73s**. Later run `20261031T102501Z-6447-1` repeated **619.96s**, Home heartbeat seq **112**, no watchdog on requested shutdown. The manager continues using a **separate SysV IPC namespace**; original OEM IPC is **not fully reproduced**.
+
+**AppStandbyClock original interface:** real Clock `show_window_fg` call at app ID **14** returned `int32 1`; intermittent original **Confirm / Language** and `--:--` appeared, alternating with black. This is **partial real rendering**, not a usable clock. Earlier Standby/Valet successful manager foreground requests had rendered only white.
+
+**Confirm diagnosis (latest):** while Confirm/Language was loaded, a private QML state probe showed **`enableBtn=0`, `enableTouch=false`**. The original QML disabled the MouseArea, explaining ignored pointer events. Setting `temporal=true` alone was insufficient. Static OEM inspection linked **reason 11** to `eUSER_INPUT_STANDBY_AGREE_ENABLE`; the run `20261031T112444Z-17824-1` measured **`enableBtn=1`** at 20 and 60s with reason 11 and temporal=true—but **`item1=false`, `item2=false`, `isDrawed=false`**. **Not proven:** simultaneous visible and enabled Confirm, or a successful QML click. Proposed next lab trial: **reason 10 to show, then reason 11 to enable**, preserving an isolated overlay.
+
+**AppEngineerMode:** launching original **UserProfileManager** created `KEYSUPPORTCHINESE` shared memory, resolving a prior EngineerMode null-access dependency. In `20261031T091312Z-3435-1` the **original EngineerMode** registered with the manager as app ID **301**, created two IVI surfaces and displayed its **“Engineering Mode”** title fullscreen. Manager's **AppAlive** then timed out and initiated **AppKill()/SIGTRAP**. Without manager, the app's main thread remained in `poll` on its Wayland fd 9 after drawing; D-Bus is fd 17. Exact root cause is **not yet known**; only the title, not a complete engineering UI, was displayed.
+
+**Interpretation:** These advances establish **a limited second original application rendering path**, but **neither interactive clock/EngineerMode nor Home→app→Home has been demonstrated**. No synthetic vehicle/D-Bus service or original AppLauncher was installed as a finished solution. Full details and caveats: [31 October evidence chronology](PROGRESS-2026-10-31-OEM-APPS.md).
+
+## Earlier reported milestone — 30 October, 19:22 UTC status
 
 - **Ten-minute simultaneous operation:** run `20261030T175729Z-3869-1` reportedly kept real `AppHomeScreen`, original `ApplicationManager` and Weston GL/OEM IVI WM alive at **5 and 10 minutes**. Captures show **1280 × 730** Home without Pixman assertion or watchdog failure. This was **not** a demonstrated 10-minute interactive-app test.
 - **Watchdog mechanism narrowed:** Home's main thread was blocked in SysV `semtimedop` for Qt semaphore **`MICOMSTATUSMESSAGE`** while original ApplicationManager held the semaphore without the shared-memory state needed to release it. Stopping the manager released Home. The reported workaround runs the manager with **`unshare(CLONE_NEWIPC)=0`** in a separate IPC namespace; OEM shared-memory/IPC behavior remains **incomplete**.
@@ -52,7 +66,7 @@ The owner has now provided Codex's detailed 30 October notes for **three new dis
 - The binary's references to `ivi_info_requester` / `ivi_window_manager` are useful leads for compositor protocol compatibility, **not proven explanations** for the null access. Likewise, MICOM/shared-memory/persistence warnings are not yet shown to cause it.
 - Lab-only changes reported in `guest/guest-session.sh`, `host/worker.py`; **`CA_IVI_ORIGINAL_WM=1` defaults to off**, preserving the known working Home path.
 
-**No original secondary app has opened yet.** First isolate the Pixman offending buffer/client and inspect the precise manager fault. See [30 October progress](PROGRESS-2026-10-30.md) for run IDs and bounded testing sequence.
+**Historical note:** no secondary app had opened during these earlier runs. Subsequent 31 October experiments **did** render original content from Standby and EngineerMode, though neither became fully usable. See [the latest report](PROGRESS-2026-10-31-OEM-APPS.md).
 
 ## Historical completed-run checkpoint: GL/WM integration (30 October, before IPC fix)
 
@@ -68,11 +82,12 @@ The owner supplied a read-only tracking package of completed tests, allowing mor
 
 ## Next work
 
-- Read the **newest** completed `runs/` after the **19:22 UTC report**. In particular, inspect any results of the AppStandbyClock trial; do not assume it worked.
-- Preserve **two different baselines**: original interactive Home, and ten-minute Home+manager co-existence with the manager in a separate IPC namespace.
-- Investigate genuine ApplicationManager error **255**, original D-Bus services, failed `Peer.Ping` and manager-triggered SIGTRAP/SIGKILL as **unresolved OEM startup dependencies**; don't use synthetic answers to claim a working app.
-- Continue original AppSetup / StandbyClock launch experiments. Surface creation alone does **not** constitute rendered or interactive app execution: require attach/commit, visual evidence, user input, and Home return.
-- Maintain disposable overlays, avoid vehicle interaction or OEM asset publication. Later stages: repeatability, translations/ASTC gaps and Windows one-click launcher.
+- Inspect newer local runs **after the 11:34 UTC status**, if any, before treating the next trial as pending.
+- Preserve separate references for Home page navigation, Home+manager stability, and **four-component 10-minute** guest stability. Do not let two agents edit/run the same guest/overlay.
+- In Standby, test original **reason 10 → reason 11, temporal=true** in a fresh overlay; prove simultaneously visible **and** enabled Confirm, followed by genuine QML input, a stable screen and Home return. Investigate unexplained black intervals separately.
+- In EngineerMode, isolate the **Wayland main-thread wait** and manager **AppAlive/NoReply → AppKill** interaction. A fullscreen title is **not** a functional settings/engineering app.
+- Map original service/IPC dependencies before implementing any **minimal synthetic virtual vehicle service**; prioritize real OEM services already recovered, such as UserProfileManager. Do not fabricate D-Bus success.
+- Target an interactive second original application and repeatable Home→app→Home, followed by Windows one-click launch. Never flash or interface with a physical vehicle.
 
 ## Publication
 
