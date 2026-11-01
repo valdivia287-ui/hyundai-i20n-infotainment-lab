@@ -4,7 +4,21 @@ This is the public project brief for Claude Code. **Read [docs/AI-HANDOFF.md](do
 
 **Important:** reading this file does not load Codex's former chat, private WSL filesystem, QEMU overlays, or pending processes. To resume the exact experiment, **Claude Code must run with permitted local access to the owner's Ubuntu-24.04 WSL lab and inspect the latest private state and evidence first.** Do not claim continuity based on documentation alone.
 
-## Current checkpoint — 1 November 2026, 01:58 UTC
+## Current checkpoint — 1 November 2026, 10:19 UTC
+
+**Start here:** [new original Confirm→Home navigation and AppLauncher/Radio report](docs/PROGRESS-2026-11-01-HOME-CONFIRM-LAUNCHER-RADIO.md). Latest private owner-supplied status is **10:19 UTC**; always inspect later private run results first.
+
+- **Original AppLauncher** now runs a restricted original Home + ApplicationManager + Standby configuration. Suppressing **duplicate inherited `QT_WAYLAND_SHELL_INTEGRATION=ivi:ivi`** fixes a guest Wayland protocol error and secondary Home SIGSEGV (`20261101T032004Z-1523-1`). A **lab-only AppLauncher group timer 10→120s extension** permits the original Standby registration (`20261101T034232Z-26717-1`); this is not unmodified OEM startup timing.
+- **Critical causality control:** original **Standby 10s QTimer** requests return to Home *automatically*, with **`(304,2,12,1,0)`**, even without Confirm input; directly traced in `20261101T091352Z-1495-1`. Earlier no-click Home returns are not evidence of Confirm functionality.
+- **Confirm-driven return is now proven in a controlled test:** `20261101T095204Z-16827-1` and **`20261101T095842Z-17749-1`** increased **only original Standby identified QTimer from 10000 to 45000 ms via reversible private preloaded probe**; a single real original QML Confirm click generated **the first and only authentic `(304,2,12,1,0)`**. Original manager reported standby12 and **drawn original Home11**. In the second run an original pointer drag displayed the complete original second Home page despite a partially rendered earlier screenshot. **Do not claim it works unchanged at OEM 10s timing, or that graphics are stable.**
+- **Experimental compositor adjustment remains required:** original Home1001 can be parked hidden in layer4000 when original Standby1000 foregrounds. Lab `hmi-controller-home-repair.so` opt-in moves Home into active layer102 after Standby releases buffer. It is not a stock behavior guarantee.
+- **Original Settings submenu verified in separate automatic-return runs:** original Home QML opens Settings and goes back to original Home page1 (`20261101T052217Z-19198-1`, `20261101T053427Z-13124-1`). This is not original separate AppSetup launching.
+- **Latest Radio work:** original Home Radio itemID4 genuinely sent **`(304,70,32,1,0)`** to original ApplicationManager in `20261101T101301Z-27925-1`. **No AppEURadio PID**, manager still drawn Home11 after +20/+40 seconds. Return **255 alone is not a definitive failure code**. Reduced launcher app list only has manager/Home/Standby; original appid70 registration and possible on-demand launch remain to investigate.
+- **Earlier 1 November MICOM/power=16 findings** remain important historical experimental evidence; do not infer that the newer launcher-controlled Confirm tests used that same UART profile.
+
+**Next step:** Inspect latest private evidence, then investigate original **AppEURadio** registration and startup behavior (appid70), with a single-variable disposable-overlay experiment; require real PID, D-Bus manager transition, Wayland surface/buffer and AppAlive before claiming Radio works. Independently improve graphics and original 10s timer fidelity. Keep immutable original firmware, exact old baselines, no vehicle/CAN/flashing, no public OEM assets/logs and one active VM operator.
+
+## Previous checkpoint — 1 November 2026, 01:58 UTC
 
 **Highest-priority report:** [Original MICOM and ApplicationManager power state](docs/PROGRESS-2026-11-01-MICOM-POWER-STATE.md). **Check newer local owner-private runs first**, particularly **`20261101T015819Z-13437-1`** (still in progress at snapshot cutoff).
 
@@ -45,7 +59,8 @@ This is the public project brief for Claude Code. **Read [docs/AI-HANDOFF.md](do
 
 ## Immediate task
 
-1. Check latest private completed runs, particularly **`20261101T015819Z-13437-1`**, and inspect active QEMU/agent ownership before launching experiments. Snapshot latest owner report: **01:58 UTC 1 November**.
-2. In the validated MICOM+DLT+original Home+manager+Standby environment, verify the original **manager power=16 at test time**, call original `set_request_standby_screen`, and compare **original `ask_standby_status` 10 versus 11**. Log original call/reply/state; **do not assume 11**.
-3. If 10 persists, inspect original code's other guards and boot dependencies. If state becomes 11, separately test original Confirm click and **actual visible interactive Home return**, verifying manager layers, callbacks, AppAlive and no crash/black-screen regression.
-4. Preserve all old baselines, one QEMU controller, disposable overlays and independent agents/worktrees. The synthetic serial reply, manager IPC isolation, Weston callback rescue, Home-only llvmpipe and private QML focus adjustment remain experimental. No hardware vehicle testing, OEM asset or packet publication, generic always-success D-Bus stand-ins or secret leakage.
+1. Inspect newest private local runs (the owner report cutoff is **2026-11-01 10:19 UTC**) and current QEMU ownership. Do not launch a second virtual guest concurrently.
+2. Preserve **`20261101T095842Z-17749-1`** separately as the **genuine Confirm-click→original Home navigable** experiment with *reversible 45s Standby timer + custom HMI Home foreground repair*, as well as baseline `20261030T020654Z-13522-1`.
+3. Trace original **Radio icon request `(304,70,32,1,0)`** to actual appid70/ **AppEURadio** registration and possible on-demand startup from original AppLauncher. Keep one variable per disposable overlay. Require original PID, successful manager foreground/drawing state, visible Wayland buffers and stable AppAlive before reporting independent Radio app success.
+4. Later reduce lab-only timers and Weston repairs by understanding QEMU TCG timing, original QTimer automatic return and original compositor frame-callback semantics. Separate cause-specific benchmark tests from functional profiles. Do not misinterpret a standalone `255` reply or AppLauncher timed-out preload completion.
+5. Do not publish original firmware/binaries/QML/graphics, synthetic UART packet bytes, private traces/cores or unapproved screenshots. No physical vehicle, CAN injection or firmware flashing; agents use separate worktrees and one guest owner.
