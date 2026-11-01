@@ -4,6 +4,8 @@
 >
 > **New verified milestone:** Original Hyundai MICOM responded to a **single synthetic virtual-hardware boot-information reply** via QEMU UART. MICOM itself emitted the corresponding **genuine D-Bus response**, original ApplicationManager accepted it (`reply is VALID`), and the manager's **`power_status` changed from 1 to 16**. **This does NOT yet prove `currentStandbyStatus` changed from 10 to 11 or that Standby returns to Home.** That integration was still under test at the report cutoff.
 
+> **Update, later the same day (owner report cutoff 10:19 UTC):** Subsequent private tests **did** demonstrate manager standby-state changes using original OEM paths and, in a **distinct AppLauncher-managed test profile**, original Confirm-click-driven **Standby→Home with an interactive original Home** using experimental timer/compositor adjustments. This document **remains a historical 01:58 UTC snapshot**, so its earlier `10→11` / Home-return "not yet proven" statements refer **only to that earlier cutoff**. Do **not** assume the later AppLauncher profile used this MICOM UART fixture. Read [the newer original Confirm/AppLauncher/Radio report](PROGRESS-2026-11-01-HOME-CONFIRM-LAUNCHER-RADIO.md) for exact evidence and caveats.
+
 ## Why this matters
 
 On 31 October the original AppStandbyClock's Confirm button became genuinely interactive in a controlled private lab QML overlay (pressed/released/btnClicked: **P=R=C=1**). Its resulting original request **appid 2, reason 12** was rejected by original ApplicationManager with **`currentStandbyStatus[10]` / `StandbyStatus is not enabled[10]`**. The return-to-Home transition has not been achieved. See [31 October foreground and return investigation](PROGRESS-2026-10-31-HOME-STANDBY-INTEGRATION.md).
