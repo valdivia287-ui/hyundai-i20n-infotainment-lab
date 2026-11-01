@@ -1,10 +1,22 @@
-# Research status — 31 October 2026
+# Research status — 1 November 2026
 
-**Experimental, isolated QEMU/Weston/Wayland IVI Hyundai i20 N infotainment laboratory.** Genuine OEM Home navigation **0→1→0** works with original ApplicationManager active; original Standby displays **Confirm/Language** and a controlled test has delivered all three OEM button signals (**pressed/released/btnClicked**). Home can survive the Standby foreground transition using **experimental** callback rescue and Home-only Mesa llvmpipe. **Home return remains rejected by the manager's Standby-state guard**; a finished Home→app→Home flow is not available. Latest owner-supplied completed-run status: **31 October 2026, 16:43 UTC**. See the [new foreground/return investigation](PROGRESS-2026-10-31-HOME-STANDBY-INTEGRATION.md), [earlier application study](PROGRESS-2026-10-31-OEM-APPS.md) and [AI handoff](AI-HANDOFF.md).
+**Experimental, isolated QEMU/Weston/Wayland IVI Hyundai i20 N infotainment laboratory.** New 1 November milestone: **original MICOM + original ApplicationManager exchanged a real D-Bus boot-information response**, after a **single synthetic QEMU UART hardware reply**, and manager **`power_status` changed 1 → 16**. This is *not* a full hardware emulator or an OEM Standby return. Previously confirmed: Home original fullscreen navigation **0→1→0** with original manager, original Standby Confirm clicks (**P=R=C=1**), and bounded Home survival through foreground using experimental HMI callback rescue / Home-only llvmpipe. **Still unresolved:** manager `currentStandbyStatus` 10→11 and a complete Home→Standby→Home flow. Latest owner-supplied snapshot: **1 November 2026, 01:58 UTC**. See [the 1 November MICOM report](PROGRESS-2026-11-01-MICOM-POWER-STATE.md), [31 October transition diagnostics](PROGRESS-2026-10-31-HOME-STANDBY-INTEGRATION.md) and [AI handoff](AI-HANDOFF.md).
 
 > Evidence qualification: the findings below are based on progress logs and screenshots supplied by the owner; the underlying private VM, complete traces and diffs have not been independently inspected for this public report.
 
-## Latest reported milestone — 31 October, 16:43 UTC status
+## Latest reported milestone — 1 November, 01:58 UTC status
+
+**Power-state gating narrowed (static OEM inspection):** original ApplicationManager's `set_request_standby_screen` returned **`Logic OFF`** and `ask_standby_status` stayed **10→10** in `20261101T012316Z-4751-1` while the manager held `power_status=1`. Static inspection indicated the branch emitting Standby state **11** needs manager power property **16**. This is a **precondition finding**, not proof that power 16 alone enables a screen return.
+
+**Original MICOM service starts:** in `20261101T013557Z-29220-1`, original MICOM failed terminal ioctls `TCGETS/TCSETS` on `/dev/ttyS1` with `EIO`; launching original DLT alone was insufficient. In `20261101T013715Z-19560-1`, a second QEMU UART with **null backend** allowed original MICOM to register **`com.lge.car.micom`** on the system D-Bus in a bounded 60s experiment. This proves the initialization dependency, not actual car-protocol support.
+
+**Real end-to-end OEM software response from synthetic UART input:** direct `NotifyMonitorPowerEvent(16)` reached manager but kept `power_status=1` (`20261101T014824Z-15950-1`). In `20261101T015448Z-28405-1`, **one synthetic serial response** to original MICOM `AskSysBootinfo` yielded **original MICOM D-Bus response**, accepted by original manager (`reply is VALID`), which changed **`power_status=1→16`**; original status getter returned **16** and Home was visibly fullscreen at 110s. The serial reply identifier **0x8201** and power byte **2** came from original OEM binary inspection; all remaining payload fields were **zero-filled synthetic test data**, **not captured from any vehicle**.
+
+**Pending at cutoff:** isolated run `20261101T015819Z-13437-1` was **in progress**, combining MICOM+DLT with the established original Home+manager+Standby profile. Its first objective is to test whether the authentic `set_request_standby_screen` call now changes internal **`currentStandbyStatus` 10→11** when **`power_status=16`**. **No outcome, Confirm→Home return, or complete graphical stability is yet documented for this run.**
+
+[Complete sanitized 1 November chronology](PROGRESS-2026-11-01-MICOM-POWER-STATE.md).
+
+## Previous reported milestone — 31 October, 16:43 UTC status
 
 **Real second-application button interaction:** in `20261031T132500Z-6658-1`, original AppStandbyClock displayed loaded+enabled **Confirm** and a controlled button interaction produced **P=1, R=1, C=1** (original pressed, released, btnClicked). The resulting original `appid=2, reason=12` transition request reached ApplicationManager, but was rejected, first because the manager did not regard Standby as the drawing app, and later for its *internal Standby state*. This **supersedes** the prior 11:34 note saying click never succeeded.
 
@@ -98,13 +110,13 @@ The owner supplied a read-only tracking package of completed tests, allowing mor
 
 ## Next work
 
-- Start with the **newest private run** after 16:43 UTC, if any. Preserve original interactive/fullscreen Home, ten-minute multi-OEM coexistence and the current bounded foreground-stability reference as different test baselines.
-- Study the original **manager Standby-state writer/event path** (not only `ask_standby_status` reader or outgoing `standby_status` signal). Identify how original standby state stops being 10 and enables the **appid2/reason12** return transition. The `NotifyConfirmStatus(false)` boolean does not establish that change.
-- **Do not repeat** direct event **322** or manager request **appid10/reason11** as purported fixes; both returned **255** without a Home return.
-- Ensure the experimental hidden-Home frame-callback rescue and **Home-only** llvmpipe remain opt-in, reversible and documented. Probe actual client callbacks, Home's AppAlive responsiveness, original Standby screen visibility and genuine input. The persistent black screen remains unsolved.
-- Demonstrate and repeat **Home → Standby → Home**, maintaining correct geometry/interaction and avoiding manager kill or watchdog, before claiming a usable second application.
-- Prioritize original OEM services and traced contracts over blanket fake D-Bus responses. Keep separate Codex agents in separate worktrees and never let both control the same guest.
-- No publication of original firmware/QML/binaires, unapproved images or raw traces; no interaction with the real car.
+- First inspect **newer private runs after 01:58 UTC 1 November**, especially results from **`20261101T015819Z-13437-1`**, before repeating or extending tests.
+- Confirm original manager **`power_status=16` at the exact time of the original standby-screen request**, then compare original `ask_standby_status` before/after. Do **not** treat power 16 as a demonstrated Standby 11 or Home return.
+- If **Standby remains 10**, trace the **remaining original conditional/boot/lifecycle dependency**, one variable at a time, keeping the genuine original bus behavior; no fabricated D-Bus state setter or arbitrary always-success stub.
+- If **Standby changes to 11**, in a separate new overlay prove genuine Confirm→Home with visible original Home, page navigation, expected original manager front/draw state, frame callbacks, heartbeat/AppAlive and no watchdog or manager SIGTRAP.
+- Preserve original interactive/fullscreen baseline, the four-process ten-minute coexistence evidence, the prior bounded foreground-stability profile, original MICOM/serial test setup and **immutable firmware**. Mark synthetic UART fixture, separate SysV IPC namespace, HMI callback rescue, Home-only llvmpipe and private QML input edits **experimental**.
+- Do not repeat rejected direct event 322 or manager appid10/reason11 as purported fixes, and do not let two agents run/edit one VM or overlay.
+- No real vehicle, CAN traffic, firmware flashing, OEM binaries/assets, raw UART bytes, private logs or unapproved images on public GitHub.
 
 ## Publication
 
