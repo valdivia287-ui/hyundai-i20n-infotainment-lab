@@ -1,6 +1,14 @@
+> Latest blocker traced: original Home Peer.Ping returns NoReply; ApplicationManager reaches alive-count6 and orders AppKill (`20261101T143925Z-replay-bb73e0-1`). Diagnose Home delivery/main-thread state next. Original Radio FM rendering is observed; combined stability, interaction and return remain pending.
+
+> Latest private runtime evidence: original AppEURadio77 launched, registered and displayed its FM interface. Station-list interaction, audio/tuner behavior, Home-driven launch and combined Home stability remain unverified. The prior Confirm detector confused Radio for Confirm in one run; that run is not a Confirm success. See [Radio report](PROGRESS-2026-11-01-RADIO-FILTERING.md).
+
+> Runtime update: a one-byte synthetic UART boot-info change (country0→5) through original MICOM made original AppLauncher report Europe and admit AppEURadio77 in group4 (`20261101T140338Z-23977-1`). Independent Radio UI/audio remains unverified; see the linked report below.
+
+> Update, 1 November 2026: [Radio filtering evidence and modular simulation scope](PROGRESS-2026-11-01-RADIO-FILTERING.md). Original Home requests logical Radio70; static launcher entry identifies AppEURadio77. AppEURadio was omitted from both group3 and group4; populating group3 with accepted AppOSDManager22 did not admit Radio in group4. Next: map the OEM startup eligibility input from bounded MICOM/AppLauncher traffic. Confirm→Home benchmark and its experimental timing/foreground limitations remain in force. Radio/GNSS/modem/navigation functionality is not yet established.
+
 # AI agent handoff — Hyundai i20 N infotainment lab
 
-**Snapshot: 1 November 2026, 10:19 UTC — original Standby Confirm click now triggers an authentic single return request and original Home is navigable after return, in a bounded QEMU profile with reversible 10→45 s clock timer extension and an experimental Weston foreground repair. The original Radio icon's genuine launch request is confirmed but AppEURadio is not started.** This public note gives new agents a **precise, non-proprietary handoff**. It is **not** a replacement for private WSL run logs, exact scripts, overlays, and captured screens.
+**Earlier snapshot: 1 November 2026, 10:19 UTC — original Standby Confirm click now triggers an authentic single return request and original Home is navigable after return, in a bounded QEMU profile with reversible 10→45 s clock timer extension and an experimental Weston foreground repair. The original Radio icon's genuine launch request is confirmed but AppEURadio is not started.** This public note gives new agents a **precise, non-proprietary handoff**. It is **not** a replacement for private WSL run logs, exact scripts, overlays, and captured screens.
 
 Read [status](STATUS.md), [latest 1 November Confirm/AppLauncher/Radio report](PROGRESS-2026-11-01-HOME-CONFIRM-LAUNCHER-RADIO.md), [earlier 1 November MICOM/power report](PROGRESS-2026-11-01-MICOM-POWER-STATE.md), [31 October foreground/return report](PROGRESS-2026-10-31-HOME-STANDBY-INTEGRATION.md), [earlier 31 October secondary-app trials](PROGRESS-2026-10-31-OEM-APPS.md), [earlier IPC/application trials](PROGRESS-2026-10-30-IPC-APPS.md), [earlier GL/WM report](PROGRESS-2026-10-30-GL-INTEGRATION.md), [30 October timeline](PROGRESS-2026-10-30.md), [CLAUDE.md](../CLAUDE.md), [architecture](ARCHITECTURE.md) and [provenance](../PROVENANCE.md).
 
@@ -83,7 +91,7 @@ Read [status](STATUS.md), [latest 1 November Confirm/AppLauncher/Radio report](P
 ## Environment
 
 - Private Windows 11 Pro system: Ryzen 7 5800X, RTX 3080 Ti, 32 GiB RAM.
-- WSL distribution **Ubuntu-24.04**, private lab path `/home/valdi/i20n-lab/codex-autonomo`.
+- WSL distribution **Ubuntu-24.04**, private lab path `<OWNER_HOME>/i20n-lab/codex-autonomo`.
 - QEMU Linux guest using isolated disposable overlays; Weston/Wayland IVI, original OEM Qt 5.4.1 and `AppHomeScreen`. Current reliable software-rendered profile must be preserved.
 - GitHub provides project documentation, **not** the private firmware/VM or source code of the OEM UI.
 

@@ -1,13 +1,27 @@
-# Architecture — known pieces
+# Modular offline laboratory architecture
 
-**Private lab (overview):** Windows / WSL Ubuntu 24.04 host → QEMU guest → Linux kernel and isolated recovered userspace → Weston/Wayland IVI → original Qt 5.4.1 client → QML test scene / attempted `AppHomeScreen` initialization.
+| Module | Boundary and present status |
+| --- | --- |
+| QEMU / Linux | Disposable overlays, private OEM inputs, isolated network |
+| Weston / graphics | IVI, software GL; experimental Home foreground repair opt-in |
+| Hyundai applications | Original private executables/resources; no public redistribution |
+| ApplicationManager / AppLauncher | Original processes; restricted private preload list, experimental timing |
+| MICOM / virtual hardware | Prefer original MICOM downstream of explicit synthetic UART fixtures |
+| Virtual GNSS | Contract discovery pending; fixed synthetic position first, route replay later |
+| Modem / SIM / connectivity | Contract discovery pending; no real SIM or Hyundai cloud impersonation |
+| Laboratory D-Bus | Only observed contracts, deterministic labelled simulation, independently switchable |
+| Navigation / maps | Launch, map availability, position reception and routing validated separately |
+| Windows launcher | Consolidation pending after the functional application profile |
+| Diagnostics | Bounded traces kept private; public tool operates on an explicitly selected PID |
 
-## Observed interfaces
+Experimental modules remain separate from functional reference profiles until validated. A synthetic input fixture must state its source, interface, arguments, expected response and observed OEM effect. “Service running”, “valid position”, “map displayed” and “route calculated” are separate results.
 
-- Qt client uses `ivi_controller` and `ivi_application`; a missing controller caused an earlier null dereference. Enabling an original IVI module in an isolated experimental configuration allowed minimal Qt rendering.
-- `AppHomeScreen` attempts `socket(AF_CAN, SOCK_RAW, 1)`; absent guest SocketCAN produced `EAFNOSUPPORT` and later SIGABRT from invalid descriptor handling.
-- `AppHomeScreen` later called `ivi_application.surface_create(0, ...)` and committed a buffer, with no verified OEM HMI on screen.
-- Original resource paths and selected theme variants still require investigation.
-- Some image assets use ASTC; the tested Mesa software path reported `GL_INVALID_ENUM`.
+See [current status](STATUS.md), [latest Radio investigation](PROGRESS-2026-11-01-RADIO-FILTERING.md) and [firmware acquisition rules](FIRMWARE-SOURCE.md).
 
-**Scope:** these are observations from a private research environment, not installation instructions or verified behavior of every Hyundai/Kia system. Do not publish or upload proprietary input images.
+## Original diagnostic tool
+
+`bash tools/trace-process.sh PID NEW_OUTPUT_DIRECTORY SECONDS` attaches a bounded strace (1–30 seconds), then interrupts only its own tracer. It does not signal the selected application. Requires Bash and strace plus existing local ptrace permission; do not change global security settings to run it. Output can contain proprietary data or identifiers and must remain outside the public working tree. Validate application behavior separately because tracing can affect timing.
+
+The tool is original laboratory code under the repository MIT license. No OEM files or code are included.
+
+The published boot-info fixture retains diagnostic payload byte1=2, observed as manager power16. It reproduces the eligibility experiment; it is not a ready-to-use Home operating profile.

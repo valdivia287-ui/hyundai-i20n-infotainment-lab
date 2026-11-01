@@ -1,10 +1,12 @@
+> Newer checkpoint: see [Radio filtering and simulation scope](docs/PROGRESS-2026-11-01-RADIO-FILTERING.md). Preserve distinctions between logical Radio70, AppEURadio77, static eligibility analysis and actual runtime launch.
+
 # Hyundai i20 N Infotainment Lab — CLAUDE.md
 
 This is the public project brief for Claude Code. **Read [docs/AI-HANDOFF.md](docs/AI-HANDOFF.md) and [docs/STATUS.md](docs/STATUS.md) first.** Also review [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [PROVENANCE.md](PROVENANCE.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
 **Important:** reading this file does not load Codex's former chat, private WSL filesystem, QEMU overlays, or pending processes. To resume the exact experiment, **Claude Code must run with permitted local access to the owner's Ubuntu-24.04 WSL lab and inspect the latest private state and evidence first.** Do not claim continuity based on documentation alone.
 
-## Current checkpoint — 1 November 2026, 10:19 UTC
+## Earlier checkpoint — 1 November 2026, 10:19 UTC
 
 **Start here:** [new original Confirm→Home navigation and AppLauncher/Radio report](docs/PROGRESS-2026-11-01-HOME-CONFIRM-LAUNCHER-RADIO.md). Latest private owner-supplied status is **10:19 UTC**; always inspect later private run results first.
 
