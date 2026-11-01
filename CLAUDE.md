@@ -4,7 +4,19 @@ This is the public project brief for Claude Code. **Read [docs/AI-HANDOFF.md](do
 
 **Important:** reading this file does not load Codex's former chat, private WSL filesystem, QEMU overlays, or pending processes. To resume the exact experiment, **Claude Code must run with permitted local access to the owner's Ubuntu-24.04 WSL lab and inspect the latest private state and evidence first.** Do not claim continuity based on documentation alone.
 
-## Current checkpoint — 31 October 2026, 16:43 UTC
+## Current checkpoint — 1 November 2026, 01:58 UTC
+
+**Highest-priority report:** [Original MICOM and ApplicationManager power state](docs/PROGRESS-2026-11-01-MICOM-POWER-STATE.md). **Check newer local owner-private runs first**, particularly **`20261101T015819Z-13437-1`** (still in progress at snapshot cutoff).
+
+- **Original hardware-dependent service started:** `20261101T013715Z-19560-1` showed that adding a second QEMU UART **with null backend** eliminated original MICOM's `TCGETS/TCSETS` `EIO` and permitted the original `com.lge.car.micom` service to register on **system D-Bus**; MICOM did not contact a real car.
+- **Authentic OEM MICOM→manager data path reproduced from one *synthetic* hardware event:** in **`20261101T015448Z-28405-1`**, a lab-generated UART response to original **`AskSysBootinfo`** made the OEM MICOM send a genuine D-Bus reply; original ApplicationManager logged **`reply is VALID`**, moved **`power_status=1→16`**, and its getter returned 16. The UART response ID **0x8201** and power byte **2** were derived from original binary inspection, while **all remaining response fields are synthetic zeros**. No physical vehicle messages were captured or sent. Do not mistake one packet for a complete MICOM protocol emulator.
+- **Condition found, Standby transition unproven:** manager `set_request_standby_screen` stayed at **`ask_standby_status=10`** and logged **`Logic OFF`** while power was **1** in `20261101T012316Z-4751-1`. Original manager static analysis indicates the code branch that sends state **11** requires power **16**. **No proof yet** that the combined run changed status from **10 to 11** or returned Home.
+- **Active integration at cutoff:** `20261101T015819Z-13437-1` joined original Home, ApplicationManager, Standby, MICOM and DLT with the controlled UART response. Its **first** test gate is `power_status=16` at method-call time, followed by **`set_request_standby_screen` / `ask_standby_status`** before/after and result **10 or 11**. Only after a confirmed 11, run a separate genuine Confirm→Home test.
+- **Earlier working baselines** remain valid: original Home 0→1→0 with manager, original Standby Confirm button emits actual P=R=C=1, and Home stays alive when hidden under experimental Weston frame-rescue with Home-only Mesa llvmpipe. **Original Home return is still not demonstrated**; manager SysV IPC namespace remains isolated. No proprietary binaries or assets in public repository.
+
+**Agent priority:** preserve authentic OEM call chain and one-variable tests. Do not fall back to direct `NotifyMonitorPowerEvent(16)`, event322 or manager appid10/reason11 as proven fixes—they were specifically unsuccessful. Distinguish original OEM outputs from synthetic UART hardware inputs; no real vehicle, no CAN traffic, no firmware flash, no raw response packet publication.
+
+## Previous checkpoint — 31 October 2026, 16:43 UTC
 
 **Read the latest [Home/Standby foreground integration](docs/PROGRESS-2026-10-31-HOME-STANDBY-INTEGRATION.md), [handoff](docs/AI-HANDOFF.md) and [status](docs/STATUS.md).** Older 11:34 UTC notes predate **verified OEM Confirm clicks** and the registered-Home survival improvement.
 
@@ -33,8 +45,7 @@ This is the public project brief for Claude Code. **Read [docs/AI-HANDOFF.md](do
 
 ## Immediate task
 
-1. On the owner's machine, **inspect newest private runs and current processes first**; these public notes end at **31 October 2026, 16:43 UTC** and may now be stale.
-2. Keep original page-navigation, fullscreen, ten-minute multiprocess and the 16:43 callback-rescue/Home-only-llvmpipe profiles as separate, hash-verifiable disposable overlays; no conflicting concurrent agent actions.
-3. **Locate the authentic writer/transition of ApplicationManager currentStandbyStatus (currently 10).** Do not misinterpret read-only `ask_standby_status` or outgoing signal as a setter. Previous direct event322 and manager appid10/reason11 attempts were rejected: do not repeat unchanged.
-4. Design a **single-variable, bounded** original OEM interaction to validate state before/after Confirm click and return. Require original **Home** restored on-screen with page navigation, Standby hidden correctly, D-Bus calls/response, real Wayland frame callbacks, stable AppAlive and correct geometry.
-5. Remain honest about **lab-only** framebuffer callback rescue, focus MouseArea z-order, llvmpipe Home-only and separate IPC namespace, and about Standby's unresolved intermittent black screen. Keep original OEM assets untouched, no physical vehicle contact and publish only sanitized evidence or license-audited original code.
+1. Check latest private completed runs, particularly **`20261101T015819Z-13437-1`**, and inspect active QEMU/agent ownership before launching experiments. Snapshot latest owner report: **01:58 UTC 1 November**.
+2. In the validated MICOM+DLT+original Home+manager+Standby environment, verify the original **manager power=16 at test time**, call original `set_request_standby_screen`, and compare **original `ask_standby_status` 10 versus 11**. Log original call/reply/state; **do not assume 11**.
+3. If 10 persists, inspect original code's other guards and boot dependencies. If state becomes 11, separately test original Confirm click and **actual visible interactive Home return**, verifying manager layers, callbacks, AppAlive and no crash/black-screen regression.
+4. Preserve all old baselines, one QEMU controller, disposable overlays and independent agents/worktrees. The synthetic serial reply, manager IPC isolation, Weston callback rescue, Home-only llvmpipe and private QML focus adjustment remain experimental. No hardware vehicle testing, OEM asset or packet publication, generic always-success D-Bus stand-ins or secret leakage.
