@@ -1,3 +1,5 @@
+> **Checkpoint 1 November, Home/MICOM:** a synthetic UART input now lets original MICOM answer a demonstrated synchronous Home eCall-status dependency. A subsequent short diagnostic trial with a measured Ping timeout adjustment preserved Home and captured authentic replies; full UI transitions and combined stability remain pending. The Windows script-overwrite path was repaired. See [evidence and limits](PROGRESS-2026-11-01-HOME-MICOM.md). Target configuration is Spain/Europe; Europe selection alone does not establish Spanish language, DAB, maps or timezone.
+
 > Current order: verify original Radio interaction; consolidate Home→Standby→Home with original services; prepare the Windows launcher. In parallel, perform non-invasive GNSS, modem and navigation contract analysis. Keep each adapter opt-in and independently validated.
 
 > Runtime update: a one-byte synthetic UART boot-info change (country0→5) through original MICOM made original AppLauncher report Europe and admit AppEURadio77 in group4 (`20261101T140338Z-23977-1`). Independent Radio UI/audio remains unverified; see the linked report below.

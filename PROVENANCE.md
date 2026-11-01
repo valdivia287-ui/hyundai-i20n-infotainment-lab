@@ -18,3 +18,7 @@ For every imported file or implementation, record:
 Do not copy source or datasets into this public repository until license compatibility is confirmed, required notices are preserved, and the owner has the right to distribute the material. Linking to a third-party repository is **not** permission to relicense its contents. Hyundai OEM binaries, QML, firmware and textures are excluded regardless.
 
 Reference projects may describe different head units or firmware generations. Verify every technical conclusion against the target system.
+
+## Original laboratory additions, 1 November 2026
+
+`tools/uart_framing.py` and `tests/test_uart_framing.py` were written in this laboratory. They were not copied or adapted from upstream projects, contain no OEM code or captured vehicle messages, and use arbitrary synthetic IDs in the public tests. Runtime-specific OEM request mappings remain private.
