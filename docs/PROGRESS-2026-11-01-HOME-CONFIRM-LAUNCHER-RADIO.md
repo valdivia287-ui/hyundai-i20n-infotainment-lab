@@ -1,8 +1,18 @@
 # 1 November 2026 — OEM AppLauncher, real Confirm-driven Home return, Settings and Radio investigation
 
-> **Owner-supplied private progress cutoff: 10:19 UTC, 1 November 2026.** This is a *sanitized* summary of the owner's 532-line `ESTADO-PROYECTO.md` update. The raw runs, stack traces, OEM QML, binaries, screenshots, virtual machines and tools described here remain private. This is **reported local experimental evidence**, not a public, downloadable or independently reproduced Hyundai head-unit emulator.
+> **Owner-supplied private progress cutoff: 10:19 UTC, 1 November 2026.** This is a *sanitized* summary of the owner's 532-line `ESTADO-PROYECTO.md` update. The raw runs, stack traces, OEM QML, binaries, virtual machines and tools described here remain private; **three screenshots explicitly approved by the owner are published below**. This is **reported local experimental evidence**, not a public, downloadable or independently reproduced Hyundai head-unit emulator.
 >
 > **Milestone:** In the private run **`20261101T095842Z-17749-1`**, **one real click on the original Standby Confirm button initiated the first and only original OEM return request**. Original ApplicationManager updated its foreground status to original Home, and a subsequent original pointer drag displayed a complete second page of the original Home UI. This is a controlled **Standby → original Home → interactive Home** path, **dependent on a reversible 10→45-second timer extension and experimental Weston compositing repair**; it is not a production-ready, timing-faithful OEM boot flow.
+
+## Owner-approved screenshot evidence — same bounded run
+
+These **three screenshots were explicitly supplied and approved for public GitHub sharing by the owner**. They are direct UI captures from the private run `20261101T095842Z-17749-1`, not an executable image dump, QML source or independent recreation. Their visual sequence should be interpreted alongside the **private traced click-handler stack, original D-Bus message and input records**; the PNGs alone do not prove why a transition occurred.
+
+| Standby original: Confirm/Language | Home returned but drawing is still incomplete (+55 s) | Home page 1 complete after real drag |
+| :---: | :---: | :---: |
+| [![Original OEM Standby screen: driving warning, Confirm and Language buttons](images/2026-11-01/after-original-confirm-2s.png)](images/2026-11-01/after-original-confirm-2s.png) | [![Original OEM Home partially rendered, Media Off visible after returning](images/2026-11-01/after-original-confirm-55s.png)](images/2026-11-01/after-original-confirm-55s.png) | [![Original OEM Home second page with Phone, Phone projection, Voice memo, Climate, Radio, Media, Manual and Settings](images/2026-11-01/home-after-confirm-drag-left-25s.png)](images/2026-11-01/home-after-confirm-drag-left-25s.png) |
+
+Original unmodified OEM binaries, QML source, firmware, virtual UART payloads, private trace logs and extracted raw resources remain **unpublished**. The project still requires **experimental 10→45-second Standby QTimer extension** and **experimental compositor foreground repair** to reproduce this particular Confirm-controlled UI return.
 
 ## Executive status
 
