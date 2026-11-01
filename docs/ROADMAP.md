@@ -1,4 +1,4 @@
-> **Latest verified flow:** original Confirm → complete original Home icon page → genuine European Radio request77/reason38 → manager drawn77/managed77 and real Radio surface foreground. FM/Station list content was visible at one observation but did not persist. Station interaction, tuning/audio and return remain pending. See [Home to European Radio evidence](PROGRESS-2026-11-01-HOME-TO-EURADIO.md).
+> **Latest verified return:** original Home → European Radio77 → original Home request11/reason30 → Home acknowledgment and manager11/11, with unchanged Home/Radio PIDs in a bounded trial. Station list entered original QML, but content remained incomplete; returned Home was cropped. This is not a stable usable cycle. Hidden-Radio callback rescue improves liveness separately from foreground/input. See [current Radio/return evidence](PROGRESS-2026-11-01-HOME-TO-EURADIO.md).
 
 > Current order: verify original Radio interaction; consolidate Home→Standby→Home with original services; prepare the Windows launcher. In parallel, perform non-invasive GNSS, modem and navigation contract analysis. Keep each adapter opt-in and independently validated.
 

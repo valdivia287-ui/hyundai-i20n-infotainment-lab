@@ -30,10 +30,20 @@ Compositor timer intervals remained variable. Keeping DLT alive is useful for se
 
 Home's destination also changed to1920×720 inside the1280-pixel output and cropped part of its page. This run is **not a stable, correct-geometry Home→Radio→Home benchmark**. Preserve the earlier complete Home profile separately.
 
-A new, isolated module trial extends the already tested owner-based callback rescue to hidden Radio and records the manager during return. It changes no OEM service reply or app binary. Its result is pending at this checkpoint.
+The isolated owner-based callback rescue was extended to hidden Radio in `20261101T165216Z-replay-64caa7-1`. It delivered Radio's pending callbacks, and genuine Radio Ping replies and unchanged Home/Radio PIDs were observed. This separates a liveness improvement from functional input: in the same run the apparent Home button was retained output, with no active compositor view to receive the click. Manager getters still said77/77.
+
+## Genuine return and geometry limitation
+
+`20261101T170454Z-replay-9f6182-1` provided stronger evidence. A Station list click caused original Radio to load its DAB station-list QML components, although their content did not render correctly. The original Home button then emitted **`(304,11,30,1,0)`**; Home acknowledged **ret1**, and subsequent original manager readings agreed on **drawn11/managed11**. Home and Radio kept the same PIDs, with no observed manager AppKill during the bounded workflow.
+
+An earlier +20s reading still reported77/11 before completion; the later readings must be used to assess the completed transition. This is evidence of the real OEM return path, **not a complete usable loop**: Home's destination became1920×720 on the1280-pixel output, cropping its icon page.
+
+A read-only observer of genuine manager getters was present, but the experimental foreground repair emitted no activation. Do not credit the return to an unused repair. Subsequent geometry trials also emitted no correction marker; one returned to cropped Home, while another never generated a Home request because Radio had no interactive view. The latter did not exercise the geometry hypothesis at all.
+
+The next diagnostic instruments each adapter guard and correlates manager state, actual listed views and pointer delivery. A visible retained control and a positive drawing getter are insufficient evidence that a click reaches an application.
 
 ## Next controlled interaction
 
-Observe original Radio's actual D-Bus and device calls across startup and Home entry. Click Station list only when its FM panel is detected, then the original Home control when visibly present and manager state confirms Radio. Keep original service lifetimes sufficient for the bounded workflow so a scheduled service exit cannot be confused with an OEM failure. Require actual input effects, manager transition, visible Home and stable processes before claiming a complete Home→Radio→Home cycle.
+Observe original Radio's actual D-Bus and device calls across startup and Home entry. Click Station list and the original Home control only after checking the visual control, genuine manager state and an actual input-eligible compositor view. Keep original service lifetimes sufficient for the bounded workflow so a scheduled service exit cannot be confused with an OEM failure. Require actual input effects, manager transition, visible Home and stable processes before claiming a complete Home→Radio→Home cycle.
 
 FM tuner responses, audio, DAB/DAB+, virtual GNSS, original navigation/maps, Spanish-language selection, original timezone integration and the consolidated Windows launcher remain separate tasks. Europe selection alone is not a complete Spanish-market BC3N configuration.
