@@ -42,6 +42,20 @@ A read-only observer of genuine manager getters was present, but the experimenta
 
 The next diagnostic instruments each adapter guard and correlates manager state, actual listed views and pointer delivery. A visible retained control and a positive drawing getter are insufficient evidence that a click reaches an application.
 
+## Cursor falsely counted as foreground
+
+The instrumented adapter trial `20261101T173821Z-replay-5a7808-1` read authentic, fresh manager state correctly and found Radio's visible buffer. It refused to repair the layout because it counted one other OEM-owned view, although all three main application surfaces were parked.
+
+`20261101T174549Z-replay-c1dad9-1` identified that view as a **10×16 cursor surface**, owned by Home or Radio but **not registered with IVI**. Restricting the count to registered IVI application surfaces allowed the repair to activate for Radio and restore its listed view. This corrects a laboratory guard; it is not a change to an OEM app, manager response or vehicle state. Cursor ownership alone must not qualify a view as a foreground application.
+
+Input still requires separate verification. In `20261101T175403Z-replay-bb5179-1`, the original Radio Qt window received the actual mouse sequence at the visible Home control. Two enabled mouse areas with valid QML contexts processed the press, and Home genuinely acknowledged the original return request. However, the manager rolled back the transition at approximately ten-second intervals, while the IVI Home foreground notification arrived after the first rollback. Final getters remained drawn77/managed11. The observed timing mismatch warrants identifying the exact original deadline; it does not prove that extending every timer would solve the problem. This run skipped Station list because its FM panel was not detected.
+
+## Spanish European startup selection
+
+A separate short startup `20261101T180255Z-replay-9e5adf-1` tested the statically identified Spanish European language value through a labelled synthetic MICOM boot-information input. Original AppLauncher reported **Spanish(EU)** and launched original Home, Standby and ApplicationManager with **`-l:7`**. This verifies the OEM selection path, **not yet Spanish text throughout the UI**, correct BC3N capability options, radio tuning or navigation.
+
+The target remains Spain/Europe, including European FM and DAB/DAB+, separately verified GNSS/navigation and original timezone integration. Runtime Radio tracing confirms an attempted open of the absent DAB device; its hardware protocol still needs analysis before implementing synthetic responses.
+
 ## Next controlled interaction
 
 Observe original Radio's actual D-Bus and device calls across startup and Home entry. Click Station list and the original Home control only after checking the visual control, genuine manager state and an actual input-eligible compositor view. Keep original service lifetimes sufficient for the bounded workflow so a scheduled service exit cannot be confused with an OEM failure. Require actual input effects, manager transition, visible Home and stable processes before claiming a complete Home→Radio→Home cycle.

@@ -2,7 +2,7 @@
 
 # Hyundai i20 N Infotainment Lab — CLAUDE.md
 
-Latest local investigation: read [Home to European Radio](docs/PROGRESS-2026-11-01-HOME-TO-EURADIO.md) and current STATUS/AI-HANDOFF before older checkpoints. Complete Home page1, genuine Radio77 foreground and an authentic return request acknowledged by Home and manager11/11 are observed. Returned Home is cropped; reliable views/input, persistent Radio content and audio remain pending.
+Latest local investigation: read [Home to European Radio](docs/PROGRESS-2026-11-01-HOME-TO-EURADIO.md) and current STATUS/AI-HANDOFF before older checkpoints. Complete Home page1, genuine Radio77 foreground and an authentic return request acknowledged by Home and manager11/11 are observed. Returned Home can be cropped. A cursor-counting bug in the laboratory foreground guard is fixed; timing of genuine manager/IVI return acknowledgments still prevents a reliable loop. Spanish(EU) startup arguments are verified separately, while translated UI, persistent Radio content and audio remain pending.
 
 This is the public project brief for Claude Code. **Read [docs/AI-HANDOFF.md](docs/AI-HANDOFF.md) and [docs/STATUS.md](docs/STATUS.md) first.** Also review [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [PROVENANCE.md](PROVENANCE.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
