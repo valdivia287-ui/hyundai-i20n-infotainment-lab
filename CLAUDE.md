@@ -2,6 +2,8 @@
 
 # Hyundai i20 N Infotainment Lab — CLAUDE.md
 
+Latest local investigation: read [hidden Home during Radio preload](docs/PROGRESS-2026-11-01-HIDDEN-HOME.md) and current STATUS/AI-HANDOFF before older checkpoints. Surface ownership changed in the newer profile; genuine Ping replies and a partial Home image do not establish fully settled visual navigation.
+
 This is the public project brief for Claude Code. **Read [docs/AI-HANDOFF.md](docs/AI-HANDOFF.md) and [docs/STATUS.md](docs/STATUS.md) first.** Also review [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [PROVENANCE.md](PROVENANCE.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
 **Important:** reading this file does not load Codex's former chat, private WSL filesystem, QEMU overlays, or pending processes. To resume the exact experiment, **Claude Code must run with permitted local access to the owner's Ubuntu-24.04 WSL lab and inspect the latest private state and evidence first.** Do not claim continuity based on documentation alone.
