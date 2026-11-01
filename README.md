@@ -31,6 +31,14 @@ We are studying how selected software components from a Hyundai i20 N infotainme
 
 Details: [Research status](docs/STATUS.md) · [Latest: 1 Nov Confirm, AppLauncher, Settings and Radio](docs/PROGRESS-2026-11-01-HOME-CONFIRM-LAUNCHER-RADIO.md) · [Earlier 1 Nov MICOM and power status](docs/PROGRESS-2026-11-01-MICOM-POWER-STATE.md) · [31 Oct Home/Standby integration](docs/PROGRESS-2026-10-31-HOME-STANDBY-INTEGRATION.md) · [Earlier 31 Oct app experiments](docs/PROGRESS-2026-10-31-OEM-APPS.md) · [Earlier IPC/app trials](docs/PROGRESS-2026-10-30-IPC-APPS.md) · [Earlier GL/WM investigation](docs/PROGRESS-2026-10-30-GL-INTEGRATION.md) · [30 October progress log](docs/PROGRESS-2026-10-30.md) · [29 October progress log](docs/PROGRESS-2026-10-29.md) · [AI-agent handoff](docs/AI-HANDOFF.md) · [Roadmap](docs/ROADMAP.md) · [Architecture notes](docs/ARCHITECTURE.md)
 
+## Obtain the firmware legally (not hosted here)
+
+**Official Hyundai Europe / Spain navigation and infotainment update portal:** [Hyundai update site](https://update.hyundai.com/EU/ES/home). Owners can [search by model or VIN](https://update.hyundai.com/EU/ES/search) and select **i20 N**; verify the exact **BC3N** variant and software version before obtaining any update. The July 2026 official version list included **`BC3N.EUR.S5W_L.001.001.260128`**, but availability and compatibility can change.
+
+**This repository contains no original Hyundai firmware, decrypted OEM files, maps or map databases.** Each researcher is responsible for obtaining suitable materials independently and respecting applicable terms. See [firmware sources, compatibility notes and publishing rules](docs/FIRMWARE-SOURCE.md).
+
+The original vehicle may depend on **GPS/GNSS, cellular modem/SIM, online services, MICOM, and vehicle networks**. In our isolated QEMU lab, missing inputs may be supplied through **clearly disclosed, deterministic synthetic test adapters**; they are not real vehicle readings or a full replacement for Hyundai navigation or connected services.
+
 ## New: original Confirm → navigable Home screenshot sequence (1 November 2026)
 
 **Three owner-approved screenshots from the same private run `20261101T095842Z-17749-1`.** The sequence is not proof of unmodified OEM boot timing: this controlled test used a **reversible Standby QTimer extension (10 → 45 seconds)** and experimental Weston Home foreground repair. The screenshot at +55 seconds is **partially rendered**; a later genuine pointer drag reached the complete original Home second page.
