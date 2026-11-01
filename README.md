@@ -31,6 +31,16 @@ We are studying how selected software components from a Hyundai i20 N infotainme
 
 Details: [Research status](docs/STATUS.md) · [Latest: 1 Nov Confirm, AppLauncher, Settings and Radio](docs/PROGRESS-2026-11-01-HOME-CONFIRM-LAUNCHER-RADIO.md) · [Earlier 1 Nov MICOM and power status](docs/PROGRESS-2026-11-01-MICOM-POWER-STATE.md) · [31 Oct Home/Standby integration](docs/PROGRESS-2026-10-31-HOME-STANDBY-INTEGRATION.md) · [Earlier 31 Oct app experiments](docs/PROGRESS-2026-10-31-OEM-APPS.md) · [Earlier IPC/app trials](docs/PROGRESS-2026-10-30-IPC-APPS.md) · [Earlier GL/WM investigation](docs/PROGRESS-2026-10-30-GL-INTEGRATION.md) · [30 October progress log](docs/PROGRESS-2026-10-30.md) · [29 October progress log](docs/PROGRESS-2026-10-29.md) · [AI-agent handoff](docs/AI-HANDOFF.md) · [Roadmap](docs/ROADMAP.md) · [Architecture notes](docs/ARCHITECTURE.md)
 
+## New: original Confirm → navigable Home screenshot sequence (1 November 2026)
+
+**Three owner-approved screenshots from the same private run `20261101T095842Z-17749-1`.** The sequence is not proof of unmodified OEM boot timing: this controlled test used a **reversible Standby QTimer extension (10 → 45 seconds)** and experimental Weston Home foreground repair. The screenshot at +55 seconds is **partially rendered**; a later genuine pointer drag reached the complete original Home second page.
+
+| OEM Standby / Confirm screen | Original Home after return (+55 s, partial frame) | Original Home navigable after drag (complete page 1) |
+| :---: | :---: | :---: |
+| [![Original Hyundai Standby safety notice with Confirm and Language buttons](docs/images/2026-11-01/after-original-confirm-2s.png)](docs/images/2026-11-01/after-original-confirm-2s.png) | [![Original Home returned but still only partially rendering Media Off and pager](docs/images/2026-11-01/after-original-confirm-55s.png)](docs/images/2026-11-01/after-original-confirm-55s.png) | [![Original Home page 1 showing Phone, projection, voice memo, climate, radio, media, manual and settings](docs/images/2026-11-01/home-after-confirm-drag-left-25s.png)](docs/images/2026-11-01/home-after-confirm-drag-left-25s.png) |
+
+**Important:** the first screenshot is the Standby/Confirm visual state in the logged sequence; the original request and input-event provenance are established by the separate private run logs, **not by screenshots alone**. See [technical investigation and timing caveats](docs/PROGRESS-2026-11-01-HOME-CONFIRM-LAUNCHER-RADIO.md).
+
 ## Screenshots from the private QEMU lab (30 October 2026)
 
 These **owner-supplied screenshots** show the original Hyundai Home application running inside a disposable QEMU/Weston guest. They document visible test results, **not** a finished emulator or verified launch of N Mode or other applications.
