@@ -41,6 +41,14 @@ Details: [Research status](docs/STATUS.md) · [Latest: 1 Nov Confirm, AppLaunche
 
 The original vehicle may depend on **GPS/GNSS, cellular modem/SIM, online services, MICOM, and vehicle networks**. In our isolated QEMU lab, missing inputs may be supplied through **clearly disclosed, deterministic synthetic test adapters**; they are not real vehicle readings or a full replacement for Hyundai navigation or connected services.
 
+## Tools to inspect your own update (no OEM data included)
+
+To reproduce **read-only firmware examination**, see [firmware analysis toolchain, third-party decryptor references and source-provenance notes](docs/TOOLS-AND-LOCAL-EXTRACTION.md).
+
+This repository now provides an [original offline inventory scanner](tools/firmware_inventory.py) (with [synthetic-only tests](tests/test_firmware_inventory.py)) to identify file/container headers, basic ELF architectures, sizes and optional SHA-256 hashes. It **does not decrypt, extract, patch or publish firmware**. Obtain a compatible European i20 N update independently from Hyundai; see the [official source](docs/FIRMWARE-SOURCE.md).
+
+**Not claimed:** successful decryption or boot of the unchanged Hyundai OEM **kernel**. Our private reports verify running selected **OEM userspace** components in a compatible QEMU Linux environment; that is not equivalent to running the exact original head-unit kernel. The specific local `update_decryptor` build and private wrappers have not yet been audited/exported to the public repository.
+
 ## New: original Confirm → navigable Home screenshot sequence (1 November 2026)
 
 **Three owner-approved screenshots from the same private run `20261101T095842Z-17749-1`.** The sequence is not proof of unmodified OEM boot timing: this controlled test used a **reversible Standby QTimer extension (10 → 45 seconds)** and experimental Weston Home foreground repair. The screenshot at +55 seconds is **partially rendered**; a later genuine pointer drag reached the complete original Home second page.
