@@ -4,6 +4,8 @@
 >
 > **Bottom line:** Original Home navigates 0→1→0 **while original ApplicationManager is active**. Original Standby displays its Confirm/Language screen, and the **real OEM Confirm button has emitted pressed, released and btnClicked**, with a genuine request delivered to the manager. A revised lab profile keeps hidden Home alive during the foreground transition without SIGTRAP/watchdog in a bounded run. **The manager still rejects return-to-Home requests because its internal Standby state remains 10. No complete Home→Standby→Home journey yet.**
 
+> **Further progress on 1 November:** Original MICOM can now start on a second QEMU UART and accept a single synthetic boot-information hardware reply, yielding a genuine MICOM→ApplicationManager D-Bus response and `power_status=16`. **At the latest provided 01:58 UTC snapshot, no completed run has yet demonstrated standby_status 10→11 or a real return to Home**. See [the 1 November MICOM/power report](PROGRESS-2026-11-01-MICOM-POWER-STATE.md). Earlier status below remains a valid historical record.
+
 ## Core completed results
 
 | Private run ID | Reported observed outcome |
