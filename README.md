@@ -1,11 +1,9 @@
 # Hyundai i20 N Infotainment Lab
 
 **Independent, community-driven reverse engineering and offline emulation research.**  
-**Status:** experimental — a controlled private QEMU test now demonstrates **original Standby Confirm click → original ApplicationManager return → original Home restored and navigable** with original AppLauncher managing the OEM applications. This **depends on reversible lab-only 10→45 s Standby timer extension and a separate Weston Home-foreground repair**; an unmodified, fully stable OEM system is **not** demonstrated. Original Home's Settings submenu also opens and returns; original Radio FM is now visible; interaction, audio and stable Home coexistence remain unresolved.
+**Status:** experimental — bounded private QEMU trials demonstrate **original Standby Confirm → complete original Home icon page → original European Radio77 foreground through the original manager**. This uses original OEM processes, labelled synthetic MICOM hardware inputs, decoded original assets, experimental compositor frame-callback rescue and laboratory timing adjustments. The FM panel appeared but did not persist; station interaction, tuning/audio and return remain pending. A complete stable multimedia emulator is not yet available.
 
-**Latest:** [Hidden Home / Radio preload evidence](docs/PROGRESS-2026-11-01-HIDDEN-HOME.md). A separate compositor experiment identifies Home by client ownership and releases its hidden pending frame callbacks. Original Home survives with genuine Ping replies, receives mouse input and reports page1; a fully settled image and Home→Radio→Home are still under investigation.
-
-**Radio:** [Radio eligibility investigation](docs/PROGRESS-2026-11-01-RADIO-FILTERING.md) distinguishes Home logical Radio70 from the launcher AppEURadio77 entry. Synthetic UART country5 now makes original AppLauncher admit AppEURadio77; original Radio FM UI has now been observed; interaction, audio and stable Home/Radio coexistence remain pending.
+**Latest:** [Home to European Radio: verified request and foreground](docs/PROGRESS-2026-11-01-HOME-TO-EURADIO.md). The current European Home sends appid77/reason38; earlier appid70/reason32 requests belong to other configurations. [Hidden Home diagnosis and input evidence](docs/PROGRESS-2026-11-01-HIDDEN-HOME.md) explains the preceding callback stalls and measured genuine Ping replies.
 
 We are studying how selected software components from a Hyundai i20 N infotainment environment work, with the long-term goal of reproducible offline testing and UI-customization research. The private test lab uses QEMU, Linux, Weston/Wayland IVI, EGL and original Qt 5.4.1 components.
 

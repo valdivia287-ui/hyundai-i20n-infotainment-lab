@@ -1,4 +1,4 @@
-> **Latest local evidence, 1 November:** owner-based hidden-Home frame rescue preserved one original Home process and genuine Ping replies in the Radio profile. Later input tracing confirms original mouse delivery and advancedModePageChange(1), with page-one icons still entering the frame; a fully settled page and Home→Radio→Home remain unverified. See [hidden Home evidence and controller corrections](PROGRESS-2026-11-01-HIDDEN-HOME.md).
+> **Latest verified flow:** original Confirm → complete original Home icon page → genuine European Radio request77/reason38 → manager drawn77/managed77 and real Radio surface foreground. FM/Station list content was visible at one observation but did not persist. Station interaction, tuning/audio and return remain pending. See [Home to European Radio evidence](PROGRESS-2026-11-01-HOME-TO-EURADIO.md).
 
 > Latest blocker traced: original Home Peer.Ping returns NoReply; ApplicationManager reaches alive-count6 and orders AppKill (`20261101T143925Z-replay-bb73e0-1`). Diagnose Home delivery/main-thread state next. Original Radio FM rendering is observed; combined stability, interaction and return remain pending.
 
