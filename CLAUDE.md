@@ -2,7 +2,7 @@
 
 # Hyundai i20 N Infotainment Lab — CLAUDE.md
 
-Latest local investigation: read [6 November Home alignment](docs/PROGRESS-2026-11-06-HOME-ALIGNMENT.md) and inspect newer private evidence first. A measured animation-clock discrepancy led to an opt-in Home-only native timer-mode trial. Home appeared aligned after Radio return, but the next gesture reached other mouse areas and lost visible content. This is not a solved loop. Earlier Confirm→Home→Radio/Station List→Home request evidence remains valid; genuine Confirm causality varies between replays because of the separate automatic Standby timer. Spanish catalog loading and translated UI remain pending. Preserve all functional references and keep the guest offline.
+Latest local investigation: read [Radio textures, Spanish and watchdog](docs/PROGRESS-2026-11-06-RADIO-TEXTURES-SPANISH.md), then inspect newer private runs first. 60 decoded original textures visibly improve Radio. Home recovers aligned and a real page 1→0 gesture is verified, but the manager trace identifies Radio NoReply/alive6/kill before Home restore. Do not credit that return to a button or call the cycle stable. Home visibly shows original Spanish text; original Home and Radio Spanish catalogs open successfully, while visual Spanish Radio remains pending. Next inspect Radio's blocked threads in a separately labelled diagnostic and fix the demonstrated cause. Preserve references, keep the guest offline, and never publish private assets or cores.
 
 This is the public project brief for Claude Code. **Read [docs/AI-HANDOFF.md](docs/AI-HANDOFF.md) and [docs/STATUS.md](docs/STATUS.md) first.** Also review [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [PROVENANCE.md](PROVENANCE.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 

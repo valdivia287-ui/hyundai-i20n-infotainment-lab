@@ -1,9 +1,11 @@
 # Hyundai i20 N Infotainment Lab
 
 **Independent, community-driven reverse engineering and offline emulation research.**  
-**Status:** experimental. Original Confirm, navigable Home, European Radio77 FM/Station List and authentic Home return have been observed in private QEMU trials. Post-return alignment and interaction remain unreliable. A Home-only Qt animation-clock experiment improved an intermediate return image but did not validate the following gesture. Spanish UI, repeatable cycles, audio and long stability remain pending. OEM inputs stay private; laboratory timing, compositor and synthetic MICOM adaptations are explicit. A complete stable emulator is not yet available.
+**Status:** experimental. Decoded original textures now restore much of the original European Radio interface. Original Home recovers aligned and accepts a page change afterward, but the observed return followed a Radio watchdog restart: the Home button round-trip remains unproven. Original Home Spanish text and Home/Radio Spanish catalog opening are verified; visual Spanish Radio, stable interaction, audio and long stability remain pending. OEM data stays private and laboratory adaptations remain explicit.
 
-**Latest (6 November):** [Home alignment, animation timing and input validation](docs/PROGRESS-2026-11-06-HOME-ALIGNMENT.md).
+**Latest (6 November):** [Radio artwork, Spanish catalogs and remaining watchdog](docs/PROGRESS-2026-11-06-RADIO-TEXTURES-SPANISH.md).
+
+**Earlier (6 November):** [Home alignment, animation timing and input validation](docs/PROGRESS-2026-11-06-HOME-ALIGNMENT.md).
 
 **Previous:** [Home to European Radio and authentic Home return](docs/PROGRESS-2026-11-01-HOME-TO-EURADIO.md). The current European Home sends appid77/reason38; earlier appid70/reason32 requests belong to other configurations. [Hidden Home diagnosis and input evidence](docs/PROGRESS-2026-11-01-HIDDEN-HOME.md) explains the preceding callback stalls and measured genuine Ping replies.
 

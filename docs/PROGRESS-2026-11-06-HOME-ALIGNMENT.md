@@ -1,3 +1,5 @@
+> Newer evidence: [Radio artwork, Spanish and watchdog](PROGRESS-2026-11-06-RADIO-TEXTURES-SPANISH.md). The later observed Home recovery followed Radio death; do not treat it as a validated button-driven round-trip.
+
 # Home alignment after European Radio — 6 November 2026
 
 The multimedia emulator remains experimental. Original applications run with private OEM inputs and explicitly labelled laboratory adaptations; a repeatable, fully interactive cycle is not yet validated.
