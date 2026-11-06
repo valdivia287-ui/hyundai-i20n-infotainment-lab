@@ -24,3 +24,7 @@ Reference projects may describe different head units or firmware generations. Ve
 `tools/uart_framing.py` and `tests/test_uart_framing.py` were written in this laboratory. They were not copied or adapted from upstream projects, contain no OEM code or captured vehicle messages, and use arbitrary synthetic IDs in the public tests. Runtime-specific OEM request mappings remain private.
 
 `tools/dbus_ping_summary.py` and its tests are also original laboratory code, based on observed D-Bus header structure and invented test data. They contain no imported implementation, OEM resources or private diagnostic capture.
+
+## Original laboratory additions, 6 November 2026
+
+`tools/qt_animation_clock_summary.py` and its tests are original laboratory code, with invented test measurements. No Qt implementation, OEM content or raw private trace is included. The linked Qt 5.4.1 sources are primary research references only; no code was copied or adapted from them.

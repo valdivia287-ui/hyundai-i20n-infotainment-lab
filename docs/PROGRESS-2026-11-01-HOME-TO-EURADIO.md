@@ -50,6 +50,17 @@ The instrumented adapter trial `20261101T173821Z-replay-5a7808-1` read authentic
 
 Input still requires separate verification. In `20261101T175403Z-replay-bb5179-1`, the original Radio Qt window received the actual mouse sequence at the visible Home control. Two enabled mouse areas with valid QML contexts processed the press, and Home genuinely acknowledged the original return request. However, the manager rolled back the transition at approximately ten-second intervals, while the IVI Home foreground notification arrived after the first rollback. Final getters remained drawn77/managed11. The observed timing mismatch warrants identifying the exact original deadline; it does not prove that extending every timer would solve the problem. This run skipped Station list because its FM panel was not detected.
 
+
+## Targeted deadline and Home viewport controls
+
+The short passive trial `20261101T180546Z-replay-22ed7c-1` observed the original ten-second timer being armed from the statically identified display-plane path. Its construction and connection to the rollback slot were verified before changing it. The private probe now checks the original executable hash, identifies only those transition-timer objects and experimentally changes their interval **10→45s**. It does not generate a successful response, modify all ten-second timers or replace ApplicationManager.
+
+In `20261101T180919Z-replay-947312-1`, original Home received the return request at18:14:48, acknowledged it at18:14:51, and the original IVI Home foreground notification arrived at18:15:07. The observer agreed on **drawn11/managed11** at18:15:08, without the earlier return rollback observed in the ten-second control. This is a bounded timing-control result; it does not restore OEM timing fidelity or demonstrate long stability.
+
+A separate trial `20261101T181616Z-replay-8eab78-1` added only an active-Home viewport correction. After reading **1280×800** through the IVI screen API, the compositor changed Home's native1920×720 destination to **1280×730**, keeping the source buffer intact. The correction emitted its marker and a later image showed all eight original page-one icons, including the previously cropped Radio/Media controls. This fits the laboratory viewport; it does not claim native display aspect ratio.
+
+The manager again ended11/11. A post-return drag reached the original Home list, but no page-zero transition was verified before shutdown: the recorded release was delivered only a few seconds before the controller stopped the guest. A wider gesture and an explicit animation-observation window are being tested separately. The new profile remains experimental, and the older interactive references are preserved.
+
 ## Spanish European startup selection
 
 A separate short startup `20261101T180255Z-replay-9e5adf-1` tested the statically identified Spanish European language value through a labelled synthetic MICOM boot-information input. Original AppLauncher reported **Spanish(EU)** and launched original Home, Standby and ApplicationManager with **`-l:7`**. This verifies the OEM selection path, **not yet Spanish text throughout the UI**, correct BC3N capability options, radio tuning or navigation.

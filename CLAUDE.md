@@ -2,7 +2,7 @@
 
 # Hyundai i20 N Infotainment Lab — CLAUDE.md
 
-Latest local investigation: read [Home to European Radio](docs/PROGRESS-2026-11-01-HOME-TO-EURADIO.md) and current STATUS/AI-HANDOFF before older checkpoints. Complete Home page1, genuine Radio77 foreground and an authentic return request acknowledged by Home and manager11/11 are observed. Returned Home can be cropped. A cursor-counting bug in the laboratory foreground guard is fixed; timing of genuine manager/IVI return acknowledgments still prevents a reliable loop. Spanish(EU) startup arguments are verified separately, while translated UI, persistent Radio content and audio remain pending.
+Latest local investigation: read [6 November Home alignment](docs/PROGRESS-2026-11-06-HOME-ALIGNMENT.md) and inspect newer private evidence first. A measured animation-clock discrepancy led to an opt-in Home-only native timer-mode trial. Home appeared aligned after Radio return, but the next gesture reached other mouse areas and lost visible content. This is not a solved loop. Earlier Confirm→Home→Radio/Station List→Home request evidence remains valid; genuine Confirm causality varies between replays because of the separate automatic Standby timer. Spanish catalog loading and translated UI remain pending. Preserve all functional references and keep the guest offline.
 
 This is the public project brief for Claude Code. **Read [docs/AI-HANDOFF.md](docs/AI-HANDOFF.md) and [docs/STATUS.md](docs/STATUS.md) first.** Also review [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [PROVENANCE.md](PROVENANCE.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
