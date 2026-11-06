@@ -1,6 +1,8 @@
+Newer functional evidence: [original Radio round-trip and aligned Home](PROGRESS-2026-11-06-ORIGINAL-RADIO-ROUNDTRIP.md). Historical diagnostic limits below still apply.
+
 # Radio diagnostic cores and evidence validation — 6 November 2026
 
-The interactive Radio return is still pending. This diagnostic does not replace the [texture, Spanish and Home recovery evidence](PROGRESS-2026-11-06-RADIO-TEXTURES-SPANISH.md).
+At this earlier diagnostic checkpoint, the interactive Radio return was pending. This diagnostic does not replace the [texture, Spanish and Home recovery evidence](PROGRESS-2026-11-06-RADIO-TEXTURES-SPANISH.md).
 
 ## Completed diagnostic evidence
 

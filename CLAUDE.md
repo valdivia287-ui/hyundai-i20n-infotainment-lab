@@ -1,6 +1,6 @@
-Latest diagnostic checkpoint, 6 November 2026: [validated Radio cores and next timing test](docs/PROGRESS-2026-11-06-RADIO-CORE-VALIDATION.md). Complete private cores distinguish initial IVI surface-ID waiting from the later QtQuick/EGL/Wayland GUI-render wait. A real Radio Ping reply can arrive after the four-second deadline. A separate 30-second genuine-reply candidate is being tested; the interactive round-trip remains unproven. The new original ELF core metadata checker and four synthetic tests are public (23 tests pass); no private cores, traces or assets are included.
+Latest functional checkpoint, 6 November 2026: [original Radio round-trip and aligned Home](docs/PROGRESS-2026-11-06-ORIGINAL-RADIO-ROUNDTRIP.md). One experimental original Confirm→Home→Radio77→Home cycle is now verified by actual input, manager acknowledgment, unchanged Home/Radio PIDs, full aligned Home and a further real page1→0 change. Original Radio Ping uses a disclosed 30s virtual-timing tolerance; observations now wait for real Qt release processing. Spanish catalog opens are verified, while visual Spanish Radio, the Spanish cycle, post-cycle ten-minute stability and Windows consolidation remain pending. No emulator-completion claim or OEM assets are published.
 
-> Newer checkpoint: see [Radio filtering and simulation scope](docs/PROGRESS-2026-11-01-RADIO-FILTERING.md). Preserve distinctions between logical Radio70, AppEURadio77, static eligibility analysis and actual runtime launch.
+> Historical checkpoint: see [Radio filtering and simulation scope](docs/PROGRESS-2026-11-01-RADIO-FILTERING.md). Preserve distinctions between logical Radio70, AppEURadio77, static eligibility analysis and actual runtime launch.
 
 # Hyundai i20 N Infotainment Lab — CLAUDE.md
 
