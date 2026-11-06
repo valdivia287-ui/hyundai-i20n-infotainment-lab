@@ -28,3 +28,5 @@ Reference projects may describe different head units or firmware generations. Ve
 ## Original laboratory additions, 6 November 2026
 
 `tools/qt_animation_clock_summary.py` and its tests are original laboratory code, with invented test measurements. No Qt implementation, OEM content or raw private trace is included. The linked Qt 5.4.1 sources are primary research references only; no code was copied or adapted from them.
+
+`tools/elf_core_summary.py` and its tests are original laboratory code. Tests contain invented Linux x86-64 ELF metadata only. No upstream implementation, OEM code, real process memory or private diagnostic output is included.

@@ -25,3 +25,5 @@ See [current status](STATUS.md), [latest Radio investigation](PROGRESS-2026-11-0
 The tool is original laboratory code under the repository MIT license. No OEM files or code are included.
 
 The published boot-info fixture retains diagnostic payload byte1=2, observed as manager power16. It reproduces the eligibility experiment; it is not a ready-to-use Home operating profile.
+
+`python3 tools/elf_core_summary.py /private/path/to/core` checks bounded x86-64 ELF core metadata offline, without running the application or loading debugger scripts. Structural completeness does not establish a hang or matching libraries. Diagnostic outputs and cores remain private. See [core validation and timing limits](PROGRESS-2026-11-06-RADIO-CORE-VALIDATION.md).

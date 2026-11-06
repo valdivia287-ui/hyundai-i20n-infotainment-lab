@@ -1,3 +1,5 @@
+Latest diagnostic checkpoint, 6 November 2026: [validated Radio cores and next timing test](docs/PROGRESS-2026-11-06-RADIO-CORE-VALIDATION.md). Complete private cores distinguish initial IVI surface-ID waiting from the later QtQuick/EGL/Wayland GUI-render wait. A real Radio Ping reply can arrive after the four-second deadline. A separate 30-second genuine-reply candidate is being tested; the interactive round-trip remains unproven. The new original ELF core metadata checker and four synthetic tests are public (23 tests pass); no private cores, traces or assets are included.
+
 # Hyundai i20 N Infotainment Lab
 
 **Independent, community-driven reverse engineering and offline emulation research.**  
