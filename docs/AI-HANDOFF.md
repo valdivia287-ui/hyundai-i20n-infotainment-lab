@@ -1,3 +1,13 @@
+## Entrega Windows integrada — 7 noviembre 2026
+
+[Informe actual](PROGRESS-2026-11-07-WINDOWS-PRODUCT.md): launcher WinForms instalado en el PC privado, arranque desde acceso directo y overlay nuevo, Home original, N Mode, Radio FM 0.0 MHz y Manual en español, retornos y ratón Windows/noVNC comprobados. Stop nativo y reinicio inmediato pasan; cero QEMU/controladores al cierre. Fuente pública del frontend, no distribución del firmware/runtime privado. [Guía](WINDOWS-LAUNCHER.md) · [Matriz de disponibilidad](APPLICATIONS-INTEGRATED.md).
+
+Pendientes: robustez de otras secuencias (retorno negro anterior), reinicio OEM de Radio antes de Home listo, AppSetup/Sonido, integración de Medios/Nota de voz y navegación/mapas/licencias. No añadir proveedores opcionales al estable: en la exploración cambiaron textos a inglés y AppSetup fue terminado por el gestor. No repetir perfiles ya congelados ni arrancar una VM por icono. Siguiente avance: servicio compartido o aplicación nueva con interfaz, retorno y evidencia; mantener el producto utilizable y un único controlador. No firmware/QML/mapas/texturas/trazas públicas; solo código propio y capturas revisadas autorizadas.
+
+Las entradas posteriores son históricas; inspeccionar siempre evidencia privada más reciente antes de actuar.
+
+---
+
 Latest checkpoint, 7 November 2026: [BC3N25MY original Spanish N Mode artwork and native icon cycle](PROGRESS-2026-11-07-BC3N25-NMODE-RENDER.md). Native81/HighPerformance1 selects original pf1/nm2; 87 CPU-decoded original textures restore the observed Track pages. Native Home icon, two pages, two Home returns and further Home navigation pass without N Mode capability/argv adapters. Final Home matches the initial image exactly; 55 exports verify. Two reviewed owner-authorized screenshots are included. Physical MY23/update2025/Spain remains distinct from the preferred software profile. Earlier stable references are preserved; full vehicle/audio/navigation functionality is not established.
 
 Latest checkpoint, 7 November 2026: [BC3N25MY native boot and N Mode icon cycle](PROGRESS-2026-11-07-BC3N25-SOFTWARE-PROFILE.md). Owner prefers BC3N25MY software; physical car remains MY23 Spain/Europe, updated in2025. Original MICOM/Launcher interpret synthetic CarType81 plus HighPerformanceCar1 and select native pf1/nm2. N Mode pages, reopening from the original Home icon, two native Home returns and further Home navigation are verified **without the local capability or argv adapters**. Artwork remains partial with21 textures. Frozen references are preserved; Voice failures under option0 remain profile-specific. Earlier exclusion of25MY as an experimental software profile is superseded.

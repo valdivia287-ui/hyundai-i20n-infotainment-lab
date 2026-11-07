@@ -30,3 +30,13 @@ Owner authorization on 7 November 2026 permits relevant correctly rendered image
 
 - [bc3n25my-nmode-spanish-track-decoded.webp](bc3n25my-nmode-spanish-track-decoded.webp): Original Track page after native Home icon. Original PNG `operator-bc3n25-nativecap-icon-reopen.png`, SHA256 `fc8ff622a4aa0699936a3cdd4f3bbd8a976de1427a0efe5d55d6d46ef24a98b7`. WebP SHA256 `4850185a1ad08d0525062d73bcf43f702e90f5297862a4a6d2d0da89f9519096`, 221092 bytes, 1280×800, RGB-identical after decoding.
 - [bc3n25my-nmode-spanish-page2-decoded.webp](bc3n25my-nmode-spanish-page2-decoded.webp): Original page 2 after a VNC swipe. Original PNG `operator-bc3n25-nativecap-nmode-page-two.png`, SHA256 `d6a7ad8b772903e24b2623b732ec358c3eeec7c63b7aa4ba782da25cc99cc95e`. WebP SHA256 `0c64997a215800bef65b22bbfebbf8450897b02834741eb34c41fc690ee9b465`, 224328 bytes, 1280×800, RGB-identical after decoding.
+
+## Sesión Windows integrada
+
+Tres capturas revisadas de una misma sesión, autorizadas por el propietario. PNG→WebP sin pérdidas, RGB idéntico, sin recortes ni edición de contenido. Las superficies negras/incorrectas y los menús con iconos ausentes no se publican. Los recursos visibles son originales decodificados en CPU, no ASTC nativo ni aceleración RTX.
+
+- `windows-integrated-nmode.webp`: N Mode original visible en la sesión Windows integrada; ceros/OFF OEM, sin telemetría. SHA256 `10c2c9d3202fec47bbdd516e671e080db109ba020d5208e1832080d70ffe5f66`.
+- `windows-integrated-manual.webp`: Vista Manual original en español; el QR no se abrió y no se afirma contenido offline del manual. SHA256 `7a6bc76fe814b4f0e7ccf1c1c81a5d29bf40c7de09960d9555c9e478bb6ee7e4`.
+- `windows-integrated-radio.webp`: Radio FM original española0.0; sin hardware. Esta imagen prueba contenido visible, no el retorno posterior que quedó negro. SHA256 `f807751d1f3bcac03bb932b9a6125e4c1c75d16dcdc535fe2eb97ab1819fcb38`.
+
+[Alcance y límites](../../PROGRESS-2026-11-07-WINDOWS-PRODUCT.md).

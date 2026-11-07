@@ -55,3 +55,9 @@ Reference projects may describe different head units or firmware generations. Ve
 ## Original offline Voice Memo verifier (7 November 2026)
 
 `tools/verify_voice_memo_evidence.py` is original laboratory code using standard-library parsing/hashing and Pillow. It requires completed private evidence and separate visual review. No OEM implementation, trace fixture, screenshot or resource is distributed. Its output remains diagnostic evidence, not a whole-emulator completion claim.
+
+## Native Windows product frontend (7 November 2026)
+
+`tools/windows/HyundaiLauncher.cs`, `build.cmd`, `LauncherTest.cs` and the configuration example are original laboratory code under the repository license. They use documented .NET/WinForms, UIAutomation and local WSL process interfaces; no upstream/OEM implementation or asset is copied. Compiled executables, local installation paths/configuration, private backend state and test logs remain outside this repository. Public source alone does not supply the private firmware/runtime.
+
+`tools/windows/BrowserMouse.cs`, sus recetas de compilación y `tools/verify_product_delivery.py` también son código original. El primero usa UIAutomation/user32 de Windows para un gesto acotado sobre el visor local identificado; el segundo usa Python/Pillow para evidencia privada finalizada. No incluyen implementación OEM, datos del vehículo, firmware, fixtures propietarios ni registros de usuario.

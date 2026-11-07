@@ -1,0 +1,2 @@
+# Keep Windows build scripts executable with native line endings at checkout.
+tools/windows/*.cmd text eol=crlf

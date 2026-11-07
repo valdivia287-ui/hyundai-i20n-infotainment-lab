@@ -57,3 +57,10 @@ __pycache__/
 *.vhdx
 *.raw
 private-analysis/
+
+# Local Windows launcher builds, installation configuration and status
+*.exe
+launcher-config.json
+launcher-status.json
+launcher-status.json.tmp
+ultimo-registro.txt
