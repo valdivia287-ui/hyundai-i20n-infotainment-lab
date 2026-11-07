@@ -43,3 +43,11 @@ Reference projects may describe different head units or firmware generations. Ve
 ## Own observation predicate, manager inventory and nm2 verifier (7 November 2026)
 
 `tools/layout_evidence_match.sh`, `tests/test_layout_evidence_match.py`, `tools/inventory_manager_apps.py` and `tools/verify_nm2_evidence.py` are original laboratory code, not imported OEM or third-party implementations. Tests contain invented observation fields only. The manager parser contains a reviewed target fingerprint/address, not binary contents or implementation. Offline diagnostic output requires independently supplied private inputs and remains private. No OEM captures, traces, textures, code, firmware, maps or executable assets accompany these tools.
+
+## Original read-only Qt Media window observer (7 November 2026)
+
+`tools/media_window_observer.c` was written for this laboratory under the repository license. It uses public C runtime calls and symbol names/ABI observations, with no copied Qt/OEM implementation or private fixtures. It forwards original Qt methods and records getter observations only. The associated runtime result remains partial and timing-sensitive; see [observer scope](docs/MEDIA-WINDOW-OBSERVER.md). No compiled module or OEM material is included.
+
+## Original offline Voice Memo verifier (7 November 2026)
+
+`tools/verify_voice_memo_evidence.py` is original laboratory code using standard-library parsing/hashing and Pillow. It requires completed private evidence and separate visual review. No OEM implementation, trace fixture, screenshot or resource is distributed. Its output remains diagnostic evidence, not a whole-emulator completion claim.
