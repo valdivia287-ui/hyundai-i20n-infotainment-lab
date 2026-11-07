@@ -4,7 +4,7 @@
 
 An independent offline software-rendered overlay displayed original Spanish N Mode through the original ApplicationManager and AppLauncher flow. The original observed Home request `(304,500,5185,1,0)` was accepted, the manager reported logical application500, and original N Mode QML loaded inside AppHomeScreen. N Mode is an integrated Home interface in this tested firmware, not a separate AppNMode executable.
 
-The original overview artwork was visible. Real VNC pointer input selected Medidores/Fuerza G and Velocidad, then the original Home control returned to aligned Home. A further Home page drag succeeded. The final Home page matched its initial complete reference except for its page indicator. Five original process identities were retained across nine health samples. The guest powered down cleanly.
+The original overview artwork was visible. Real VNC pointer input selected Medidores/Fuerza G and Velocidad, then the original Home control returned to aligned Home. A further Home page drag succeeded. The final Home page matched its initial complete reference except for its page indicator. Five monitored process identities (four OEM processes plus Weston) were retained across nine health samples. The guest powered down cleanly.
 
 Private reference: `20261107T084831Z-replay-92f360-1`. Original evidence is retained privately. No OEM screenshot, trace, resource or executable is distributed here.
 
