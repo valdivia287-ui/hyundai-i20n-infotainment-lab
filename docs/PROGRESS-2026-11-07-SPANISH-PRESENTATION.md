@@ -1,3 +1,5 @@
+Newer result: [bounded post-cycle stability and Windows follow-up](PROGRESS-2026-11-07-SPANISH-STABILITY.md). The pending stability statements below describe the earlier checkpoint.
+
 # Original Spanish UI, repeated cycle and remaining presentation limits — 7 November 2026
 
 Original Home and Radio now visibly use their original Spanish translations. Another clean-overlay run completed the causal application cycle and post-return page navigation. Direct comparison of the saved PNG pixels corrects the earlier partial-frame interpretation: these Home frames are complete and aligned. Post-cycle ten-minute stability has not yet been completed.
