@@ -1,3 +1,5 @@
+**Actualización de desarrollo — 7 noviembre, Ajustes:** Sonido y Ecualizador originales ya muestran contenido y reciben el ratón al restaurar el servicio de persistencia OEM y el alias original de almacenamiento. Geometría completa y retorno nativo a Home comprobados en desarrollo; español y recursos siguen pendientes; todavía no se integra en el lanzador v1 aceptado. [Evidencias, adaptaciones y límites](PROGRESS-2026-11-07-SETTINGS-PERSISTENCE.md).
+
 ## Entrega Windows integrada — 7 noviembre 2026
 
 [Informe actual](PROGRESS-2026-11-07-WINDOWS-PRODUCT.md): launcher WinForms instalado en el PC privado, arranque desde acceso directo y overlay nuevo, Home original, N Mode, Radio FM 0.0 MHz y Manual en español, retornos y ratón Windows/noVNC comprobados. Stop nativo y reinicio inmediato pasan; cero QEMU/controladores al cierre. Fuente pública del frontend, no distribución del firmware/runtime privado. [Guía](WINDOWS-LAUNCHER.md) · [Matriz de disponibilidad](APPLICATIONS-INTEGRATED.md).

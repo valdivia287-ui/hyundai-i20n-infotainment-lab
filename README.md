@@ -1,3 +1,5 @@
+Desarrollo actual: [Ajustes originales y persistencia OEM](docs/PROGRESS-2026-11-07-SETTINGS-PERSISTENCE.md). Sonido y Ecualizador visibles en desarrollo separado; integración pendiente. El lanzador v1 se conserva.
+
 **Entrega local verificada, 7 noviembre 2026:** [lanzador Windows e integración del multimedia](docs/PROGRESS-2026-11-07-WINDOWS-PRODUCT.md). El acceso directo inicia WSL/QEMU con overlay nuevo; Home, N Mode, Radio FM sin sintonizador y Manual originales completan un recorrido español con retornos y ratón real a través de noVNC. Detener apaga limpiamente; reinicio inmediato y exclusión de VM duplicada comprobados. [Uso y código propio](docs/WINDOWS-LAUNCHER.md) · [Aplicaciones disponibles y límites](docs/APPLICATIONS-INTEGRATED.md). El ejecutable está instalado en el PC privado del propietario; el repositorio no contiene un emulador autónomo preparado ni firmware.
 
 Un retorno negro en otra secuencia y un reinicio OEM de Radio antes de Home listo permanecen documentados. Ajustes, Medios y Nota de voz no se consideran integrados como aplicaciones navegables. Perfiles anteriores intactos; no se declara completado todo el multimedia.

@@ -61,3 +61,7 @@ Reference projects may describe different head units or firmware generations. Ve
 `tools/windows/HyundaiLauncher.cs`, `build.cmd`, `LauncherTest.cs` and the configuration example are original laboratory code under the repository license. They use documented .NET/WinForms, UIAutomation and local WSL process interfaces; no upstream/OEM implementation or asset is copied. Compiled executables, local installation paths/configuration, private backend state and test logs remain outside this repository. Public source alone does not supply the private firmware/runtime.
 
 `tools/windows/BrowserMouse.cs`, sus recetas de compilación y `tools/verify_product_delivery.py` también son código original. El primero usa UIAutomation/user32 de Windows para un gesto acotado sobre el visor local identificado; el segundo usa Python/Pillow para evidencia privada finalizada. No incluyen implementación OEM, datos del vehículo, firmware, fixtures propietarios ni registros de usuario.
+
+## Preparación de persistencia OEM (7 noviembre 2026)
+
+`tools/guest/prepare_oem_persistence.sh` es código propio del laboratorio, sin implementación importada ni contenido OEM. Los fingerprints y contratos de rutas se comprobaron localmente; no se distribuyen el daemon, defaults, RCT ni trazas. Uso experimental exclusivo en overlays virtuales aislados.

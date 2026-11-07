@@ -1,3 +1,5 @@
+Actualización de Ajustes: Sonido y Ecualizador originales visibles con ratón en desarrollo separado; destino completo y retorno nativo a Home comprobados; español y recursos pendientes. No clasificar como integrado. [Resultado nuevo](PROGRESS-2026-11-07-SETTINGS-PERSISTENCE.md).
+
 # Disponibilidad del entorno integrado
 
 Resultados del perfil BC3N25MY, offline, con país Europa y español EU. La tabla diferencia vistas lógicas del mismo Home y ejecutables independientes. Los resultados previos de perfiles separados se conservan y no se extrapolan.
