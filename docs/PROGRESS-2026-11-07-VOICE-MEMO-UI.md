@@ -42,3 +42,9 @@ The requested texture restoration and another native cycle are now verified belo
 A third independent overlay, `20261107T115821Z-replay-f1b778-1`, added only 35 actually requested original ASTC resources decoded on CPU. All 70 source files matched the immutable base and all 35 PNG/RGBA roundtrips passed. All 35 target PNG paths were absent in the base, so no original PNG was overwritten. Original ASTC headers/payloads remain preserved in the disposable overlay. This is decoded original imagery, not native ASTC rendering or recreated artwork.
 
 The late screenshot shows the original blue Voice Memo icon, microphone, level graphic and controls with readable Spanish empty-list text. No record/play/delete/gain action was used. The early screenshot was still dim and moving; it is retained as an intermediate animation frame, not a failed-app claim. Native Back 117/1 returned to the aligned Home menu and another real Home page drag succeeded. Final Home differs only in its indicator. All 65 local screenshot hashes passed; the guest powered down cleanly. The offline verifier passed against both fitted references. This remains a UI result under the disclosed instrumentation, with recording/audio and timing causality unverified.
+
+## Owner-authorized visual evidence
+
+![Original Spanish Voice Memo with decoded original artwork](images/2026-11-07/voice-memo-spanish-decoded.webp)
+
+The original empty-list screen is visible and legible; the right assistant pane has no content. The microphone, level and control artwork is restored from original textures. No recording or audio operation was used. This is a full 1280×800 screenshot from the completed texture trial, converted losslessly without cropping or reconstructing content. See [capture provenance and limits](images/2026-11-07/README.md).
