@@ -24,7 +24,7 @@ The Station List click reached original Qt after reopening, but subsequent image
 
 This is one bounded viewport/return/VNC result, not a new ten-minute stability claim. Radio and compositor RSS increased during foreground use; constant-memory operation is not established. The earlier independently verified post-cycle stability result remains separate. The Windows launcher has not been promoted or installed as a final usable product. Station List activation/presentation latency are the next targeted questions.
 
-No RF stations, audio tuning, navigation, native ASTC or guest GPU acceleration are claimed. The guest remained offline. No firmware, OEM binaries, QML, translations, maps, images, captures, raw logs or cores are included in this update.
+No RF stations, audio tuning, navigation, native ASTC or guest GPU acceleration are claimed. The guest remained offline. No firmware, OEM binaries, QML, translations, maps, raw logs or cores are included in this update. One owner-approved lossless screenshot of the visible FM interface is published in the [curated image set](images/2026-11-07/README.md); it is visual research evidence, not proof of RF or audio functionality.
 
 ## Reproduction and offline verification
 

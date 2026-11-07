@@ -61,6 +61,20 @@ This repository now provides an [original offline inventory scanner](tools/firmw
 
 **Not claimed:** successful decryption or boot of the unchanged Hyundai OEM **kernel**. Our private reports verify running selected **OEM userspace** components in a compatible QEMU Linux environment; that is not equivalent to running the exact original head-unit kernel. The specific local `update_decryptor` build and private wrappers have not yet been audited/exported to the public repository.
 
+## Latest owner-approved QEMU screenshots (7 November 2026)
+
+These four screenshots are a curated subset from completed, offline private runs. They show the original Spanish Home and Radio applications plus the two-page original N Mode Track UI. The N Mode run uses the documented `nm2`/`pf0` laboratory selection and software-decoded texture fallback; vehicle sensor values are unavailable or zero. The images do **not** establish RF reception, audio, physical-vehicle integration, native ASTC rendering or GPU acceleration.
+
+| N Mode Track dashboard | N Mode Track page 2 |
+| :---: | :---: |
+| [![Original N Mode Track dashboard in Spanish, with accelerator, temperatures, speed, lap timer and brake pressure](docs/images/2026-11-07/nmode-track-dashboard.webp)](docs/images/2026-11-07/nmode-track-dashboard.webp) | [![Original N Mode Track second page in Spanish, with custom drive settings, g-force and launch control](docs/images/2026-11-07/nmode-track-page-2.webp)](docs/images/2026-11-07/nmode-track-page-2.webp) |
+
+| Original Home menu after N Mode return | Original European Radio FM |
+| :---: | :---: |
+| [![Original Hyundai Home menu in Spanish after returning from N Mode](docs/images/2026-11-07/home-menu-spanish-after-nmode.webp)](docs/images/2026-11-07/home-menu-spanish-after-nmode.webp) | [![Original Hyundai European Radio FM interface in Spanish in the QEMU laboratory](docs/images/2026-11-07/radio-fm-spanish.webp)](docs/images/2026-11-07/radio-fm-spanish.webp) |
+
+The lossless WebP files are pixel-exact conversions of owner-approved PNG captures. Their source run IDs, hashes and limitations are recorded in the [image provenance note](docs/images/2026-11-07/README.md), the [N Mode MY23 audit](docs/PROGRESS-2026-11-07-NMODE-MY23-TEXTURES-AUDIT.md) and the [Radio viewport report](docs/PROGRESS-2026-11-07-RADIO-VIEWPORT-EXPORT.md). Hyundai GUI visuals and trademarks remain the property of their owners and are not relicensed under this repository's MIT license.
+
 ## New: original Confirm → navigable Home screenshot sequence (1 November 2026)
 
 **Three owner-approved screenshots from the same private run `20261101T095842Z-17749-1`.** The sequence is not proof of unmodified OEM boot timing: this controlled test used a **reversible Standby QTimer extension (10 → 45 seconds)** and experimental Weston Home foreground repair. The screenshot at +55 seconds is **partially rendered**; a later genuine pointer drag reached the complete original Home second page.
