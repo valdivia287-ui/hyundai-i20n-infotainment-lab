@@ -35,12 +35,12 @@ for i,line in enumerate(asm):
    key=(name,app_id,exe);entry=entries.setdefault(key,{'name':name,'app_id':app_id,'executable':exe,'initializer_addresses':[]})
    entry['initializer_addresses'].append(last_addr)
   break
-safe={'AppHomeScreen','AppStandbyClock','AppEURadio','AppMediaPlayer','AppProjection','BluetoothHMI','AppAssistantWindow'}
+safe={'AppHomeScreen','AppStandbyClock','AppEURadio','AppMediaPlayer','AppProjection','BluetoothHMI'}
 hardware={'AppRadio','AppXMAudio','AppXMData','AppHDData','AppMobileTV','AppCamera','AppClimate','AppMirrorLink','AppCarLife','AppPHEV','AppFCEV','AppRSPA','AppVH','AppSDS','AppVR','AppNavi','TmsFgApp','TmsGuiApp','TmsVcrmApp'}
 internal={'ApplicationManager','AppLauncher','AppOSDManager','AppDMClient'}
 for entry in entries.values():
  name=entry['name'];entry.update(status='no probada',ivi_surface=None,missing_dependencies=[],requested_services=[],interaction='no comprobada',return_home='no comprobado',evidence=[],capture=None)
- if re.search(r'Test|Engineer|Diag|Update|Flash|Fumo|FUMO',name):entry.update(category='excluida',reason='Vehicle diagnostic, engineering or update path; never run')
+ if name=='AppDMClient' or re.search(r'Test|Engineer|Diag|Update|Flash|Fumo|FUMO',name):entry.update(category='excluida',reason='Vehicle diagnostic, engineering or update path; never run')
  elif name=='AppGPS':entry.update(category='revisión necesaria',reason='Receiver-control behavior unknown; review before execution')
  elif name=='AppSetup':entry.update(category='revisión necesaria',reason='Can change persistent settings; review original handlers before execution')
  elif name in internal:entry.update(category='servicio interno',reason='Manager/background service; not a standalone user application')

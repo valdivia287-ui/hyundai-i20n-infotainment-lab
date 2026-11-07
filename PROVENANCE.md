@@ -39,3 +39,7 @@ Reference projects may describe different head units or firmware generations. Ve
 ## Offline N Mode verifier and static inventory (7 November 2026)
 
 `tools/verify_nmode_evidence.py` and `tools/inventory_oem_apps.py` are original laboratory code under this repository's license. No OEM implementation, assets, binary or private trace is included. The verifier requires separately supplied private evidence and Pillow; the inventory uses standard-library ELF parsing, objdump and read-only debugfs. Static metadata extraction does not execute OEM code or establish application eligibility/safety. Outputs should remain private.
+
+## Own observation predicate, manager inventory and nm2 verifier (7 November 2026)
+
+`tools/layout_evidence_match.sh`, `tests/test_layout_evidence_match.py`, `tools/inventory_manager_apps.py` and `tools/verify_nm2_evidence.py` are original laboratory code, not imported OEM or third-party implementations. Tests contain invented observation fields only. The manager parser contains a reviewed target fingerprint/address, not binary contents or implementation. Offline diagnostic output requires independently supplied private inputs and remains private. No OEM captures, traces, textures, code, firmware, maps or executable assets accompany these tools.
