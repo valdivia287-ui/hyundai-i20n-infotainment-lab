@@ -35,3 +35,7 @@ Reference projects may describe different head units or firmware generations. Ve
 ## Offline Radio-fit evidence verifier (7 November 2026)
 
 `tools/verify_radio_fit_evidence.py` is original laboratory code developed for this project and published under the repository license. It uses Python standard-library parsing/hashing and Pillow image comparison; no upstream implementation or OEM code/assets are copied. It requires a separately supplied completed private run and publishes no private fixtures. Its output is diagnostic evidence, not permission to redistribute OEM logs or screenshots.
+
+## Offline N Mode verifier and static inventory (7 November 2026)
+
+`tools/verify_nmode_evidence.py` and `tools/inventory_oem_apps.py` are original laboratory code under this repository's license. No OEM implementation, assets, binary or private trace is included. The verifier requires separately supplied private evidence and Pillow; the inventory uses standard-library ELF parsing, objdump and read-only debugfs. Static metadata extraction does not execute OEM code or establish application eligibility/safety. Outputs should remain private.
