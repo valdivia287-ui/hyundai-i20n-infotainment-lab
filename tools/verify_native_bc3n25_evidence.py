@@ -35,6 +35,25 @@ def verify(run):
     assert options['car_type_code'] == 81 and options['high_performance_car'] and options['spanish_eu']
     launch = (run / 'guest-logs/app-launcher.txt').read_text(errors='replace')
     assert 'HighPerformanceCar[1]' in launch and 'Spanish(EU)' in launch
+    decoded = None
+    if (run / 'payload/NMODE_NATIVE_BOOT_TEXTURE_PROFILE').exists():
+        profile = json.loads((run / 'profile-env.json').read_text())
+        required = {'CA_BOOT_CAR_TYPE_CODE': '81', 'CA_BOOT_HIGH_PERFORMANCE_CAR': '1',
+                    'CA_BOOT_LANGUAGE_CODE': '7', 'CA_NMODE_HMI_CAPABILITY': '0',
+                    'CA_NMODE_OEM_ARGV': '0', 'CA_NMODE_NATIVE_NM2_PNG': '1', 'CA_NMODE_NM2_PNG': '1'}
+        assert all(profile.get(key) == value for key, value in required.items())
+        for name, expected in (('nmode-nm2-verified-source-integrity.txt', 132),
+                               ('nmode-nm2-verified-output-integrity.txt', 66),
+                               ('nmode-observed-source-integrity.txt', 42),
+                               ('nmode-observed-output-integrity.txt', 21)):
+            checks = (run / 'guest-logs' / name).read_text().splitlines()
+            assert len(checks) == expected and all(line.endswith(': OK') for line in checks), name
+        setup = (run / 'guest-logs/nmode-nm2-verified-setup.txt').read_text()
+        assert 'CA_NMODE_NM2_PNG_READY count=66' in setup
+        archive = run / 'payload/nmode-nm2-verified-fallback.tar'
+        assert hashlib.sha256(archive.read_bytes()).hexdigest() == '3cb9231ae43a22329dd9b6a60adb46e4c6d645a16ec6ed44d957bcd0c22f97a5'
+        decoded = {'baseline': 21, 'additional': 66, 'total': 87,
+                   'scope': 'CPU-decoded original textures; not native ASTC rendering'}
     frames = re.findall(r'request_id=0x0201[^\n]*frame_hex=([0-9a-f]+)', (run / 'synthetic-uart-reply.txt').read_text())
     assert frames
     for item in frames:
@@ -78,6 +97,7 @@ def verify(run):
     assert 'Power down' in (run / 'console.log').read_text(errors='replace')
     return {'checks_passed': True, 'native_icon_origin_pid': pid,
             'exports_verified': len(exports), 'final_home_diff_bbox': box,
+            'decoded_textures': decoded,
             'scope': 'Partial N Mode UI cycle; original images require human review; artwork/audio/sensors/stability limits remain'}
 
 

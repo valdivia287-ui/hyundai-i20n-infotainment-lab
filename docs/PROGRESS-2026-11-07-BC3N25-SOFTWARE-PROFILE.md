@@ -1,3 +1,5 @@
+Update: the separate [native render profile](PROGRESS-2026-11-07-BC3N25-NMODE-RENDER.md) now restores the observed artwork with 87 original decoded textures and verifies the native icon/Home cycle. The 21-texture controls below remain preserved as historical evidence.
+
 # BC3N25MY software profile: owner choice and native startup checks
 
 The owner requests **BC3N25MY as the preferred software profile**. The physical vehicle remains reported as a **BC3N i20 N MY23**, Spain/Europe, with software last updated in 2025. Choosing the software profile does not establish a different physical model year or prove a match to the installed vehicle firmware. This preference supersedes earlier notes that excluded BC3N25MY from experimental software selection.

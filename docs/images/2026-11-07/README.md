@@ -23,3 +23,10 @@ All images are 1280 × 800. Intermediate animation frames, blank/black/white cap
 - The guest remained offline; no vehicle, CAN network or Hyundai online service was contacted.
 
 These screenshots contain third-party Hyundai GUI visuals and trademarks. They are provided as owner-approved research evidence and are **not** covered or relicensed by the repository's MIT license. No firmware, executable, QML, texture source, map, trace, core dump or VM disk accompanies them.
+
+## Native BC3N25MY N Mode screenshots
+
+Owner authorization on 7 November 2026 permits relevant correctly rendered images. These full-frame lossless WebPs are from the separate native81/HighPerformance1 profile with 87 original CPU-decoded textures, without N Mode capability/argv adapters. Both were visually reviewed; no blank or transitional image is included. Not native ASTC rendering or a telemetry demonstration.
+
+- [bc3n25my-nmode-spanish-track-decoded.webp](bc3n25my-nmode-spanish-track-decoded.webp): Original Track page after native Home icon. Original PNG `operator-bc3n25-nativecap-icon-reopen.png`, SHA256 `fc8ff622a4aa0699936a3cdd4f3bbd8a976de1427a0efe5d55d6d46ef24a98b7`. WebP SHA256 `4850185a1ad08d0525062d73bcf43f702e90f5297862a4a6d2d0da89f9519096`, 221092 bytes, 1280×800, RGB-identical after decoding.
+- [bc3n25my-nmode-spanish-page2-decoded.webp](bc3n25my-nmode-spanish-page2-decoded.webp): Original page 2 after a VNC swipe. Original PNG `operator-bc3n25-nativecap-nmode-page-two.png`, SHA256 `d6a7ad8b772903e24b2623b732ec358c3eeec7c63b7aa4ba782da25cc99cc95e`. WebP SHA256 `0c64997a215800bef65b22bbfebbf8450897b02834741eb34c41fc690ee9b465`, 224328 bytes, 1280×800, RGB-identical after decoding.

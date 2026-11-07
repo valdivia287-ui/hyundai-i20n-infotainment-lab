@@ -1,3 +1,5 @@
+New owner-authorized reviewed images: [native BC3N25MY N Mode pages](docs/PROGRESS-2026-11-07-BC3N25-NMODE-RENDER.md). Complete source frames are re-encoded losslessly with identical RGB pixels; hashes are recorded in the gallery provenance. They show original CPU-decoded imagery, without fabricated sensor values. No firmware, source textures, QML, binary or raw trace accompanies them.
+
 Latest profile note: [BC3N25MY software selection](docs/PROGRESS-2026-11-07-BC3N25-SOFTWARE-PROFILE.md) documents owner preference and sanitized observations from isolated CarType and HighPerformanceCar changes to an existing synthetic boot fixture. No captured vehicle traffic, extracted configuration table, firmware, proprietary trace or new image is distributed in this update.
 
 # Research provenance and third-party acknowledgements
