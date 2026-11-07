@@ -1,3 +1,5 @@
+Newer evidence: [original Spanish UI, repeated cycle and partial-frame limits](PROGRESS-2026-11-07-SPANISH-PRESENTATION.md).
+
 # Original Radio round-trip with aligned Home — 6 November 2026
 
 A complete experimental original Confirm → Home → Radio → Home sequence now has visual and causal evidence, including a real post-return Home page change. This is one verified execution, not a completed or generally stable emulator.
