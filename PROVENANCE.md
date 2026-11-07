@@ -1,3 +1,5 @@
+Latest profile note: [BC3N25MY software selection](docs/PROGRESS-2026-11-07-BC3N25-SOFTWARE-PROFILE.md) documents owner preference and sanitized observations from isolated CarType and HighPerformanceCar changes to an existing synthetic boot fixture. No captured vehicle traffic, extracted configuration table, firmware, proprietary trace or new image is distributed in this update.
+
 # Research provenance and third-party acknowledgements
 
 We have consulted and benefited from the following public projects:

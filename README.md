@@ -1,3 +1,5 @@
+Owner software-profile preference: **BC3N25MY**; physical vehicle **i20 N MY23, Spain/Europe**, software updated2025. Native startup comparison and remaining limits: [profile report](docs/PROGRESS-2026-11-07-BC3N25-SOFTWARE-PROFILE.md). Functional references remain preserved.
+
 Latest verified checkpoint, 7 November 2026: [Original Spanish Voice Memo and native Back/Home cycle](docs/PROGRESS-2026-11-07-VOICE-MEMO-UI.md). Original Voice Memo117 in AppMediaPlayer now shows its empty-list UI, receives native mouse return and restores aligned navigable Home in three separate instrumented overlays. A measured compositor fit corrects its 1920×720 presentation on 1280×800 output; 35 original CPU-decoded textures restore the observed artwork; timing influence remains unresolved. Recording/playback/audio are untested. Owner target remains BC3N i20 N MY23 Spain/Europe, software updated in 2025; full OEM vehicle identity is still pending. Earlier references below remain preserved.
 
 ![Original Spanish Voice Memo in QEMU](docs/images/2026-11-07/voice-memo-spanish-decoded.webp)
