@@ -30,3 +30,8 @@ Reference projects may describe different head units or firmware generations. Ve
 `tools/qt_animation_clock_summary.py` and its tests are original laboratory code, with invented test measurements. No Qt implementation, OEM content or raw private trace is included. The linked Qt 5.4.1 sources are primary research references only; no code was copied or adapted from them.
 
 `tools/elf_core_summary.py` and its tests are original laboratory code. Tests contain invented Linux x86-64 ELF metadata only. No upstream implementation, OEM code, real process memory or private diagnostic output is included.
+
+
+## Offline Radio-fit evidence verifier (7 November 2026)
+
+`tools/verify_radio_fit_evidence.py` is original laboratory code developed for this project and published under the repository license. It uses Python standard-library parsing/hashing and Pillow image comparison; no upstream implementation or OEM code/assets are copied. It requires a separately supplied completed private run and publishes no private fixtures. Its output is diagnostic evidence, not permission to redistribute OEM logs or screenshots.
