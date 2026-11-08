@@ -1,3 +1,5 @@
+**Desarrollo — 8 noviembre:** General original en español, Teclado y Pantalla con páginas internas y retornos nativos a Home comprobados en overlays separados. Límite de suscripciones D-Bus restaurado al valor OEM; recursos y espera EGL todavía pendientes. El perfil Windows aceptado se conserva; no se prepara v2. [Evidencia de desarrollo](PROGRESS-2026-11-08-SETTINGS-GENERAL-SPANISH.md). La tabla inferior sigue describiendo el producto aceptado anterior, no una promoción de estos proveedores.
+
 Actualización de Ajustes: Sonido y Ecualizador originales visibles con ratón en desarrollo separado; destino completo y retorno nativo a Home comprobados; español y recursos pendientes. No clasificar como integrado. [Resultado nuevo](PROGRESS-2026-11-07-SETTINGS-PERSISTENCE.md).
 
 # Disponibilidad del entorno integrado

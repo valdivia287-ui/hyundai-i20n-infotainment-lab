@@ -65,3 +65,7 @@ Reference projects may describe different head units or firmware generations. Ve
 ## Preparación de persistencia OEM (7 noviembre 2026)
 
 `tools/guest/prepare_oem_persistence.sh` es código propio del laboratorio, sin implementación importada ni contenido OEM. Los fingerprints y contratos de rutas se comprobaron localmente; no se distribuyen el daemon, defaults, RCT ni trazas. Uso experimental exclusivo en overlays virtuales aislados.
+
+## Analizador de suscripciones y captura revisada (8 noviembre 2026)
+
+`tools/dbus_subscription_summary.py` y sus tests son código propio, sin implementación importada ni fixtures OEM. Reutilizan el parser de cabeceras propio del repositorio y mensajes sintéticos. Las trazas y resultados reales permanecen privados. La captura de Fecha/Hora está autorizada por el propietario, es una copia íntegra del resultado original y tiene [hash y procedencia](docs/images/2026-11-08/README.md). No se distribuyen recursos, QML, binarios o datos de firmware.
