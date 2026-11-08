@@ -1,16 +1,23 @@
-**Development — 8 November:** preserved Settings graphics recovered General→originalSpanish→nativeHome. Sound50 root and Equalizer now render complete original Spanish content and artwork; Position/Guidance bodies render but their headers remain incomplete. Original DSP/audio behavior and combined-provider order are unverified. [Evidence and limits](PROGRESS-2026-11-08-SETTINGS-ORDER-SOUND.md). The accepted-product table below is unchanged.
+# Disponibilidad de aplicaciones
 
-**Development — 8 November:** original TimeManager supplies real VM date/time to Home. Madrid/DST and a combined Settings rendering regression remain pending; a compositor adaptation corrected the destination but did not resolve the stall; the clock-absent control reproduced the initial stall; a preserved-graphics control recovered General. Bluetooth Settings also passed cold CPU-adapter startup and native Home return. [Verified scope and open work](PROGRESS-2026-11-08-ORIGINAL-CLOCK.md). Accepted Windows v1 remains preserved.
+**Vigente a 8 noviembre 2026.** Dos niveles separados: el **producto aceptado** (lanzador Windows v1, tabla de abajo, sin cambios) y los **resultados de desarrollo**, comprobados en overlays aparte y **no** integrados en el producto. Los avisos acumulados anteriores están en [history/APPLICATIONS-INTEGRATED-to-2026-11-08.md](history/APPLICATIONS-INTEGRATED-to-2026-11-08.md). Estado general: [STATUS.md](STATUS.md).
 
-**Development — 8 November:** original Bluetooth Connection Settings53 and its Information/Android Auto/Apple CarPlay settings pages now render in Spanish, with destination-only viewport fitting, real pointer navigation, native Back and Home returns. Separate CPU decoding restored the original phone illustration. Phone calls and real projection remain unverified without hardware; accepted Windows v1 is preserved. [Evidence, scope and source](PROGRESS-2026-11-08-BLUETOOTH-SETTINGS.md).
+## Desarrollo (8 noviembre, no promovido)
 
-**Development — 8 November:** new Spanish Theme/layout, N-button and Profile pages, native mouse navigation and Home returns verified in an isolated development overlay. CPU ASTC decoding restored the original Latin-keyboard previews. Original Voice Memo117 also completed its empty-recordings UI and mouse Back/Home cycle; no Media CPU uploads were observed, so its success is not attributed to that adapter. Accepted Windows v1 remains preserved. [Results, source and limits](PROGRESS-2026-11-08-SETTINGS-CATEGORIES-ASTC.md).
+| Aplicación/vista | Resultado en desarrollo | Límite | Informe |
+| --- | --- | --- | --- |
+| Ajustes: General, Teclado, Pantalla | Páginas originales en español y retorno nativo a Home | Recursos y latencia | [General](PROGRESS-2026-11-08-SETTINGS-GENERAL-SPANISH.md) |
+| Ajustes: Tema, Botón N, Perfil | Páginas internas, entrada real y Home; sin cambiar preferencias | — | [Categorías](PROGRESS-2026-11-08-SETTINGS-CATEGORIES-ASTC.md) |
+| Ajustes: Conexión Bluetooth53, Android Auto, Apple CarPlay | UI española, Atrás/Home, ilustración original por CPU | Sin teléfono ni proyección real | [Bluetooth](PROGRESS-2026-11-08-BLUETOOTH-SETTINGS.md) |
+| Ajustes: Sonido50 y Ecualizador | Contenido y arte completos en español, navegación interna, Home | Cabeceras de Posición/Guía incompletas; audio/DSP sin verificar | [Sonido](PROGRESS-2026-11-08-SETTINGS-ORDER-SOUND.md) |
+| Nota de voz117 | Lista vacía en español, Atrás/Home | Sin grabación ni reproducción | [Categorías](PROGRESS-2026-11-08-SETTINGS-CATEGORIES-ASTC.md) |
+| Reloj (TimeManager original) | Hora/fecha reales de la VM en Home | Solo UTC; Madrid/DST pendiente | [Reloj](PROGRESS-2026-11-08-ORIGINAL-CLOCK.md) |
+| Medios / AppMediaPlayer (100) | Petición real 304/2/27→302/0/308; con proveedor original `mediaCount=1` | Sin interfaz nueva | [Estado](STATUS.md#pending-in-suggested-order) |
+| Teléfono (121) | NotificationManager original registrado y responde Ping | Clic de Teléfono con ese servicio sin ejecutar | [Estado](STATUS.md#pending-in-suggested-order) |
 
-**Desarrollo — 8 noviembre:** General original en español, Teclado y Pantalla con páginas internas y retornos nativos a Home comprobados en overlays separados. Límite de suscripciones D-Bus restaurado al valor OEM; recursos y espera EGL todavía pendientes. El perfil Windows aceptado se conserva; no se prepara v2. [Evidencia de desarrollo](PROGRESS-2026-11-08-SETTINGS-GENERAL-SPANISH.md). La tabla inferior sigue describiendo el producto aceptado anterior, no una promoción de estos proveedores.
+La combinación de proveedores (reloj + Bluetooth + Ajustes en un mismo arranque) sigue mostrando un bloqueo inicial de General; no se integra hasta aislar el orden de arranque.
 
-Actualización de Ajustes: Sonido y Ecualizador originales visibles con ratón en desarrollo separado; destino completo y retorno nativo a Home comprobados; español y recursos pendientes. No clasificar como integrado. [Resultado nuevo](PROGRESS-2026-11-07-SETTINGS-PERSISTENCE.md).
-
-# Disponibilidad del entorno integrado
+## Producto aceptado v1 (congelado, 7 noviembre)
 
 Resultados del perfil BC3N25MY, offline, con país Europa y español EU. La tabla diferencia vistas lógicas del mismo Home y ejecutables independientes. Los resultados previos de perfiles separados se conservan y no se extrapolan.
 
