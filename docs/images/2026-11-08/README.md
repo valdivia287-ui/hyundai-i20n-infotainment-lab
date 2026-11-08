@@ -13,3 +13,7 @@ Solo se distribuye la captura expresamente autorizada, no QML, texturas, ejecuta
 ## CPU-decoded Latin-keyboard previews
 
 `setup-teclado-latino-es.png` is the complete 1280×800 private source frame from `dev/s2/runs/20261108T053335Z-replay-acd5b4-1/operator-astc-keyboard-latin-t60.png`, copied without re-encoding. SHA-256: `e8b160e13195b685d6d5707fd7aae1538753a46e343134bce55d516d4fcb15f7`. Reviewed: original Spanish title, four keyboard previews and native controls are visible. Keyboard assignment was not changed. The owner authorized relevant nonempty correct screenshots. Original pixels decoded on CPU; no source texture, binary, QML or raw trace is distributed.
+
+## Original Bluetooth connection settings
+
+`bluetooth-ajustes-conexion-es.png`: complete1280×800 source frame from development run `20261108T071038Z-replay-22a760-1`, file `operator-bt-cpu-root-late-frame.png`, copied without re-encoding; SHA-256 `6ddfef9558b7688c7c8404ad7b1093f477f23d4679e6f3b5401657e8c0bbb1e4`. Original Spanish menu, complete title, native header controls and original CPU-decoded phone illustration reviewed. The illustration is firmware artwork, not a paired device. No account, device name, pairing credential or telemetry is shown. Owner authorization covers relevant correct nonempty screenshots. The separate information page and private traces are excluded.

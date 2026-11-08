@@ -4,7 +4,7 @@ Development on 8 November 2026 adds original Spanish Settings pages beyond Sound
 
 | Original logical view | Verified development behavior | Remaining limits |
 | --- | --- | --- |
-| Theme/layout 480 | Screensaver options rendered; native Back returned to Settings root | Split-window internal page and some artwork still need audit; no preferences changed |
+| Theme/layout 480 | Screensaver and Split-window internal page rendered; mouse/Home cycle verified | Some artwork and remaining preferences still need audit; no widget selection/reorder changed |
 | Buttons 62 | Original i20 N left/right N-button pages; real mouse switches tabs; native Home return | Physical steering-wheel inputs absent; assignments were not changed; some illustration resources remain |
 | Profile 362 | Native factory Driver 1 page and its name/image/delete-options page; native Home return | No account, name, avatar or deletion action performed; avatar artwork remains incomplete |
 | General 56 | Original Spanish persists through a native terminate/launch cycle; Latin-keyboard previews now render | Other General pages retain their documented limits; Update/Reset/Variant operations excluded |

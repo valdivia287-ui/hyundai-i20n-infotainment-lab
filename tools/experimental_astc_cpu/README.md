@@ -2,7 +2,7 @@
 
 Original lab code for the original Qt applications. It decodes requested ASTC LDR 4×4/6×6 blocks on the CPU and issues native RGBA texture uploads. Hyundai resources, QML, application binaries and the OEM LZ4 loader remain outside this tool. This is CPU decoding, not OEM ASTC rendering or GPU acceleration.
 
-The integrated private AppSetup probe rendered the original Latin-keyboard previews and returned to Home. Its first uploaded resource matched an independent Windows decode by compressed-source and RGBA hashes. All 126 private resource fixtures matched the pinned decoder pixel for pixel on Linux. The standalone library here shares that decoder/upload code and has synthetic host contract tests; integration into an original application environment remains a separate step. Media support has a separate opt-in marker and is under investigation.
+The integrated private AppSetup probe rendered the original Latin-keyboard previews and returned to Home. Its first uploaded resource matched an independent Windows decode by compressed-source and RGBA hashes. All 126 private resource fixtures matched the pinned decoder pixel for pixel on Linux. The standalone library here shares that decoder/upload code and has synthetic host contract tests; integration into an original application environment remains a separate step. Media support has a separate opt-in marker and is under investigation. The BluetoothHMI opt-in restored the original phone illustration in a live native-provider reexec test; its original-source and RGBA hashes matched the pinned decoder. Cold-boot Bluetooth integration is a separate pending check.
 
 ## Build
 
@@ -16,7 +16,7 @@ The build downloads the pinned MIT [texture2ddecoder 1.0.6 source distribution](
 
 ## Runtime scope
 
-The library requires an independently prepared original runtime and its already loaded EGL/GLES/OpenSSL libraries. Default selection requires `/app/bin/AppSetup` plus `/run/ca-runtime/SETUP_ASTC_CPU_UPLOAD`, or original AppMediaPlayer plus the separate `MEDIA_ASTC_CPU_UPLOAD` marker. Other processes and unsupported uploads are forwarded. No marker is installed by the build.
+The library requires an independently prepared original runtime and its already loaded EGL/GLES/OpenSSL libraries. Default selection requires `/app/bin/AppSetup` plus `/run/ca-runtime/SETUP_ASTC_CPU_UPLOAD`, original AppMediaPlayer plus the separate `MEDIA_ASTC_CPU_UPLOAD` marker, or original `/app/bin/BluetoothHMI` plus `BT_ASTC_CPU_UPLOAD`. Other processes and unsupported uploads are forwarded. No marker is installed by the build.
 
 Supported contexts are GLES 2/3 or desktop GL 2.1+. sRGB ASTC, other block sizes, PBO data, nondefault unpack rows/skips, invalid sizes and absent contexts retain the original upload path. RGBA upload alignment is restored. The adapter does not consume or clear GL errors; an issued upload alone does not prove visible UI. Native source/RGBA SHA-256 and renderer observations belong in private logs. Four empty recovered source payloads remain excluded; no pixels are fabricated.
 

@@ -1,7 +1,6 @@
 /* Own opt-in CPU adaptation; leaves original compressed files intact.
- * AppSetup only, explicit RAM marker, native EGL/GLES calls and errors retained.
- * The lab links this after its existing probe; the standalone build supplies
- * an equivalent resolver for already-loaded native EGL. */
+ * Explicit per-application RAM markers; native EGL/GLES calls and errors retained.
+ * Linked after the existing probe C source, whose native EGL resolver is reused. */
 #include <stdlib.h>
 #ifndef CA_ASTC_TARGET_EXE
 #define CA_ASTC_TARGET_EXE "/app/bin/AppSetup"
@@ -19,6 +18,7 @@ static int ca_astc_selected(void)
  if(n<=0)return 0;path[n]=0;
  if(!strcmp(path,CA_ASTC_TARGET_EXE))return access(CA_ASTC_MARKER,R_OK)==0;
  if(!strcmp(path,"/app/bin/AppMediaPlayer"))return access("/run/ca-runtime/MEDIA_ASTC_CPU_UPLOAD",R_OK)==0;
+ if(!strcmp(path,"/app/bin/BluetoothHMI"))return access("/run/ca-runtime/BT_ASTC_CPU_UPLOAD",R_OK)==0;
  return 0;
 }
 static void *ca_astc_native_gl(const char *name)

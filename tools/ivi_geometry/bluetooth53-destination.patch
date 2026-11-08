@@ -1,0 +1,24 @@
+--- a/hmi-controller-settings-pages-fit.c
++++ b/hmi-controller-settings-pages-fit.c
+@@ -423,0 +424,2 @@
++	if(surface && prop && ca_surface_owner_is(surface,"BluetoothHMI"))
++		weston_log("CA_BT_GEOMETRY tick=%u id=%u source=%d,%d,%d,%d dest=%d,%d,%d,%d buffer=%dx%d visible=%d layer=%d opacity=%.4f orientation=%d\n",ca_frame_probe_tick,id,prop->source_x,prop->source_y,prop->source_width,prop->source_height,prop->dest_x,prop->dest_y,prop->dest_width,prop->dest_height,width,height,prop->visibility,layer_id,wl_fixed_to_double(prop->opacity),prop->orientation);
+@@ -456 +458 @@
+-		!strncmp(data, "77\n", 3) ? "AppEURadio" :
++		!strncmp(data, "77\n", 3) ? "AppEURadio" : !strncmp(data, "53\n", 3) ? "BluetoothHMI" :
+@@ -495 +497,2 @@
+-		     ca_surface_owner_is(view->surface,"AppMediaPlayer"))) {
++		     ca_surface_owner_is(view->surface,"AppMediaPlayer") ||
++		     ca_surface_owner_is(view->surface,"BluetoothHMI"))) {
+@@ -505 +508 @@
+-				ca_surface_owner_is(view->surface,"AppHomeScreen")?"AppHomeScreen":ca_surface_owner_is(view->surface,"AppEURadio")?"AppEURadio":ca_surface_owner_is(view->surface,"AppSetup")?"AppSetup":"AppStandbyClock");
++				ca_surface_owner_is(view->surface,"AppHomeScreen")?"AppHomeScreen":ca_surface_owner_is(view->surface,"AppEURadio")?"AppEURadio":ca_surface_owner_is(view->surface,"AppSetup")?"AppSetup":ca_surface_owner_is(view->surface,"BluetoothHMI")?"BluetoothHMI":ca_surface_owner_is(view->surface,"AppMediaPlayer")?"AppMediaPlayer":"AppStandbyClock");
+@@ -519 +522 @@
+-	if ((!strcmp(owner,"AppEURadio") || !strcmp(owner,"AppSetup") || !strcmp(owner,"AppMediaPlayer")) && target_listed && !other_listed &&
++	if ((!strcmp(owner,"AppEURadio") || !strcmp(owner,"AppSetup") || !strcmp(owner,"AppMediaPlayer") || !strcmp(owner,"BluetoothHMI")) && target_listed && !other_listed &&
+@@ -522 +525 @@
+-		if (!strcmp(owner,"AppMediaPlayer") && (props->source_x || props->source_y || props->source_width!=1920 || props->source_height!=720)) return;
++		if ((!strcmp(owner,"AppMediaPlayer") || !strcmp(owner,"BluetoothHMI")) && (props->source_x || props->source_y || props->source_width!=1920 || props->source_height!=720)) return;
+@@ -545 +548 @@
+-	if (!strcmp(owner,"AppMediaPlayer")) return;
++	if (!strcmp(owner,"AppMediaPlayer") || !strcmp(owner,"BluetoothHMI")) return;
