@@ -1,3 +1,5 @@
+Desarrollo: [General recuperado y Sonido original en español](docs/PROGRESS-2026-11-08-SETTINGS-ORDER-SOUND.md). El control de referencia completa General → Español → Home. Sonido muestra contenido y recursos originales a tamaño correcto; integración de proveedores, páginas restantes y latencia siguen pendientes. No se modifica el lanzador aceptado.
+
 Desarrollo: [reloj OEM visible y trabajo de integración pendiente](docs/PROGRESS-2026-11-08-ORIGINAL-CLOCK.md). TimeManager original ya proporciona fecha y hora de la VM a Home. Madrid/DST y una regresión gráfica de Ajustes siguen en investigación; el perfil aceptado se conserva.
 
 Desarrollo: [Conexión de teléfono OEM en español, Información y retorno Home](docs/PROGRESS-2026-11-08-BLUETOOTH-SETTINGS.md). Geometría y ciclo con ratón comprobados en desarrollo; ilustración original recuperada por CPU. Sin emparejamientos ni datos inventados; el perfil Windows aceptado se conserva.

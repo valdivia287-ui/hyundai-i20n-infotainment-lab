@@ -17,3 +17,10 @@ Solo se distribuye la captura expresamente autorizada, no QML, texturas, ejecuta
 ## Original Bluetooth connection settings
 
 `bluetooth-ajustes-conexion-es.png`: complete1280×800 source frame from development run `20261108T071038Z-replay-22a760-1`, file `operator-bt-cpu-root-late-frame.png`, copied without re-encoding; SHA-256 `6ddfef9558b7688c7c8404ad7b1093f477f23d4679e6f3b5401657e8c0bbb1e4`. Original Spanish menu, complete title, native header controls and original CPU-decoded phone illustration reviewed. The illustration is firmware artwork, not a paired device. No account, device name, pairing credential or telemetry is shown. Owner authorization covers relevant correct nonempty screenshots. The separate information page and private traces are excluded.
+
+## Original Spanish Sound settings
+
+Owner-authorized complete original1280×800 source frames from development run `20261108T095535Z-replay-e29310-1`, copied without re-encoding. Reviewed: original Spanish title, header controls, menu content and artwork; no fabricated telemetry, account or pairing credential. No sound control value was changed. Brand/options shown are generic OEM defaults, not verified physical vehicle equipment. Position/Guidance incomplete-header frames remain private.
+
+- `setup-sonido-premium-es.png` — source `operator-reference-original-sound-t105.png`, SHA-256 `584894fd65fc04137478efee8ac86afc4db5caf3955383c37c0ab0c12f59b7e0`.
+- `setup-sonido-ecualizador-es.png` — source `operator-sound-equalizer-es-content-review.png`, SHA-256 `9fb9150038f627a4f559334fd93f60a60ac3d21f52feed7f207419b1cdc43ae7`.
