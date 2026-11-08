@@ -1,3 +1,5 @@
+Desarrollo: [nuevas categorías de Ajustes y decodificación ASTC por CPU](docs/PROGRESS-2026-11-08-SETTINGS-CATEGORIES-ASTC.md). Tema, botones N, Perfil y Teclado latino originales en español comprobados en desarrollo, con retornos nativos. Nota de voz117 también completó su interfaz vacía y Atrás a Home en desarrollo, sin grabación ni audio inventado. El producto aceptado se conserva; quedan categorías, recursos, servicios y latencia por resolver.
+
 Desarrollo actual: [General original en español y nuevas páginas de Ajustes](docs/PROGRESS-2026-11-08-SETTINGS-GENERAL-SPANISH.md). Registro D-Bus, Teclado, Pantalla y retornos nativos comprobados en desarrollo; recursos y latencia pendientes. Se conserva el lanzador v1, sin preparar v2.
 
 Desarrollo actual: [Ajustes originales y persistencia OEM](docs/PROGRESS-2026-11-07-SETTINGS-PERSISTENCE.md). Sonido y Ecualizador visibles en desarrollo separado; integración pendiente. El lanzador v1 se conserva.
