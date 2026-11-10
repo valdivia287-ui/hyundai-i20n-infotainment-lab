@@ -1,13 +1,27 @@
 # Hyundai i20 N Infotainment Lab
 
 **Independent, community-driven reverse engineering and offline emulation research.**  
-**Status (10 November 2026):** experimental. A frozen Windows launcher (v1) runs original Home, N Mode, Radio FM UI (no tuner) and Manual in Spanish with native Home returns, offline in QEMU. Development overlays additionally show original Settings categories, Bluetooth settings, Sound/Equalizer, Voice Memo and the original clock; they are not yet integrated. A separate [KVM/softpipe development route](docs/PROGRESS-2026-11-10-KVM-SOFTPIPE-HOME.md) now reaches a stable original Home surface with adaptive timing, but is not promoted into the product. Phone, Media UI, Madrid timezone and Navigation remain open. Full details: **[docs/STATUS.md](docs/STATUS.md)** · [application matrix](docs/APPLICATIONS-INTEGRATED.md) · [Windows launcher](docs/WINDOWS-LAUNCHER.md).
+**Status (10 November 2026):** experimental. A frozen Windows launcher (v1) runs original Home, N Mode, Radio FM UI (no tuner) and Manual in Spanish with native Home returns, offline in QEMU. Development overlays additionally show original Settings categories, Bluetooth settings, Sound/Equalizer, Voice Memo and the original clock; they are not yet integrated. The [KVM/softpipe development route](docs/PROGRESS-2026-11-10-KVM-SOFTPIPE-HOME.md) now reaches stable Home in about 65 seconds. A later isolated run applied the complete observed i20 N application profile and reached original N Mode state 500 with a native return to Home; [reviewed screenshots and limitations are documented here](docs/PROGRESS-2026-11-10-REAL-PROFILE-NMODE.md). Phone, Media UI, Madrid timezone and Navigation remain open. Full details: **[docs/STATUS.md](docs/STATUS.md)** · [application matrix](docs/APPLICATIONS-INTEGRATED.md) · [Windows launcher](docs/WINDOWS-LAUNCHER.md).
 
 ![Original Spanish N Mode under the native BC3N25MY software profile](docs/images/2026-11-07/bc3n25my-nmode-spanish-track-decoded.webp)
 
 ![Original Spanish Voice Memo in QEMU](docs/images/2026-11-07/voice-memo-spanish-decoded.webp)
 
 Owner-authorised screenshots from the private lab. Earlier per-checkpoint summaries that used to sit at the top of this README are kept in [docs/history/README-status-to-2026-11-08.md](docs/history/README-status-to-2026-11-08.md).
+
+## Latest real-profile development sequence (10 November 2026)
+
+These owner-approved captures come from completed offline development runs. The original manager reached Home state 11, N Mode state 500 and Home state 11 again. They document genuine original-software state transitions in the lab, not vehicle connectivity, sensor emulation or a finished emulator.
+
+| Original profile/Confirm screen | Original Home with i20 N entry |
+| :---: | :---: |
+| [![Original Hyundai profile and safety confirmation screen in Spanish](docs/images/2026-11-10/profile-confirm.png)](docs/images/2026-11-10/profile-confirm.png) | [![Original Hyundai Home menu in Spanish with N Mode entry](docs/images/2026-11-10/home-real-profile.png)](docs/images/2026-11-10/home-real-profile.png) |
+
+| Original N Mode, state 500 | Original Media Off loading/background frame |
+| :---: | :---: |
+| [![Original Hyundai N Mode dashboard in Spanish running in QEMU](docs/images/2026-11-10/nmode-real-profile.png)](docs/images/2026-11-10/nmode-real-profile.png) | [![Original Hyundai Media Off screen with native background in QEMU](docs/images/2026-11-10/media-off-loading.png)](docs/images/2026-11-10/media-off-loading.png) |
+
+Some N Mode artwork is still absent because the isolated software-rendering path does not yet decode every ASTC resource. See the [runtime report](docs/PROGRESS-2026-11-10-REAL-PROFILE-NMODE.md) and [image provenance](docs/images/2026-11-10/README.md). Hyundai GUI visuals and trademarks remain the property of their owners and are not relicensed under this repository's MIT license.
 
 We are studying how selected software components from a Hyundai i20 N infotainment environment work, with the long-term goal of reproducible offline testing and UI-customization research. The private test lab uses QEMU, Linux, Weston/Wayland IVI, EGL and original Qt 5.4.1 components.
 
