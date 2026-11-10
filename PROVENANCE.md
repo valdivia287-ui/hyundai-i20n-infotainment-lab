@@ -75,3 +75,11 @@ Reference projects may describe different head units or firmware generations. Ve
 ## Analizador de suscripciones y captura revisada (8 noviembre 2026)
 
 `tools/dbus_subscription_summary.py` y sus tests son código propio, sin implementación importada ni fixtures OEM. Reutilizan el parser de cabeceras propio del repositorio y mensajes sintéticos. Las trazas y resultados reales permanecen privados. La captura de Fecha/Hora está autorizada por el propietario, es una copia íntegra del resultado original y tiene [hash y procedencia](docs/images/2026-11-08/README.md). No se distribuyen recursos, QML, binarios o datos de firmware.
+
+## Passive platform trace summaries (10 November 2026)
+
+`tools/platform_trace_summary.py` and `tests/test_platform_trace_summary.py` are original laboratory code and synthetic fixtures. The tool reuses this repository's own D-Bus header parser; it does not connect to a guest or attach to processes. Tests use invented timestamps, object IDs, message headers and CPU samples. Process traces, guest logs, screenshots and OEM resources remain private; no raw diagnostic input is included.
+
+## KVM/softpipe Home capture (10 November 2026)
+
+`docs/images/2026-11-10/kvm-softpipe-home-spanish.png` is an owner-authorised complete frame copied from a finished isolated private run without re-encoding. Its SHA-256 and limitations are recorded in the adjacent [image provenance note](docs/images/2026-11-10/README.md). No source texture, QML, binary, VM disk or trace is distributed.
