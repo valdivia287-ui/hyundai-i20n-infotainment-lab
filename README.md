@@ -1,13 +1,23 @@
 # Hyundai i20 N Infotainment Lab
 
 **Independent, community-driven reverse engineering and offline emulation research.**  
-**Status (10 November 2026):** experimental. A frozen Windows launcher (v1) runs original Home, N Mode, Radio FM UI (no tuner) and Manual in Spanish with native Home returns, offline in QEMU. Development overlays additionally show original Settings categories, Bluetooth settings, Sound/Equalizer, Voice Memo and the original clock; they are not yet integrated. The [KVM/softpipe development route](docs/PROGRESS-2026-11-10-KVM-SOFTPIPE-HOME.md) now reaches stable Home in about 65 seconds. A later isolated run applied the complete observed i20 N application profile and reached original N Mode state 500 with a native return to Home; [reviewed screenshots and limitations are documented here](docs/PROGRESS-2026-11-10-REAL-PROFILE-NMODE.md). Phone, Media UI, Madrid timezone and Navigation remain open. Full details: **[docs/STATUS.md](docs/STATUS.md)** · [application matrix](docs/APPLICATIONS-INTEGRATED.md) · [Windows launcher](docs/WINDOWS-LAUNCHER.md).
+**Status (11 November 2026):** experimental. A frozen Windows launcher (v1) runs original Home, N Mode, Radio FM UI (no tuner) and Manual in Spanish with native Home returns, offline in QEMU. A clean development run now completes Guest → Home → N Mode → Home → Radio → Home → General Settings → Home and shuts down cleanly; [measurements, reviewed screenshots and the remaining widget-selection mismatch are documented here](docs/PROGRESS-2026-11-11-INTEGRATED-JOURNEY.md). Phone, Media UI, Madrid timezone and Navigation remain open. Full details: **[docs/STATUS.md](docs/STATUS.md)** · [application matrix](docs/APPLICATIONS-INTEGRATED.md) · [Windows launcher](docs/WINDOWS-LAUNCHER.md).
 
 ![Original Spanish N Mode under the native BC3N25MY software profile](docs/images/2026-11-07/bc3n25my-nmode-spanish-track-decoded.webp)
 
 ![Original Spanish Voice Memo in QEMU](docs/images/2026-11-07/voice-memo-spanish-decoded.webp)
 
 Owner-authorised screenshots from the private lab. Earlier per-checkpoint summaries that used to sit at the top of this README are kept in [docs/history/README-status-to-2026-11-08.md](docs/history/README-status-to-2026-11-08.md).
+
+## Integrated BC3 journey (11 November 2026)
+
+The original manager and drawing states completed Guest → Home → N Mode → Home → Radio → Home → General Settings → Home in one disposable offline run. N Mode now renders the fuller BC3 dashboard; live engine and chassis values remain zero because the laboratory supplies no vehicle data. Radio also exposed a real remaining defect: the generic persistent widget list selected an Electricity-use panel despite runtime reporting BC3 variant 23 and Eco Type 0.
+
+| Original BC3 N Mode | Radio with unresolved widget mismatch |
+| :---: | :---: |
+| [![Original BC3 N Mode dashboard running in QEMU](docs/images/2026-11-11/nmode-integrated-bc3.png)](docs/images/2026-11-11/nmode-integrated-bc3.png) | [![Original Radio with incorrectly selected Electricity use widget](docs/images/2026-11-11/radio-electricity-widget-mismatch.png)](docs/images/2026-11-11/radio-electricity-widget-mismatch.png) |
+
+The second capture is deliberately published as a documented mismatch, not as a functional EV feature. See the [runtime report](docs/PROGRESS-2026-11-11-INTEGRATED-JOURNEY.md) and [image provenance](docs/images/2026-11-11/README.md).
 
 ## Latest real-profile development sequence (10 November 2026)
 

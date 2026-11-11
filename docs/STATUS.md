@@ -1,6 +1,6 @@
 # Research status
 
-**Current as of 10 November 2026.** This page replaces the stacked checkpoint banners used until then. The previous text is preserved verbatim in [history/STATUS-to-2026-11-08.md](history/STATUS-to-2026-11-08.md). Individual `PROGRESS-*` reports remain the evidence; this page only summarises them.
+**Current as of 11 November 2026.** This page replaces the stacked checkpoint banners used until then. The previous text is preserved verbatim in [history/STATUS-to-2026-11-08.md](history/STATUS-to-2026-11-08.md). Individual `PROGRESS-*` reports remain the evidence; this page only summarises them.
 
 > Experimental, isolated QEMU/Weston/Wayland IVI laboratory running original Hyundai i20 N infotainment software offline. **Not** a complete emulator, firmware mod or vehicle tool. No OEM firmware, binaries, QML, textures, maps or raw traces are published.
 
@@ -35,6 +35,8 @@ Each row was verified in a separate development overlay; scopes differ and they 
 - Also settled: Home, Radio, N Mode, Manual, Spanish catalogs/persistence, Qt timing, ten-minute stability.
 
 ## Platform diagnostics (10 November; development route, not promoted)
+
+- On 11 November, one clean disposable-overlay run completed Guest → Home → N Mode → Home → Radio → Home → General Settings → Home and ACPI S5. Runtime reported BC3 variant 23, region 5, Eco Type 0, LCD Type 3, platform 128 and HighPerformanceCar 1. Validated Home appeared 102.241 s after QEMU start and 36.674 s after Confirm. Radio exposed an unresolved persistence/filtering issue by restoring an Electricity-use side widget despite Eco Type 0; this is documented as a defect, not EV functionality. See the [integrated journey report](PROGRESS-2026-11-11-INTEGRATED-JOURNEY.md).
 
 - A later real-profile run supplied the complete observed application arguments and confirmed configuration fields through the original launcher path. The original manager reached Home `11/11`, N Mode `500/500` and Home `11/11` again. The Spanish Home grid and N Mode dashboard were captured; some N Mode ASTC artwork remains absent. This result does not emulate vehicle sensor values or promote the experiment into the frozen product. See the [real-profile N Mode report](PROGRESS-2026-11-10-REAL-PROFILE-NMODE.md).
 - The same investigation located a major startup delay in the Standby persistence path: 215 failed retries accumulated about 21.5 seconds of explicit waits. Starting the original persistence service with its original package reduced Standby registration from about 24 seconds to **1.029 seconds** in an isolated control. The faster control has not yet completed the full integrated journey, so it is not presented as a new end-to-end Home benchmark.
