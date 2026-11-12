@@ -1,13 +1,23 @@
 # Hyundai i20 N Infotainment Lab
 
 **Independent, community-driven reverse engineering and offline emulation research.**  
-**Status (11 November 2026):** experimental. A frozen Windows launcher (v1) runs original Home, N Mode, Radio FM UI (no tuner) and Manual in Spanish with native Home returns, offline in QEMU. A clean development run now completes Guest → Home → N Mode → Home → Radio → Home → General Settings → Home and shuts down cleanly; [measurements, reviewed screenshots and the remaining widget-selection mismatch are documented here](docs/PROGRESS-2026-11-11-INTEGRATED-JOURNEY.md). Phone, Media UI, Madrid timezone and Navigation remain open. Full details: **[docs/STATUS.md](docs/STATUS.md)** · [application matrix](docs/APPLICATIONS-INTEGRATED.md) · [Windows launcher](docs/WINDOWS-LAUNCHER.md).
+**Status (12 November 2026):** experimental. A frozen Windows launcher (v1) runs original Home, N Mode, Radio FM UI (no tuner) and Manual in Spanish with native Home returns, offline in QEMU. Development now has a repeatable integrated Home → Radio → Home route with clean Radio termination, no respawn/core and a bounded stable final Home; [the checkpoint, reviewed screenshots and timing limitation are documented here](docs/PROGRESS-2026-11-12-HOME-RADIO-STABILITY.md). Phone, Media UI, Madrid timezone and Navigation remain open. Full details: **[docs/STATUS.md](docs/STATUS.md)** · [application matrix](docs/APPLICATIONS-INTEGRATED.md) · [Windows launcher](docs/WINDOWS-LAUNCHER.md).
 
 ![Original Spanish N Mode under the native BC3N25MY software profile](docs/images/2026-11-07/bc3n25my-nmode-spanish-track-decoded.webp)
 
 ![Original Spanish Voice Memo in QEMU](docs/images/2026-11-07/voice-memo-spanish-decoded.webp)
 
 Owner-authorised screenshots from the private lab. Earlier per-checkpoint summaries that used to sit at the top of this README are kept in [docs/history/README-status-to-2026-11-08.md](docs/history/README-status-to-2026-11-08.md).
+
+## Stable Home → Radio → Home route (12 November 2026)
+
+The original manager launched Radio, returned to Home, kept the six observed base/application processes stable during the bounded hold, and shut down cleanly. Radio did not respawn or produce a core. The host clock discrepancy discovered during the control means this is a lifecycle result, **not** a new performance baseline.
+
+| Original Home / media off | Original European Radio | Application menu after return |
+| :---: | :---: | :---: |
+| [![Original Hyundai Home media-off screen in Spanish](docs/images/2026-11-12/home-oem.png)](docs/images/2026-11-12/home-oem.png) | [![Original Hyundai European Radio in Spanish](docs/images/2026-11-12/radio-oem.png)](docs/images/2026-11-12/radio-oem.png) | [![Original Hyundai application menu after returning from Radio](docs/images/2026-11-12/menu-aplicaciones-oem.png)](docs/images/2026-11-12/menu-aplicaciones-oem.png) |
+
+The lab has no tuner, audio hardware or vehicle data; the Radio side panel remains at **Preparing…**. See the [runtime report](docs/PROGRESS-2026-11-12-HOME-RADIO-STABILITY.md) and [image provenance](docs/images/2026-11-12/README.md).
 
 ## Integrated BC3 journey (11 November 2026)
 

@@ -1,6 +1,6 @@
 # Research status
 
-**Current as of 11 November 2026.** This page replaces the stacked checkpoint banners used until then. The previous text is preserved verbatim in [history/STATUS-to-2026-11-08.md](history/STATUS-to-2026-11-08.md). Individual `PROGRESS-*` reports remain the evidence; this page only summarises them.
+**Current as of 12 November 2026.** This page replaces the stacked checkpoint banners used until then. The previous text is preserved verbatim in [history/STATUS-to-2026-11-08.md](history/STATUS-to-2026-11-08.md). Individual `PROGRESS-*` reports remain the evidence; this page only summarises them.
 
 > Experimental, isolated QEMU/Weston/Wayland IVI laboratory running original Hyundai i20 N infotainment software offline. **Not** a complete emulator, firmware mod or vehicle tool. No OEM firmware, binaries, QML, textures, maps or raw traces are published.
 
@@ -35,6 +35,8 @@ Each row was verified in a separate development overlay; scopes differ and they 
 - Also settled: Home, Radio, N Mode, Manual, Spanish catalogs/persistence, Qt timing, ten-minute stability.
 
 ## Platform diagnostics (10 November; development route, not promoted)
+
+- On 12 November, repeated integrated runs established a stable Home → Radio → Home lifecycle: Radio was launched through the original manager/launcher route, stopped once without respawn or core, and the final Home remained present through the bounded hold before clean guest shutdown. Six observed process identities remained stable. A host clock-source discrepancy prevents promoting the hold or startup figures as a new performance baseline. No new application was enabled. See the [Home–Radio stability checkpoint](PROGRESS-2026-11-12-HOME-RADIO-STABILITY.md).
 
 - On 11 November, one clean disposable-overlay run completed Guest → Home → N Mode → Home → Radio → Home → General Settings → Home and ACPI S5. Runtime reported BC3 variant 23, region 5, Eco Type 0, LCD Type 3, platform 128 and HighPerformanceCar 1. Validated Home appeared 102.241 s after QEMU start and 36.674 s after Confirm. Radio exposed an unresolved persistence/filtering issue by restoring an Electricity-use side widget despite Eco Type 0; this is documented as a defect, not EV functionality. See the [integrated journey report](PROGRESS-2026-11-11-INTEGRATED-JOURNEY.md).
 
