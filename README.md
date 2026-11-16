@@ -1,13 +1,27 @@
 # Hyundai i20 N Infotainment Lab
 
 **Independent, community-driven reverse engineering and offline emulation research.**  
-**Status (12 November 2026):** experimental. A frozen Windows launcher (v1) runs original Home, N Mode, Radio FM UI (no tuner) and Manual in Spanish with native Home returns, offline in QEMU. Development now has a repeatable integrated Home → Radio → Home route with clean Radio termination, no respawn/core and a bounded stable final Home; [the checkpoint, reviewed screenshots and timing limitation are documented here](docs/PROGRESS-2026-11-12-HOME-RADIO-STABILITY.md). Phone, Media UI, Madrid timezone and Navigation remain open. Full details: **[docs/STATUS.md](docs/STATUS.md)** · [application matrix](docs/APPLICATIONS-INTEGRATED.md) · [Windows launcher](docs/WINDOWS-LAUNCHER.md).
+**Status (16 November 2026):** experimental. A frozen Windows launcher (v1) still runs original Home, N Mode, Radio FM UI (no tuner) and Manual in Spanish with native Home returns, offline in QEMU. Separate development overlays now also verify original Theme/Layout, Keyboard/Search, Vehicle settings, Quiet mode, Hyundai LIVE's offline warning and Climate's no-data UI with native Home returns. These newer results are not promoted into the launcher. [Report and reviewed screenshots](docs/PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) · **[full status](docs/STATUS.md)** · [application matrix](docs/APPLICATIONS-INTEGRATED.md) · [Windows launcher](docs/WINDOWS-LAUNCHER.md).
 
 ![Original Spanish N Mode under the native BC3N25MY software profile](docs/images/2026-11-07/bc3n25my-nmode-spanish-track-decoded.webp)
 
 ![Original Spanish Voice Memo in QEMU](docs/images/2026-11-07/voice-memo-spanish-decoded.webp)
 
 Owner-authorised screenshots from the private lab. Earlier per-checkpoint summaries that used to sit at the top of this README are kept in [docs/history/README-status-to-2026-11-08.md](docs/history/README-status-to-2026-11-08.md).
+
+## Functional coverage expansion (15 November 2026)
+
+Using application IDs, launch reasons and process ownership observed in private owner logs, the isolated development platform opened and exercised several additional original views. Accepted routes kept the sampled platform identities, returned to Home, produced no observed core and ended with a clean guest shutdown. No raw vehicle logs or captured exchanges are published.
+
+| Theme / split-screen settings | Keyboard search | Vehicle settings |
+| :---: | :---: | :---: |
+| [![Original Theme/Layout split-screen settings](docs/images/2026-11-15/theme-split-screen.png)](docs/images/2026-11-15/theme-split-screen.png) | [![Original Settings keyboard filtering local results](docs/images/2026-11-15/keyboard-search-pan.png)](docs/images/2026-11-15/keyboard-search-pan.png) | [![Original Driver assistance and Parking safety page](docs/images/2026-11-15/vehicle-settings-parking.png)](docs/images/2026-11-15/vehicle-settings-parking.png) |
+
+| Quiet mode enabled | Hyundai LIVE offline warning | Climate without vehicle data |
+| :---: | :---: | :---: |
+| [![Original Quiet mode UI enabled](docs/images/2026-11-15/quiet-mode-enabled.png)](docs/images/2026-11-15/quiet-mode-enabled.png) | [![Original Hyundai LIVE offline warning](docs/images/2026-11-15/hyundai-live-offline.png)](docs/images/2026-11-15/hyundai-live-offline.png) | [![Original climate UI in its OFF state](docs/images/2026-11-15/climate-offline.png)](docs/images/2026-11-15/climate-offline.png) |
+
+Vehicle settings required a narrowly scoped, private ignition-on fixture captured from the owner's vehicle; no other vehicle state was supplied. Quiet mode was toggled in software only, Hyundai LIVE correctly reported navigation unavailable, and Climate remained in its expected OFF/no-CAN state. Valet opens but keypad input is still pending. Engineering Mode was launched only far enough to record a pre-UI EGL failure; no Engineering control was pressed and it is not counted as functional. See the [full report](docs/PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) and [image provenance](docs/images/2026-11-15/README.md).
 
 ## Stable Home → Radio → Home route (12 November 2026)
 

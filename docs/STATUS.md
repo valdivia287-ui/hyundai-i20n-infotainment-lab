@@ -1,6 +1,6 @@
 # Research status
 
-**Current as of 12 November 2026.** This page replaces the stacked checkpoint banners used until then. The previous text is preserved verbatim in [history/STATUS-to-2026-11-08.md](history/STATUS-to-2026-11-08.md). Individual `PROGRESS-*` reports remain the evidence; this page only summarises them.
+**Current as of 16 November 2026.** This page replaces the stacked checkpoint banners used until then. The previous text is preserved verbatim in [history/STATUS-to-2026-11-08.md](history/STATUS-to-2026-11-08.md). Individual `PROGRESS-*` reports remain the evidence; this page only summarises them.
 
 > Experimental, isolated QEMU/Weston/Wayland IVI laboratory running original Hyundai i20 N infotainment software offline. **Not** a complete emulator, firmware mod or vehicle tool. No OEM firmware, binaries, QML, textures, maps or raw traces are published.
 
@@ -26,6 +26,11 @@ Each row was verified in a separate development overlay; scopes differ and they 
 | Voice Memo117 | Empty-list Spanish UI, Back/Home | No recording/playback | [Categories/ASTC](PROGRESS-2026-11-08-SETTINGS-CATEGORIES-ASTC.md) |
 | Original TimeManager | Real VM date/time reaches Home | UTC only; Madrid/DST pending | [Clock](PROGRESS-2026-11-08-ORIGINAL-CLOCK.md) |
 | CPU ASTC adapter | Independent decoder; source/block/RGBA hashes match | Not OEM ASTC nor GPU acceleration | [Categories/ASTC](PROGRESS-2026-11-08-SETTINGS-CATEGORIES-ASTC.md) |
+| Theme/layout480 + Keyboard460 | Internal navigation and real text input; native Home returns | Preferences were not changed | [Functional coverage](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
+| Vehicle settings61 | Driver assistance and Parking safety pages; internal navigation and Home return | Requires a private ignition-on fixture; no other vehicle data | [Functional coverage](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
+| Quiet mode368 | Original software toggle enabled and disabled; Home return | No physical audio/occupant behaviour | [Functional coverage](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
+| Hyundai LIVE450 + Climate13 | Original offline/no-data states; Home returns | No network/navigation service or CAN/climate data | [Functional coverage](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
+| Profile362 + Valet29 | Original pages open; Profile reaches user selector; Valet reaches PIN keypad | Profile return and Valet keypad input remain unverified | [Functional coverage](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
 
 ## Closed controls (do not repeat without a concrete regression)
 
@@ -35,6 +40,8 @@ Each row was verified in a separate development overlay; scopes differ and they 
 - Also settled: Home, Radio, N Mode, Manual, Spanish catalogs/persistence, Qt timing, ten-minute stability.
 
 ## Platform diagnostics (10 November; development route, not promoted)
+
+- On 15 November, private owner logs were reduced to a sanitised application/process map and used to drive bounded offline coverage. Theme/Layout, Keyboard/Search, Vehicle settings, Quiet mode, Hyundai LIVE's offline warning and Climate's no-data UI completed their stated routes. Profile and Valet remain partial. The original Engineering Mode process was launched and registered but failed before drawing because its requested EGL context was unavailable; no control inside Engineering Mode was pressed. See the [functional coverage report](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md).
 
 - On 12 November, repeated integrated runs established a stable Home → Radio → Home lifecycle: Radio was launched through the original manager/launcher route, stopped once without respawn or core, and the final Home remained present through the bounded hold before clean guest shutdown. Six observed process identities remained stable. A host clock-source discrepancy prevents promoting the hold or startup figures as a new performance baseline. No new application was enabled. See the [Home–Radio stability checkpoint](PROGRESS-2026-11-12-HOME-RADIO-STABILITY.md).
 

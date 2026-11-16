@@ -1,8 +1,8 @@
 # Disponibilidad de aplicaciones
 
-**Vigente a 8 noviembre 2026.** Dos niveles separados: el **producto aceptado** (lanzador Windows v1, tabla de abajo, sin cambios) y los **resultados de desarrollo**, comprobados en overlays aparte y **no** integrados en el producto. Los avisos acumulados anteriores están en [history/APPLICATIONS-INTEGRATED-to-2026-11-08.md](history/APPLICATIONS-INTEGRATED-to-2026-11-08.md). Estado general: [STATUS.md](STATUS.md).
+**Vigente a 16 noviembre 2026.** Dos niveles separados: el **producto aceptado** (lanzador Windows v1, tabla de abajo, sin cambios) y los **resultados de desarrollo**, comprobados en overlays aparte y **no** integrados en el producto. Los avisos acumulados anteriores están en [history/APPLICATIONS-INTEGRATED-to-2026-11-08.md](history/APPLICATIONS-INTEGRATED-to-2026-11-08.md). Estado general: [STATUS.md](STATUS.md).
 
-## Desarrollo (8 noviembre, no promovido)
+## Desarrollo (no promovido)
 
 | Aplicación/vista | Resultado en desarrollo | Límite | Informe |
 | --- | --- | --- | --- |
@@ -14,6 +14,15 @@
 | Reloj (TimeManager original) | Hora/fecha reales de la VM en Home | Solo UTC; Madrid/DST pendiente | [Reloj](PROGRESS-2026-11-08-ORIGINAL-CLOCK.md) |
 | Medios / AppMediaPlayer (100) | Petición real 304/2/27→302/0/308; con proveedor original `mediaCount=1` | Sin interfaz nueva | [Estado](STATUS.md#pending-in-suggested-order) |
 | Teléfono (121) | NotificationManager original registrado y responde Ping | Clic de Teléfono con ese servicio sin ejecutar | [Estado](STATUS.md#pending-in-suggested-order) |
+| Tema/disposición (480) | Pantalla original, navegación a Ventana partida y retorno a Home | No se cambiaron preferencias | [Cobertura 15/11](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
+| Teclado/búsqueda (460) | Entrada y borrado de texto, resultados filtrados y retorno a Home | Solo menús instalados localmente | [Cobertura 15/11](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
+| Ajustes del vehículo (61) | Asistencia al conductor y Aparcamiento de seguridad, navegación interna y Home | Requiere fixture privado de contacto ON; sin otras señales del coche | [Cobertura 15/11](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
+| Modo silencioso (368) | Interruptor original activado/desactivado y retorno a Home | Sin comprobar audio ni ocupantes físicos | [Cobertura 15/11](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
+| Hyundai LIVE (450) | Menú original y aviso correcto de navegación no disponible | Sin red, navegación ni servicios Hyundai | [Cobertura 15/11](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
+| Climatización (13) | UI original OFF/sin datos y retorno a Home | Sin CAN; control probado sin cambio visible | [Cobertura 15/11](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
+| Perfil (362) | Página Invitado y selector Driver 1/Driver 2/Guest | Flujo de confirmación y retorno aún pendientes; no se creó perfil | [Cobertura 15/11](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
+| Valet (29) | Pantalla original de PIN y retorno a Home | Entrada del teclado pendiente; no se completó PIN | [Cobertura 15/11](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
+| Engineering Mode (301) | Proceso original lanzado y registrado bajo demanda | Falla EGL antes de dibujar; ningún control pulsado; no funcional | [Cobertura 15/11](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
 
 La combinación de proveedores (reloj + Bluetooth + Ajustes en un mismo arranque) sigue mostrando un bloqueo inicial de General; no se integra hasta aislar el orden de arranque.
 
