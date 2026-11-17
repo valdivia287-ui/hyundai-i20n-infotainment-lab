@@ -1,12 +1,13 @@
 # Research status
 
-**Current as of 16 November 2026.** This page replaces the stacked checkpoint banners used until then. The previous text is preserved verbatim in [history/STATUS-to-2026-11-08.md](history/STATUS-to-2026-11-08.md). Individual `PROGRESS-*` reports remain the evidence; this page only summarises them.
+**Current as of 18 November 2026.** This page replaces the stacked checkpoint banners used until then. The previous text is preserved verbatim in [history/STATUS-to-2026-11-08.md](history/STATUS-to-2026-11-08.md). Individual `PROGRESS-*` reports remain the evidence; this page only summarises them.
 
 > Experimental, isolated QEMU/Weston/Wayland IVI laboratory running original Hyundai i20 N infotainment software offline. **Not** a complete emulator, firmware mod or vehicle tool. No OEM firmware, binaries, QML, textures, maps or raw traces are published.
 
 ## Lab state
 
-- **Platform diagnostics resumed by the owner** on 9 November, limited to disposable offline overlays and one guest at a time. No guest is running; the last diagnostic run shut down cleanly. The accepted product remains frozen.
+- **Platform diagnostics resumed by the owner** on 9 November, limited to disposable offline overlays and one guest at a time. The latest reviewed sessions are stopped; the accepted product remains frozen.
+- A private interactive wrapper now keeps the accepted integrated development session alive for manual exploration through a local browser viewer. It is not distributed in this public repository and does not alter the frozen Windows v1 product.
 - Target identities, kept separate: physical vehicle **BC3N i20 N MY23, Spain/Europe, software updated 2025**; preferred software profile **BC3N25MY** (native vv81/pf1/nm2). Language7 = Spanish(EU). Country5 = Europe; a Spain-specific index and Europe/Madrid DST are **not** established.
 
 ## Accepted product (frozen)
@@ -30,7 +31,11 @@ Each row was verified in a separate development overlay; scopes differ and they 
 | Vehicle settings61 | Driver assistance and Parking safety pages; internal navigation and Home return | Requires a private ignition-on fixture; no other vehicle data | [Functional coverage](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
 | Quiet mode368 | Original software toggle enabled and disabled; Home return | No physical audio/occupant behaviour | [Functional coverage](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
 | Hyundai LIVE450 + Climate13 | Original offline/no-data states; Home returns | No network/navigation service or CAN/climate data | [Functional coverage](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
-| Profile362 + Valet29 | Original pages open; Profile reaches user selector; Valet reaches PIN keypad | Profile return and Valet keypad input remain unverified | [Functional coverage](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) |
+| Integrated 16-view route | Two consecutive single-boot routes; second completed 16/16 with Home returns, six sampled identities stable, no observed core and clean S5 | Development only; not promoted to Windows v1 | [Interactive lab](PROGRESS-2026-11-17-INTERACTIVE-LAB.md) |
+| Profile362 + Valet29 | Guest page accepted; Valet accepted a test PIN twice and displayed the native “in use” message | Driver profile creation unavailable; Valet persistence/exit not established | [Interactive lab](PROGRESS-2026-11-17-INTERACTIVE-LAB.md) |
+| DAB/FM77 | Main UI, station list and selector accepted on repeat with Home return and no observed core | No RF tuner, stations or audio | [Interactive lab](PROGRESS-2026-11-17-INTERACTIVE-LAB.md) |
+| Engineering Mode301 | Original password-entry screen draws | No password, diagnostic, reset, write or configuration control used | [Interactive lab](PROGRESS-2026-11-17-INTERACTIVE-LAB.md) |
+| Interactive wrapper | Keeps the integrated guest active and provides bounded open/Home/capture/status/stop actions | Private tooling; startup about 2–6 min; browser wheel mitigation remains a workaround | [Interactive lab](PROGRESS-2026-11-17-INTERACTIVE-LAB.md) |
 
 ## Closed controls (do not repeat without a concrete regression)
 
@@ -40,6 +45,8 @@ Each row was verified in a separate development overlay; scopes differ and they 
 - Also settled: Home, Radio, N Mode, Manual, Spanish catalogs/persistence, Qt timing, ten-minute stability.
 
 ## Platform diagnostics (10 November; development route, not promoted)
+
+- On 16–17 November, two consecutive single-boot routes exercised 16 original views with native Home returns; the second completed 16/16 with no observed core, stable sampled identities and clean S5. Later bounded exploration accepted Guest profile, Valet visual activation, DAB/FM list navigation and additional General-settings submenus. A local interactive wrapper was validated. A wheel event can crash Weston; the viewer blocks wheel events as a mitigation, while the compositor defect remains open. See the [integrated/interactive report](PROGRESS-2026-11-17-INTERACTIVE-LAB.md).
 
 - On 15 November, private owner logs were reduced to a sanitised application/process map and used to drive bounded offline coverage. Theme/Layout, Keyboard/Search, Vehicle settings, Quiet mode, Hyundai LIVE's offline warning and Climate's no-data UI completed their stated routes. Profile and Valet remain partial. The original Engineering Mode process was launched and registered but failed before drawing because its requested EGL context was unavailable; no control inside Engineering Mode was pressed. See the [functional coverage report](PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md).
 
@@ -61,11 +68,12 @@ Each row was verified in a separate development overlay; scopes differ and they 
 
 ## Pending, in suggested order
 
-1. **Phone121**: the original NotificationManager now registers and answers Peer.Ping; the Phone icon click with it present was not executed. No pairing or calls.
-2. **Media**: real request 304/2/27 → 302/0/308. Without provider `mediaCount=0`; with the original AppMediaPlayer provider `mediaCount=1`, still no new UI. `enableMediaGate` also reflects popup state.
-3. Settings: Position/Guidance headers and shared provider start order.
-4. Europe/Madrid timezone through a real configuration path.
-5. Navigation: executable recovered separately; maps, mounts and licences must be validated before any run.
+1. Preserve the 16-view integrated route while improving the interactive wrapper's reliability and startup time.
+2. Confirm the browser wheel-event block during ordinary use; keep the underlying Weston crash documented.
+3. Continue offline internal navigation only where it does not require absent hardware or Hyundai online services.
+4. Settings: Position/Guidance headers and shared provider start order.
+5. Europe/Madrid timezone through a real configuration path.
+6. Navigation: executable recovered separately; maps, mounts and licences must be validated before any run.
 
 Bound attempts per application, record the first real blocker and continue with the next one.
 

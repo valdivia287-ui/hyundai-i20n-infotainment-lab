@@ -1,13 +1,31 @@
 # Hyundai i20 N Infotainment Lab
 
 **Independent, community-driven reverse engineering and offline emulation research.**  
-**Status (16 November 2026):** experimental. A frozen Windows launcher (v1) still runs original Home, N Mode, Radio FM UI (no tuner) and Manual in Spanish with native Home returns, offline in QEMU. Separate development overlays now also verify original Theme/Layout, Keyboard/Search, Vehicle settings, Quiet mode, Hyundai LIVE's offline warning and Climate's no-data UI with native Home returns. These newer results are not promoted into the launcher. [Report and reviewed screenshots](docs/PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) · **[full status](docs/STATUS.md)** · [application matrix](docs/APPLICATIONS-INTEGRATED.md) · [Windows launcher](docs/WINDOWS-LAUNCHER.md).
+**Status (18 November 2026):** experimental. The frozen Windows launcher (v1) is unchanged. In the private development laboratory, two consecutive single-boot routes opened 16 original views, returned to Home after each one, produced no observed core, preserved the six sampled platform process identities and shut down cleanly. A separate interactive wrapper now keeps that integrated session running for manual exploration; it is private research infrastructure, not a downloadable emulator. [Latest report and screenshots](docs/PROGRESS-2026-11-17-INTERACTIVE-LAB.md) · **[full status](docs/STATUS.md)** · [application matrix](docs/APPLICATIONS-INTEGRATED.md) · [Windows launcher](docs/WINDOWS-LAUNCHER.md).
 
 ![Original Spanish N Mode under the native BC3N25MY software profile](docs/images/2026-11-07/bc3n25my-nmode-spanish-track-decoded.webp)
 
 ![Original Spanish Voice Memo in QEMU](docs/images/2026-11-07/voice-memo-spanish-decoded.webp)
 
 Owner-authorised screenshots from the private lab. Earlier per-checkpoint summaries that used to sit at the top of this README are kept in [docs/history/README-status-to-2026-11-08.md](docs/history/README-status-to-2026-11-08.md).
+
+## Integrated and interactive development lab (17 November 2026)
+
+The integrated route now covers N Mode, General, Sound, Display, Voice, Vehicle, Theme, Keyboard, Climate, Quiet mode, Hyundai LIVE, Valet, the Engineering Mode password screen, phone-projection settings, Voice Memo and Bluelink/TMS provisioning in one boot. The interactive wrapper adds bounded open, Home, capture and pointer commands without pretending that absent vehicle hardware or online services exist.
+
+| Guest profile | Valet visual activation | Engineering Mode entry screen |
+| :---: | :---: | :---: |
+| [![Original Guest profile page](docs/images/2026-11-17/profile-guest.png)](docs/images/2026-11-17/profile-guest.png) | [![Original Valet mode in-use message](docs/images/2026-11-17/valet-mode-active.png)](docs/images/2026-11-17/valet-mode-active.png) | [![Original Engineering Mode password screen](docs/images/2026-11-17/engineering-password.png)](docs/images/2026-11-17/engineering-password.png) |
+
+| DAB/FM station list | Bluelink not provisioned | General settings: units |
+| :---: | :---: | :---: |
+| [![Original DAB/FM station list without an RF tuner](docs/images/2026-11-17/dab-fm-list.png)](docs/images/2026-11-17/dab-fm-list.png) | [![Original Bluelink activation page without service provisioning](docs/images/2026-11-17/bluelink-not-provisioned.png)](docs/images/2026-11-17/bluelink-not-provisioned.png) | [![Original units settings page](docs/images/2026-11-17/general-units.png)](docs/images/2026-11-17/general-units.png) |
+
+| General settings: media behaviour | Latin keyboard layouts |
+| :---: | :---: |
+| [![Original media behaviour settings](docs/images/2026-11-17/general-media-settings.png)](docs/images/2026-11-17/general-media-settings.png) | [![Original Latin keyboard layout selector](docs/images/2026-11-17/general-keyboard-layouts.png)](docs/images/2026-11-17/general-keyboard-layouts.png) |
+
+These are UI and lifecycle results only. The lab has no RF tuner, Bluetooth radio, smartphone, GPS, CAN, climate hardware, modem or Hyundai online-service session. Valet reached the native “in use” message after entering and confirming a test PIN, but persistence and exit were not established because the harness forced Home and the missing vehicle response resets the flow. Engineering Mode was not taken past its password screen and no diagnostic, reset or write control was used. See the [full report](docs/PROGRESS-2026-11-17-INTERACTIVE-LAB.md) and [image provenance](docs/images/2026-11-17/README.md).
 
 ## Functional coverage expansion (15 November 2026)
 
@@ -21,7 +39,7 @@ Using application IDs, launch reasons and process ownership observed in private 
 | :---: | :---: | :---: |
 | [![Original Quiet mode UI enabled](docs/images/2026-11-15/quiet-mode-enabled.png)](docs/images/2026-11-15/quiet-mode-enabled.png) | [![Original Hyundai LIVE offline warning](docs/images/2026-11-15/hyundai-live-offline.png)](docs/images/2026-11-15/hyundai-live-offline.png) | [![Original climate UI in its OFF state](docs/images/2026-11-15/climate-offline.png)](docs/images/2026-11-15/climate-offline.png) |
 
-Vehicle settings required a narrowly scoped, private ignition-on fixture captured from the owner's vehicle; no other vehicle state was supplied. Quiet mode was toggled in software only, Hyundai LIVE correctly reported navigation unavailable, and Climate remained in its expected OFF/no-CAN state. Valet opens but keypad input is still pending. Engineering Mode was launched only far enough to record a pre-UI EGL failure; no Engineering control was pressed and it is not counted as functional. See the [full report](docs/PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) and [image provenance](docs/images/2026-11-15/README.md).
+Vehicle settings required a narrowly scoped, private ignition-on fixture captured from the owner's vehicle; no other vehicle state was supplied. Quiet mode was toggled in software only, Hyundai LIVE correctly reported navigation unavailable, and Climate remained in its expected OFF/no-CAN state. At this 15 November checkpoint, Valet keypad input and Engineering Mode drawing were still pending; both progressed on 16–17 November as documented in the [newer report](docs/PROGRESS-2026-11-17-INTERACTIVE-LAB.md). See the [15 November report](docs/PROGRESS-2026-11-15-FUNCTIONAL-COVERAGE.md) and [image provenance](docs/images/2026-11-15/README.md).
 
 ## Stable Home → Radio → Home route (12 November 2026)
 
